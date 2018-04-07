@@ -6,14 +6,14 @@ public class Listener : MonoBehaviour
 {
 	void Start ()
 	{
-	    InputManager.Instance.SubscribeToHorizontalEvent(Horizontal);
-	    InputManager.Instance.SubscribeToVerticalEvent(Vertical);
-	    InputManager.Instance.SubscribeToJumpReviveEvent(JumpRevive);
-	    InputManager.Instance.SubscribeToWeakAttackEvent(WeakAttack);
-	    InputManager.Instance.SubscribeToStrongAttackEvent(StrongAttack);
-	    InputManager.Instance.SubscribeToSpecialMoveEvent(SpecialMove);
-	    InputManager.Instance.SubscribeToFusionEvent(Fusion);
-	    InputManager.Instance.SubscribeToPauseEvent(Pause);
+	    InputManager.Instance.SubscribeToHorizontalP1Event(Horizontal);
+	    InputManager.Instance.SubscribeToVerticalP1Event(Vertical);
+	    InputManager.Instance.SubscribeToJumpReviveP1Event(JumpRevive);
+	    InputManager.Instance.SubscribeToWeakAttackP1Event(WeakAttack);
+	    InputManager.Instance.SubscribeToStrongAttackP1Event(StrongAttack);
+	    InputManager.Instance.SubscribeToSpecialMoveP1Event(SpecialMove);
+	    InputManager.Instance.SubscribeToFusionP1Event(Fusion);
+	    InputManager.Instance.SubscribeToPauseP1Event(Pause);
     }
 
     public void Horizontal(float axe)
