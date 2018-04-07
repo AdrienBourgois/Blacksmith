@@ -224,28 +224,40 @@ public class InputManager : MonoBehaviour
 	            _verticalP2Event(verticalP2Axe);
 
         if (Input.GetButtonDown("Jump/Revive_P1"))
-            _jumpReviveP1Event();
+            if (_jumpReviveP1Event != null)
+                _jumpReviveP1Event();
 	    if (Input.GetButtonDown("Jump/Revive_P2"))
-	        _jumpReviveP2Event();
+	        if (_jumpReviveP2Event != null)
+	            _jumpReviveP2Event();
         if (Input.GetButtonDown("WeakAttack_P1"))
-	        _weakAttackP1Event();
+	        if (_weakAttackP1Event != null)
+	            _weakAttackP1Event();
 	    if (Input.GetButtonDown("WeakAttack_P2"))
-	        _weakAttackP2Event();
+	        if (_weakAttackP2Event != null)
+	            _weakAttackP2Event();
         if (Input.GetButtonDown("StrongAttack_P1"))
-	        _strongAttackP1Event();
+	        if (_strongAttackP1Event != null)
+	            _strongAttackP1Event();
 	    if (Input.GetButtonDown("StrongAttack_P2"))
-	        _strongAttackP2Event();
+	        if (_strongAttackP2Event != null)
+	            _strongAttackP2Event();
         if (Input.GetButtonDown("SpecialMove_P1"))
-	        _specialMoveP1Event();
+	        if (_specialMoveP1Event != null)
+	            _specialMoveP1Event();
 	    if (Input.GetButtonDown("SpecialMove_P2"))
-	        _specialMoveP2Event();
+	        if (_specialMoveP2Event != null)
+	            _specialMoveP2Event();
         if (Input.GetButtonDown("Fusion_P1"))
-	        _fusionP1Event();
+	        if (_fusionP1Event != null)
+	            _fusionP1Event();
 	    if (Input.GetButtonDown("Fusion_P2"))
-	        _fusionP2Event();
+	        if (_fusionP2Event != null)
+	            _fusionP2Event();
         if (Input.GetButtonDown("Pause_P1"))
-	        _pauseP1Event();
+	        if (_pauseP1Event != null)
+	            _pauseP1Event();
 	    if (Input.GetButtonDown("Pause_P2"))
-	        _pauseP2Event();
+	        if (_pauseP2Event != null)
+	            _pauseP2Event();
     }
 }
