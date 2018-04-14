@@ -11,22 +11,56 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private float _maxZoomInDistance;
     [SerializeField]
+    private float _maxZoomOutDistance;
+    [SerializeField]
     private float _attenuationFactor;
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float _smoothnes;
 
-    void Start () {
-		
-	}
+    private Camera _gameCamera;
+
+    private float AspectRatio
+    {
+        get { return (float)(_gameCamera.pixelWidth) / (float)(_gameCamera.pixelHeight); }
+    }
+
+    private float VerticalViewingVolume
+    {
+        get { return _gameCamera.orthographicSize * 2f; }
+    }
+
+    private float HorizontalViewingVolume
+    {
+        get { return VerticalViewingVolume * AspectRatio; }
+    }
+
+    void Start ()
+    {
+        _gameCamera = this.GetComponent<Camera>();
+    }
 	
 	void Update ()
 	{
 	    float distance = ComputeDistance();
-        print("distance : " + distance);
 
-	    if (!AreCloseEnough(distance))
-            Zoom(distance);
-	}
-
-
+        ComputeZoom(distance);
+        //else
+        //    Zoom(_maxZoomInDistance);
+        //print("pixelWidth " + _gameCamera.pixelWidth);
+	    //print("scaledPixelWidth " + _gameCamera.scaledPixelWidth);
+        //print("rect.x " + _gameCamera.rect.x);
+        //print("rect.y " + _gameCamera.rect.y);
+        //print("rect.size " + _gameCamera.rect.size);
+        //print("rect.width " + _gameCamera.rect.width);
+        //print("rect.heigt " + _gameCamera.rect.height);
+        //print("pixelRect.x " + _gameCamera.pixelRect.x);
+        //   print("pixelRect.y " + _gameCamera.pixelRect.y);
+        //   print("pixelRect.size " + _gameCamera.pixelRect.size);
+        //   print("pixelRect.width " + _gameCamera.pixelRect.width);
+        //   print("pixelRect.heigt " + _gameCamera.pixelRect.height);
+        print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
+    }
 
     float ComputeDistance()
     {
@@ -34,15 +68,30 @@ public class CameraController : MonoBehaviour
         return Mathf.Abs(direction.x);
     }
 
-    void Zoom(float distance)
+    void ComputeZoom(float distance)
     {
-        float zoom = distance / _attenuationFactor;
-        this.GetComponent<Camera>().orthographicSize = zoom;
+        float raw_zoom = distance / _attenuationFactor;
+        float smooth_zoom = Mathf.Lerp(_gameCamera.orthographicSize, raw_zoom, _smoothnes);
+       // print("smooth_zoom : " + smooth_zoom);
+
+        if (MaxZoomInReached(smooth_zoom) || MaxZoomOutReached(smooth_zoom))
+            return;
+
+        _gameCamera.orthographicSize = smooth_zoom;
     }
 
     bool AreCloseEnough(float distance)
     {
-
         return distance <= _maxZoomInDistance;
+    }
+
+    bool MaxZoomInReached(float value)
+    {
+        return value <= _maxZoomInDistance;
+    }
+
+    bool MaxZoomOutReached(float value)
+    {
+        return value >= _maxZoomOutDistance;
     }
 }
