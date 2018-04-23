@@ -2,7 +2,9 @@
 
 namespace Game.Scripts.Camera
 {
-    public class ScrollZone : MonoBehaviour
+    
+
+    public class CameraScrollZone : MonoBehaviour
     {
         [SerializeField] private EBorderSide side;
         [SerializeField] private float percent_size;
@@ -11,6 +13,9 @@ namespace Game.Scripts.Camera
 
         private delegate void ComputeDelegate();
         private ComputeDelegate ComputePositionFunction;
+        public delegate void TriggerDelegate(Collider2D collider);
+        private TriggerDelegate TriggerStayCallback;
+        private TriggerDelegate TriggerExitCallback;
 
         void Start()
         {
@@ -26,6 +31,11 @@ namespace Game.Scripts.Camera
         void Update()
         {
             ComputeTransform();
+        }
+
+        public void SubscribeToTriggerStayCallback(TriggerDelegate _function_pointer)
+        {
+            TriggerStayCallback += _function_pointer;
         }
 
         private void ComputeTransform()
@@ -57,9 +67,10 @@ namespace Game.Scripts.Camera
             transform.position = position;
         }
 
-        private void OnTriggerStay2D(Collider2D other)
+        private void OnTriggerStay2D(Collider2D _other)
         {
-            print("Collision");
+            if (TriggerStayCallback != null)
+                TriggerStayCallback(_other);
         }
     }
 }

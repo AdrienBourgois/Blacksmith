@@ -19,6 +19,12 @@ namespace Game.Scripts.Camera
         private float smoothness;
 
         private UnityEngine.Camera gameCamera;
+        private byte forwardScrollMask;
+
+        public CameraController(byte _forward_scroll_mask)
+        {
+            forwardScrollMask = _forward_scroll_mask;
+        }
 
         private float AspectRatio
         {
@@ -40,30 +46,22 @@ namespace Game.Scripts.Camera
             get { return HorizontalViewingVolume / 2f; }
         }
 
+        void Awake()
+        {
+            forwardScrollMask = 0;
+        }
+
         void Start ()
         {
             gameCamera = this.GetComponent<UnityEngine.Camera>();
+            FindObjectOfType<CameraScrollZone>().SubscribeToTriggerStayCallback(ComputeScroll);
         }
 	
         void Update ()
         {
             float distance = ComputeDistance();
-
             ComputeZoom(distance);
-            //else
-            //    Zoom(_maxZoomInDistance);
-            //print("pixelWidth " + _gameCamera.pixelWidth);
-            //print("scaledPixelWidth " + _gameCamera.scaledPixelWidth);
-            //print("rect.x " + _gameCamera.rect.x);
-            //print("rect.y " + _gameCamera.rect.y);
-            //print("rect.size " + _gameCamera.rect.size);
-            //print("rect.width " + _gameCamera.rect.width);
-            //print("rect.heigt " + _gameCamera.rect.height);
-            //print("pixelRect.x " + _gameCamera.pixelRect.x);
-            //   print("pixelRect.y " + _gameCamera.pixelRect.y);
-            //   print("pixelRect.size " + _gameCamera.pixelRect.size);
-            //   print("pixelRect.width " + _gameCamera.pixelRect.width);
-            //   print("pixelRect.heigt " + _gameCamera.pixelRect.height);
+            
             //print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
         }
 
@@ -98,6 +96,28 @@ namespace Game.Scripts.Camera
         bool MaxZoomOutReached(float _value)
         {
             return _value >= maxZoomOutDistance;
+        }
+
+        public void ComputeScroll(Collider2D _entity)
+        {
+            if (_entity.gameObject == player1)
+            {
+                print(_entity.gameObject.name);
+                forwardScrollMask |= 1 << 1;
+            }
+            else if (_entity.gameObject == player2)
+            {
+                print(_entity.gameObject.name);
+                forwardScrollMask |= 1 << 2;
+            }
+
+            byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
+            if ((forwardScrollMask ^ mask) == 0)
+                print("ForwardScroll");
+
+            print("forwardScrollMask " + forwardScrollMask);
+            print("mask " + mask);
+
         }
 
         public void ForwardScroll()
