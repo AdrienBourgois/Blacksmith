@@ -4,72 +4,118 @@ using UnityEngine.SceneManagement;
 
 public class GameInstance : MonoBehaviour {
 
-    #region UnityEvents
-    [SerializeField]
-    private UnityEvent _startGame;
-
-    [SerializeField]
-    private UnityEvent _restartGame;
-
-    [System.Serializable]
-    public class PauseEvent : UnityEvent<bool> { }
-
-    [SerializeField]
-    PauseEvent _pauseGame;
-
-    [SerializeField]
-    private UnityEvent _quitGame;
+    #region Instance
+    private static GameInstance instance;
+    public static GameInstance Instance
+    {
+        get { return instance; }
+    }
     #endregion
 
+    #region UnityEvents
+
+    [SerializeField]
+    private UnityEvent startGame;
+
+    [SerializeField]
+    private UnityEvent restartGame;
+
+    [System.Serializable]
+    public class PauseEvent : UnityEvent<bool> { } // bool _pause
+
+    [SerializeField]
+    PauseEvent pauseGame;
+
+    [SerializeField]
+    private UnityEvent gameOver;
+
+    [SerializeField]
+    private UnityEvent quitGame;
+    #endregion
+
+    private string levelToLoad;
+
     #region Unity Methods
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start ()
     {
-        DontDestroyOnLoad(this);
-        DontDestroyOnLoad(Camera.main);
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(GameObject.Find("EventSystem"));
+        DontDestroyOnLoad(FindObjectOfType<UIManager>());
 
-        _startGame.AddListener(() =>
-       {
-           print("Start Game");
-           //SceneManager.LoadScene(1, LoadSceneMode.Single);
-       });
 
-        _quitGame.AddListener(() =>
+        startGame.AddListener(LoadLevel);
+        quitGame.AddListener(() =>
         {
-            print("Quit Game");
             Application.Quit();
         });
+
+        gameOver.AddListener(() =>
+        {
+            Destroy(gameObject);
+            Destroy(GameObject.Find("EventSystem"));
+            Destroy(FindObjectOfType<GameState>().gameObject);
+            Destroy(FindObjectOfType<EntityManager>().gameObject);
+            Destroy(FindObjectOfType<UIManager>().gameObject);
+
+            print("Game Over");
+        });
     }
-	
-	// Update is called once per frame
-	private void Update ()
+
+    private void Update ()
     {
 		
 	}
     #endregion
 
+    #region public Methods
+    public void SetLevelToLoad(string _levelToLoad)
+    {
+        levelToLoad = _levelToLoad;
+    }
+
+    private void LoadLevel()
+    {
+        print("Loading scene: " + levelToLoad);
+
+        SceneManager.LoadScene(levelToLoad);
+    }
+    #endregion
+
     #region Invokes
     public void InvokeStartGame()
     {
-        if (_startGame != null)
-            _startGame.Invoke();
+        if (startGame != null)
+            startGame.Invoke();
     }
 
     public void InvokeRestartGame()
     {
-        if (_restartGame != null)
-            _restartGame.Invoke();
+        if (restartGame != null)
+            restartGame.Invoke();
     }
 
     public void InvokePauseGame(bool pause)
     {
-        if (_pauseGame != null)
-            _pauseGame.Invoke(pause);
+        if (pauseGame != null)
+            pauseGame.Invoke(pause);
+    }
+
+    public void InvokeGameOver()
+    {
+        if (gameOver != null)
+            gameOver.Invoke();
     }
 
     public void InvokeQuitGame()
     {
-        if (_quitGame != null)
-            _quitGame.Invoke();
+        if (quitGame != null)
+            quitGame.Invoke();
     }
     #endregion
 }
