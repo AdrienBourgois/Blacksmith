@@ -64,7 +64,7 @@ namespace Game.Scripts.Camera
             //   print("pixelRect.size " + _gameCamera.pixelRect.size);
             //   print("pixelRect.width " + _gameCamera.pixelRect.width);
             //   print("pixelRect.heigt " + _gameCamera.pixelRect.height);
-            print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
+            //print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
         }
 
         float ComputeDistance()
