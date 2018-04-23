@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Camera;
+﻿using Game.Scripts.Camera;
 using UnityEngine;
 
 public enum EBorderSide
@@ -16,8 +14,8 @@ public class CameraBorder : MonoBehaviour
     private BoxCollider2D collider;
     private CameraController cameraController;
 
-    public delegate float
-    private System.Action positionFunction;
+    private delegate Vector3 ComputeDelegate();
+    private ComputeDelegate ComputePositionFunction;
 
     private void Start()
     {
@@ -25,31 +23,33 @@ public class CameraBorder : MonoBehaviour
         collider = this.gameObject.GetComponent<BoxCollider2D>();
 
         if (side == EBorderSide.RIGHT)
-            positionFunction = ComputeRightPosition;
+            ComputePositionFunction = ComputeRightPosition;
         else
-            positionFunction = ComputeLeftPosition;
+            ComputePositionFunction = ComputeLeftPosition;
     }       
 
 	void Update ()
 	{
-	    positionFunction();
+	    transform.position = ComputePositionFunction();
+        ComputeScale();
 	}
 
-    private void ComputeRightPosition()
+    private Vector3 ComputeRightPosition()
     {
         Vector3 position = this.transform.parent.position;
         position.x += cameraController.HalfHorizontalViewingVolume;
-        this.transform.position = position;
-        Vector2 collider_size = collider.size;
-        collider_size.y = cameraController.VerticalViewingVolume;
-        collider.size = collider_size;
+        return position;
     }
 
-    private void ComputeLeftPosition()
+    private Vector3 ComputeLeftPosition()
     {
         Vector3 position = this.transform.parent.position;
         position.x -= cameraController.HalfHorizontalViewingVolume;
-        this.transform.position = position;
+        return position;
+    }
+
+    private void ComputeScale()
+    {
         Vector2 collider_size = collider.size;
         collider_size.y = cameraController.VerticalViewingVolume;
         collider.size = collider_size;
