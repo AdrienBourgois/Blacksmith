@@ -30,7 +30,7 @@ namespace Game.Scripts.Camera
             get { return gameCamera.orthographicSize * 2f; }
         }
 
-        private float HorizontalViewingVolume
+        public float HorizontalViewingVolume
         {
             get { return VerticalViewingVolume * AspectRatio; }
         }
@@ -98,6 +98,16 @@ namespace Game.Scripts.Camera
         bool MaxZoomOutReached(float _value)
         {
             return _value >= maxZoomOutDistance;
+        }
+
+        public void ForwardScroll()
+        {
+
+        }
+
+        public void BackwardScroll()
+        {
+
         }
     }
 }
