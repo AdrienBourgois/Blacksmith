@@ -44,6 +44,11 @@ namespace Game.Scripts.Camera
             triggerStayCallback += _function_pointer;
         }
 
+        public void SubscribeToTriggerExitCallback(TriggerDelegate _function_pointer)
+        {
+            triggerExitCallback += _function_pointer;
+        }
+
         private void ComputeTransform()
         {
             ComputeScale();
@@ -77,6 +82,12 @@ namespace Game.Scripts.Camera
         {
             if (triggerStayCallback != null)
                 triggerStayCallback(_other, side, EColliderCallbackType.STAY);
+        }
+
+        private void OnTriggerExit2D(Collider2D _other)
+        {
+            if (triggerExitCallback != null)
+                triggerExitCallback(_other, side, EColliderCallbackType.EXIT);
         }
     }
 }

@@ -18,6 +18,12 @@ namespace Game.Scripts.Camera
         [Range(0f, 1f)]
         private float smoothness;
 
+        [SerializeField]
+        private CameraScrollZone rightScrollZone;
+        [SerializeField]
+        private CameraScrollZone leftScrollZone;
+
+
         private UnityEngine.Camera gameCamera;
         private byte forwardScrollMask;
         private byte backwardScrollMask;
@@ -55,7 +61,12 @@ namespace Game.Scripts.Camera
         void Start ()
         {
             gameCamera = this.GetComponent<UnityEngine.Camera>();
-            FindObjectOfType<CameraScrollZone>().SubscribeToTriggerStayCallback(ComputeScroll);
+            CameraScrollZone camera_scroll_zone = FindObjectOfType<CameraScrollZone>();
+
+            rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
+            rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+            leftScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
+            leftScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
         }
 	
         void Update ()
@@ -106,10 +117,14 @@ namespace Game.Scripts.Camera
             else if (_collider_side == EBorderSide.LEFT)
                 SetBackwardMask(_entity, _callback_type);
 
+            //print("forwardScrollMask = " + forwardScrollMask);
+            //print("backwardScrollMask = " + backwardScrollMask);
+
             byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
             if ((forwardScrollMask ^ mask) == 0)
                 ForwardScroll();
-
+            else if ((backwardScrollMask ^ mask) == 0)
+                BackwardScroll();
         }
 
         public void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
@@ -117,29 +132,50 @@ namespace Game.Scripts.Camera
             if (_entity.gameObject == player1)
             {
                 print(_entity.gameObject.name);
-                forwardScrollMask |= 1 << 1;
+                if (_callback_type == EColliderCallbackType.STAY)
+                    forwardScrollMask |= 1 << 1;
+                else if (_callback_type == EColliderCallbackType.EXIT)
+                    forwardScrollMask ^= 1 << 1;
             }
             else if (_entity.gameObject == player2)
             {
                 print(_entity.gameObject.name);
-                forwardScrollMask |= 1 << 2;
+                if (_callback_type == EColliderCallbackType.STAY)
+                    forwardScrollMask |= 1 << 2;
+                else if (_callback_type == EColliderCallbackType.EXIT)
+                    forwardScrollMask ^= 1 << 2;
             }
         }
 
         public void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-
+            print("SetBackwardMask()");
+            if (_entity.gameObject == player1)
+            {
+                print(_entity.gameObject.name);
+                if (_callback_type == EColliderCallbackType.STAY)
+                    backwardScrollMask |= 1 << 1;
+                else if (_callback_type == EColliderCallbackType.EXIT)
+                    backwardScrollMask ^= 1 << 1;
+            }
+            else if (_entity.gameObject == player2)
+            {
+                print(_entity.gameObject.name);
+                if (_callback_type == EColliderCallbackType.STAY)
+                    backwardScrollMask |= 1 << 2;
+                else if (_callback_type == EColliderCallbackType.EXIT)
+                    backwardScrollMask ^= 1 << 2;
+            }
         }
 
         public void ForwardScroll()
         {
-            print("ForwardScroll");
-
+            //print("ForwardScroll");
         }
 
         public void BackwardScroll()
         {
-
+            //print("BackwardScroll");
         }
     }
 }

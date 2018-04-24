@@ -276,6 +276,10 @@ Prefab:
       propertyPath: m_Name
       value: RightBorder
       objectReference: {fileID: 0}
+    - target: {fileID: 1456028637751406, guid: c6b145bf901532b4abc46d441848310d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6b145bf901532b4abc46d441848310d, type: 2}
   m_IsPrefabParent: 0
@@ -293,7 +297,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4220327668400768, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.12
       objectReference: {fileID: 0}
     - target: {fileID: 4220327668400768, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
       propertyPath: m_LocalPosition.y
@@ -330,6 +334,10 @@ Prefab:
     - target: {fileID: 61058839687436486, guid: a7905202c60fe2c47be1988de67d3dec,
         type: 2}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489306092595792, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -438,6 +446,8 @@ MonoBehaviour:
   maxZoomOutDistance: 10
   attenuationFactor: 1
   smoothness: 0.028
+  rightScrollZone: {fileID: 1664824365}
+  leftScrollZone: {fileID: 1373912878}
 --- !u!1 &1372750676
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,7 +592,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1373912876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -6.17, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1368330371}
@@ -642,7 +652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1597018407
 Transform:
   m_ObjectHideFlags: 0
@@ -693,6 +703,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   side: 1
+--- !u!114 &1664824365 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114640390276778992, guid: a7905202c60fe2c47be1988de67d3dec,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356847803}
+  m_Script: {fileID: 11500000, guid: 2e393bb910461044083740077123b984, type: 3}
 --- !u!1 &1962066838
 GameObject:
   m_ObjectHideFlags: 0
