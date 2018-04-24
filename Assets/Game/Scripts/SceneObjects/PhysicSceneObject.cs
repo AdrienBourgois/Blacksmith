@@ -6,9 +6,8 @@ namespace Game.Scripts.SceneObjects
     public class PhysicSceneObject : SpriteSceneObject
     {
         [Header("Physic Scene Object")]
-        //Physic
         public Vector3 velocity;
-        protected const float friction = 0.1f;
+        public float friction = 5f;
         protected PhysicState currentPhysicState = PhysicState.ON_GROUND;
 
         protected readonly Collider2D[] floorColliders = new Collider2D[3];
@@ -26,11 +25,22 @@ namespace Game.Scripts.SceneObjects
             base.Update();
 
             UpdatePhysic();
-            UpdateDebug();
+            UpdateRuntimeDebug();
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                velocity.x = -0.2f;
+                velocity.y = 0.35f;
+            }
         }
 
         protected virtual void UpdatePhysic()
         {
+            if (location.y > 0f)
+                currentPhysicState = PhysicState.ON_AIR_UP;
+            else if (location.y > 0f)
+                currentPhysicState = PhysicState.ON_AIR_DOWN;
+
             switch (currentPhysicState)
             {
                 case PhysicState.ON_AIR_UP:
@@ -42,8 +52,16 @@ namespace Game.Scripts.SceneObjects
                     velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / 5f);
                     break;
                 case PhysicState.ON_GROUND:
+                    if (velocity.x != 0f)
+                        velocity.x = Mathf.Lerp(velocity.x, 0f, Time.deltaTime * friction);
+                    if (velocity.z != 0f)
+                        velocity.z = Mathf.Lerp(velocity.z, 0f, Time.deltaTime * friction);
                     break;
                 case PhysicState.ON_OBJECT:
+                    if (velocity.x != 0f)
+                        velocity.x = Mathf.Lerp(velocity.x, 0f, Time.deltaTime * friction);
+                    if (velocity.z != 0f)
+                        velocity.z = Mathf.Lerp(velocity.z, 0f, Time.deltaTime * friction);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -64,17 +82,14 @@ namespace Game.Scripts.SceneObjects
             currentPhysicState = PhysicState.ON_GROUND;
         }
 
-        private void UpdateDebug()
+        protected override void UpdateRuntimeDebug()
         {
-
+            base.UpdateRuntimeDebug();
         }
 
         protected override void OnDrawGizmos()
         {
             base.OnDrawGizmos();
-            Debug.DrawLine(location.ToUnitySpace(), location.ToFloor().ToUnitySpace(), Color.blue);
-            UnityEditor.Handles.color = Color.red;
-            UnityEditor.Handles.DrawWireDisc(location.ToFloor().ToUnitySpace(), Vector3.forward, 0.15f);
         }
     }
 }

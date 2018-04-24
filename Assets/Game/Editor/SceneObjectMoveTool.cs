@@ -25,26 +25,39 @@ namespace Game.Editor
             float handle_size = HandleUtility.GetHandleSize(scene_object.location);
             const float snap = 0.1f;
 
+            Vector3 location = scene_object.transform.position;
+
             EditorGUI.BeginChangeCheck();
             Handles.color = Color.red;
-            Vector3 x_handle_position = Handles.Slider(scene_object.location.ToUnitySpace(), Vector3.right, handle_size, Handles.ArrowHandleCap, snap);
+            Vector3 x_handle_position = Handles.Slider(location, Vector3.right, handle_size, Handles.ArrowHandleCap, snap);
 
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(scene_object, "Change Scene Object Position");
-                scene_object.location.x = x_handle_position.x;
-                scene_object.SetPosition();
+                scene_object.transform.position = x_handle_position;
+                scene_object.SetGamePosition();
+            }
+
+            EditorGUI.BeginChangeCheck();
+            Handles.color = Color.blue;
+            Vector3 z_handle_position = Handles.Slider(location, GamePhysic.zAxis, handle_size, Handles.ArrowHandleCap, snap);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(scene_object, "Change Scene Object Position");
+                scene_object.transform.position = z_handle_position;
+                scene_object.SetGamePosition();
             }
 
             EditorGUI.BeginChangeCheck();
             Handles.color = Color.green;
-            Vector3 z_handle_position = Handles.Slider(scene_object.location.ToUnitySpace(), GamePhysic.zAxis, handle_size, Handles.ArrowHandleCap, snap);
+            Vector3 y_handle_position = Handles.Slider(location, Vector3.up, handle_size, Handles.ArrowHandleCap, snap);
 
             if (EditorGUI.EndChangeCheck())
             {
                 Undo.RecordObject(scene_object, "Change Scene Object Position");
-                scene_object.location.z = z_handle_position.y;
-                scene_object.SetPosition();
+                scene_object.transform.position = y_handle_position;
+                scene_object.SetGamePosition();
             }
         }
     }
