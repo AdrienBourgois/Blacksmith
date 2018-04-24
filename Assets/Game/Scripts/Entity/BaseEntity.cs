@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Remoting.Lifetime;
+using Game.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Game.Scripts.Entity
@@ -38,6 +39,16 @@ namespace Game.Scripts.Entity
         {
 
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            IAttack attack = other.GetComponent<IAttack>();
+            if (attack != null)
+            {
+
+            }
+        }
+
         #endregion
 
     }

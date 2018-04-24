@@ -38,7 +38,7 @@ namespace Game.Scripts.Entity
             InputManager input_manager = FindObjectOfType<InputManager>();
             switch (soAttack.GetAttackType())
             {
-                case SO_BaseAttack.EAttackType.CAC:
+                case SO_BaseAttack.EAttackType.DISTANCE:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
@@ -49,7 +49,7 @@ namespace Game.Scripts.Entity
                         healthSlider = GameObject.FindGameObjectWithTag("P1_healthSlider").GetComponent<Slider>();
                     break;
                 }
-                case SO_BaseAttack.EAttackType.DISTANCE:
+                case SO_BaseAttack.EAttackType.CAC:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
