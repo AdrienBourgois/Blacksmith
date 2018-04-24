@@ -130,7 +130,7 @@ namespace Game.Scripts.Camera
             else if (_collider_side == EBorderSide.LEFT)
                 SetBackwardMask(_entity, _callback_type);
 
-            //print("forwardScrollMask = " + forwardScrollMask);
+            print("forwardScrollMask = " + forwardScrollMask);
             //print("backwardScrollMask = " + backwardScrollMask);
 
             byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
@@ -144,7 +144,7 @@ namespace Game.Scripts.Camera
         {
             if (_entity.gameObject == player1)
             {
-                print(_entity.gameObject.name);
+                //print(_entity.gameObject.name);
                 if (_callback_type == EColliderCallbackType.STAY)
                     forwardScrollMask |= 1 << 1;
                 else if (_callback_type == EColliderCallbackType.EXIT)
@@ -152,7 +152,7 @@ namespace Game.Scripts.Camera
             }
             else if (_entity.gameObject == player2)
             {
-                print(_entity.gameObject.name);
+                //print(_entity.gameObject.name);
                 if (_callback_type == EColliderCallbackType.STAY)
                     forwardScrollMask |= 1 << 2;
                 else if (_callback_type == EColliderCallbackType.EXIT)
@@ -162,7 +162,6 @@ namespace Game.Scripts.Camera
 
         public void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-            print("SetBackwardMask()");
             if (_entity.gameObject == player1)
             {
                 //print(_entity.gameObject.name);
@@ -183,11 +182,13 @@ namespace Game.Scripts.Camera
 
         public void ForwardScroll()
         {
+            print("ForwardScroll()");
             transform.Translate(Vector3.right * Time.deltaTime);
         }
 
         public void BackwardScroll()
         {
+            print("BackwardScroll()");
             transform.Translate(Vector3.left * Time.deltaTime);
         }
     }
