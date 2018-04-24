@@ -11,16 +11,30 @@ namespace Game.Scripts.SceneObjects
         {
             base.Update();
 
-            if (Input.GetKey(KeyCode.UpArrow))
-                TryMove(Vector3.forward);
+            /*if (Input.GetKey(KeyCode.UpArrow))
+                ListenZAxis(Vector3.forward.z);
+                //TryMove(Vector3.forward);
             else if (Input.GetKey(KeyCode.DownArrow))
-                TryMove(Vector3.back);
+                ListenZAxis(Vector3.back.z);
+                //TryMove(Vector3.back);
             if (Input.GetKey(KeyCode.LeftArrow))
-                TryMove(Vector3.left);
+                ListenXAxis(Vector3.left.x);
+                //TryMove(Vector3.left);
             else if (Input.GetKey(KeyCode.RightArrow))
-                TryMove(Vector3.right);
+                ListenXAxis(Vector3.right.x);
+                //TryMove(Vector3.right);
             if (Input.GetKey(KeyCode.Space) && currentPhysicState == PhysicState.ON_GROUND)
-                Jump();
+                Jump();*/
+        }
+
+        protected void ListenXAxis(float _value)
+        {
+            TryMove(new Vector3(_value, 0, 0));
+        }
+
+        protected void ListenZAxis(float _value)
+        {
+            TryMove(new Vector3(0, 0, _value));
         }
 
         private void TryMove(Vector3 _move)
@@ -32,7 +46,7 @@ namespace Game.Scripts.SceneObjects
                 location = new_location;
         }
 
-        private void Jump()
+        protected void Jump()
         {
             velocity.y = 0.4f;
             currentPhysicState = PhysicState.ON_AIR_UP;

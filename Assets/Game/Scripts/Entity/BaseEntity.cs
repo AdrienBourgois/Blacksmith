@@ -3,35 +3,39 @@ using System.Collections.Generic;
 using System.Runtime.Remoting.Lifetime;
 using UnityEngine;
 
-public class BaseEntity : MonoBehaviour, IDamagable
+namespace Game.Scripts.SceneObjects
 {
-    [SerializeField]
-    protected float maxHealth;
-
-    protected float health;
-
-    // Use this for initialization
-    protected virtual void Start ()
+    public class BaseEntity : Game.Scripts.SceneObjects.MovablePhysicSceneObject, IDamagable
     {
-        health = maxHealth;
-    }
+        [SerializeField] protected float maxHealth;
 
-    // Update is called once per frame
-    protected virtual void Update ()
-    {
-		if (Input.GetKeyDown(KeyCode.Space))
-            ReceiveDamages(3);
-	}
+        protected float health;
 
-    public virtual void ReceiveDamages(int _damages)
-    {
-        health -= _damages;
-        if (health <= 0)
-            Die();
-    }
+        // Use this for initialization
+        protected virtual void Start()
+        {
+            health = maxHealth;
+        }
 
-    public virtual void Die()
-    {
+        // Update is called once per frame
+        protected virtual void Update()
+        {
+            base.Update();
 
+            if (Input.GetKeyDown(KeyCode.Space))
+                ReceiveDamages(3);
+        }
+
+        public virtual void ReceiveDamages(int _damages)
+        {
+            health -= _damages;
+            if (health <= 0)
+                Die();
+        }
+
+        public virtual void Die()
+        {
+
+        }
     }
 }
