@@ -38,6 +38,26 @@ namespace Game.Scripts.SceneObjects
             location = transform.position.ToGameSpace();
         }
 
+        protected bool IsOnFloorSpace()
+        {
+            return GamePhysic.IsPointInCollider(location.ToFloor(), "Floor");
+        }
+
+        protected bool IsOnFloorSpace(Vector3 _game_point)
+        {
+            return GamePhysic.IsPointInCollider(_game_point, "Floor");
+        }
+
+        protected bool IsInCameraSpace()
+        {
+            return GamePhysic.IsPointInCollider(location.ToFloor(), "Camera");
+        }
+
+        protected bool IsInCameraSpace(Vector3 _game_point)
+        {
+            return GamePhysic.IsPointInCollider(_game_point, "Camera");
+        }
+
         protected virtual void UpdateRuntimeDebug()
         {
 

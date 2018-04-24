@@ -82,6 +82,8 @@ namespace Game.Scripts.SceneObjects
             currentPhysicState = PhysicState.ON_GROUND;
         }
 
+        
+
         protected override void UpdateRuntimeDebug()
         {
             base.UpdateRuntimeDebug();
