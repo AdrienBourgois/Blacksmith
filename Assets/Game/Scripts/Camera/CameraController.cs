@@ -27,6 +27,7 @@ namespace Game.Scripts.Camera
         private UnityEngine.Camera gameCamera;
         private byte forwardScrollMask;
         private byte backwardScrollMask;
+        private BoxCollider2D cameraCollider;
 
         public CameraController(byte _forward_scroll_mask)
         {
@@ -61,6 +62,7 @@ namespace Game.Scripts.Camera
         void Start ()
         {
             gameCamera = this.GetComponent<UnityEngine.Camera>();
+            cameraCollider = this.gameObject.GetComponent<BoxCollider2D>();
             CameraScrollZone camera_scroll_zone = FindObjectOfType<CameraScrollZone>();
 
             rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
@@ -73,7 +75,9 @@ namespace Game.Scripts.Camera
         {
             float distance = ComputeDistance();
             ComputeZoom(distance);
-            
+            ComputeCameraColliderScale();
+
+
             //print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
         }
 
@@ -93,6 +97,15 @@ namespace Game.Scripts.Camera
                 return;
 
             gameCamera.orthographicSize = smooth_zoom;
+        }
+
+        void ComputeCameraColliderScale()
+        {
+            Vector2 current_scale = cameraCollider.size;
+            current_scale.x = HorizontalViewingVolume;
+            current_scale.y = VerticalViewingVolume;
+
+            cameraCollider.size = current_scale;
         }
 
         bool AreCloseEnough(float _distance)

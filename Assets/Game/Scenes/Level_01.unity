@@ -397,6 +397,10 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1489306092595792, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
   m_IsPrefabParent: 0
@@ -457,6 +461,10 @@ Prefab:
     - target: {fileID: 61058839687436486, guid: a7905202c60fe2c47be1988de67d3dec,
         type: 2}
       propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1489306092595792, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -755,6 +763,10 @@ Prefab:
       propertyPath: side
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1456028637751406, guid: c6b145bf901532b4abc46d441848310d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6b145bf901532b4abc46d441848310d, type: 2}
   m_IsPrefabParent: 0
@@ -775,7 +787,8 @@ GameObject:
   - component: {fileID: 729275887}
   - component: {fileID: 729275886}
   - component: {fileID: 729275890}
-  m_Layer: 0
+  - component: {fileID: 729275891}
+  m_Layer: 12
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,9 +878,34 @@ MonoBehaviour:
   maxZoomInDistance: 4
   maxZoomOutDistance: 10
   attenuationFactor: 1
-  smoothness: 0.034
+  smoothness: 0.016
   rightScrollZone: {fileID: 215328374}
   leftScrollZone: {fileID: 126654610}
+--- !u!61 &729275891
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 729275885}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &1051175569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1129,10 @@ Prefab:
     - target: {fileID: 1456028637751406, guid: c6b145bf901532b4abc46d441848310d, type: 2}
       propertyPath: m_Name
       value: RightBorder
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456028637751406, guid: c6b145bf901532b4abc46d441848310d, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c6b145bf901532b4abc46d441848310d, type: 2}
