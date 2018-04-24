@@ -20,6 +20,7 @@ namespace Game.Scripts.Camera
 
         private UnityEngine.Camera gameCamera;
         private byte forwardScrollMask;
+        private byte backwardScrollMask;
 
         public CameraController(byte _forward_scroll_mask)
         {
@@ -98,7 +99,20 @@ namespace Game.Scripts.Camera
             return _value >= maxZoomOutDistance;
         }
 
-        public void ComputeScroll(Collider2D _entity)
+        public void ComputeScroll(Collider2D _entity, EBorderSide _collider_side, EColliderCallbackType _callback_type)
+        {
+            if (_collider_side == EBorderSide.RIGHT)
+                SetForwardMask(_entity, _callback_type);
+            else if (_collider_side == EBorderSide.LEFT)
+                SetBackwardMask(_entity, _callback_type);
+
+            byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
+            if ((forwardScrollMask ^ mask) == 0)
+                ForwardScroll();
+
+        }
+
+        public void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
             if (_entity.gameObject == player1)
             {
@@ -110,18 +124,16 @@ namespace Game.Scripts.Camera
                 print(_entity.gameObject.name);
                 forwardScrollMask |= 1 << 2;
             }
+        }
 
-            byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
-            if ((forwardScrollMask ^ mask) == 0)
-                print("ForwardScroll");
-
-            print("forwardScrollMask " + forwardScrollMask);
-            print("mask " + mask);
+        public void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
+        {
 
         }
 
         public void ForwardScroll()
         {
+            print("ForwardScroll");
 
         }
 

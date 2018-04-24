@@ -2,7 +2,13 @@
 
 namespace Game.Scripts.Camera
 {
-    
+
+    public enum EColliderCallbackType
+    {
+        ENTER,
+        STAY,
+        EXIT
+    };
 
     public class CameraScrollZone : MonoBehaviour
     {
@@ -13,9 +19,9 @@ namespace Game.Scripts.Camera
 
         private delegate void ComputeDelegate();
         private ComputeDelegate ComputePositionFunction;
-        public delegate void TriggerDelegate(Collider2D collider);
-        private TriggerDelegate TriggerStayCallback;
-        private TriggerDelegate TriggerExitCallback;
+        public delegate void TriggerDelegate(Collider2D _collider, EBorderSide _collider_side, EColliderCallbackType _callback_type);
+        private TriggerDelegate triggerStayCallback;
+        private TriggerDelegate triggerExitCallback;
 
         void Start()
         {
@@ -35,7 +41,7 @@ namespace Game.Scripts.Camera
 
         public void SubscribeToTriggerStayCallback(TriggerDelegate _function_pointer)
         {
-            TriggerStayCallback += _function_pointer;
+            triggerStayCallback += _function_pointer;
         }
 
         private void ComputeTransform()
@@ -69,8 +75,8 @@ namespace Game.Scripts.Camera
 
         private void OnTriggerStay2D(Collider2D _other)
         {
-            if (TriggerStayCallback != null)
-                TriggerStayCallback(_other);
+            if (triggerStayCallback != null)
+                triggerStayCallback(_other, side, EColliderCallbackType.STAY);
         }
     }
 }
