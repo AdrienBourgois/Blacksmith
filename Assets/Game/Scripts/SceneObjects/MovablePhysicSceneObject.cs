@@ -7,24 +7,14 @@ namespace Game.Scripts.SceneObjects
         [Header("Movable Physic Scene Object")]
         public float speed = 3f;
 
+        public bool mustBeInCameraSpace;
+
+        [Header("Debug")]
+        public bool enableKeyboard;
+
         protected override void Update()
         {
             base.Update();
-
-            /*if (Input.GetKey(KeyCode.UpArrow))
-                ListenZAxis(Vector3.forward.z);
-                //TryMove(Vector3.forward);
-            else if (Input.GetKey(KeyCode.DownArrow))
-                ListenZAxis(Vector3.back.z);
-                //TryMove(Vector3.back);
-            if (Input.GetKey(KeyCode.LeftArrow))
-                ListenXAxis(Vector3.left.x);
-                //TryMove(Vector3.left);
-            else if (Input.GetKey(KeyCode.RightArrow))
-                ListenXAxis(Vector3.right.x);
-                //TryMove(Vector3.right);
-            if (Input.GetKey(KeyCode.Space) && currentPhysicState == PhysicState.ON_GROUND)
-                Jump();*/
         }
 
         protected virtual void ListenXAxis(float _value)
@@ -48,13 +38,23 @@ namespace Game.Scripts.SceneObjects
             Vector3 new_location = location;
             new_location.x += _move.x * Time.deltaTime * speed;
             new_location.z += _move.z * Time.deltaTime * speed;
-            if (Physics2D.OverlapPointNonAlloc(location.ToFloor().ToUnitySpace(), floorColliders, 1 << LayerMask.NameToLayer("Floor")) > 0)
+
+            if (IsOnFloorSpace(new_location.ToFloor()))
             {
-                location = new_location;
-                transform.localScale = new_scale;
+                if (mustBeInCameraSpace)
+                {
+                    if (IsInCameraSpace(new_location.ToFloor()))
+                    {
+                        location = new_location;
+                        transform.localScale = new_scale;
+                    }
+                }
+                else
+                {
+                    location = new_location;
+                    transform.localScale = new_scale;
+                }
             }
-            else
-                Debug.Log("Stuck");
         }
 
         protected virtual void Jump()
@@ -69,6 +69,20 @@ namespace Game.Scripts.SceneObjects
         protected override void UpdateRuntimeDebug()
         {
             base.UpdateRuntimeDebug();
+
+            if (enableKeyboard)
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                    TryMove(Vector3.forward);
+                else if (Input.GetKey(KeyCode.DownArrow))
+                    TryMove(Vector3.back);
+                if (Input.GetKey(KeyCode.LeftArrow))
+                    TryMove(Vector3.left);
+                else if (Input.GetKey(KeyCode.RightArrow))
+                    TryMove(Vector3.right);
+                if (Input.GetKey(KeyCode.Space) && currentPhysicState == PhysicState.ON_GROUND)
+                    Jump();
+            }
         }
 
         protected override void OnDrawGizmos()

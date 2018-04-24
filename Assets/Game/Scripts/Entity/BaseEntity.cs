@@ -45,7 +45,7 @@ namespace Game.Scripts.Entity
             IAttack attack = other.GetComponent<IAttack>();
             if (attack != null)
             {
-
+                print("AIIIIE");
             }
         }
 

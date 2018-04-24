@@ -27,6 +27,7 @@ namespace Game.Scripts.Camera
         private UnityEngine.Camera gameCamera;
         private byte forwardScrollMask;
         private byte backwardScrollMask;
+        private BoxCollider2D cameraCollider;
 
         public CameraController(byte _forward_scroll_mask)
         {
@@ -61,6 +62,7 @@ namespace Game.Scripts.Camera
         void Start ()
         {
             gameCamera = this.GetComponent<UnityEngine.Camera>();
+            cameraCollider = this.gameObject.GetComponent<BoxCollider2D>();
             CameraScrollZone camera_scroll_zone = FindObjectOfType<CameraScrollZone>();
 
             rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
@@ -73,7 +75,9 @@ namespace Game.Scripts.Camera
         {
             float distance = ComputeDistance();
             ComputeZoom(distance);
-            
+            ComputeVerticalPosition();
+            ComputeCameraColliderScale();
+
             //print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
         }
 
@@ -93,6 +97,22 @@ namespace Game.Scripts.Camera
                 return;
 
             gameCamera.orthographicSize = smooth_zoom;
+        }
+
+        private void ComputeVerticalPosition()
+        {
+            Vector3 transform_position = transform.position;
+            transform_position.y = gameCamera.orthographicSize;
+            transform.position = transform_position;
+        }
+
+        void ComputeCameraColliderScale()
+        {
+            Vector2 current_scale = cameraCollider.size;
+            current_scale.x = HorizontalViewingVolume;
+            current_scale.y = VerticalViewingVolume;
+
+            cameraCollider.size = current_scale;
         }
 
         bool AreCloseEnough(float _distance)
@@ -117,7 +137,7 @@ namespace Game.Scripts.Camera
             else if (_collider_side == EBorderSide.LEFT)
                 SetBackwardMask(_entity, _callback_type);
 
-            //print("forwardScrollMask = " + forwardScrollMask);
+            print("forwardScrollMask = " + forwardScrollMask);
             //print("backwardScrollMask = " + backwardScrollMask);
 
             byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
@@ -147,7 +167,6 @@ namespace Game.Scripts.Camera
 
         public void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-            print("SetBackwardMask()");
             if (_entity.gameObject == player1)
             {
                 //print(_entity.gameObject.name);
@@ -168,11 +187,13 @@ namespace Game.Scripts.Camera
 
         public void ForwardScroll()
         {
+            print("ForwardScroll()");
             transform.Translate(Vector3.right * Time.deltaTime);
         }
 
         public void BackwardScroll()
         {
+            print("BackwardScroll()");
             transform.Translate(Vector3.left * Time.deltaTime);
         }
     }
