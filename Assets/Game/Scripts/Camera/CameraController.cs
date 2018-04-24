@@ -75,8 +75,8 @@ namespace Game.Scripts.Camera
         {
             float distance = ComputeDistance();
             ComputeZoom(distance);
+            ComputeVerticalPosition();
             ComputeCameraColliderScale();
-
 
             //print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
         }
@@ -97,6 +97,13 @@ namespace Game.Scripts.Camera
                 return;
 
             gameCamera.orthographicSize = smooth_zoom;
+        }
+
+        private void ComputeVerticalPosition()
+        {
+            Vector3 transform_position = transform.position;
+            transform_position.y = gameCamera.orthographicSize;
+            transform.position = transform_position;
         }
 
         void ComputeCameraColliderScale()
