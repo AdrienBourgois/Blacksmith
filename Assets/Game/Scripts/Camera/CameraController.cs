@@ -170,12 +170,12 @@ namespace Game.Scripts.Camera
 
         public void ForwardScroll()
         {
-            //print("ForwardScroll");
+            transform.Translate(Vector3.right * Time.deltaTime);
         }
 
         public void BackwardScroll()
         {
-            //print("BackwardScroll");
+            transform.Translate(Vector3.left * Time.deltaTime);
         }
     }
 }
