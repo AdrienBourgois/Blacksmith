@@ -152,7 +152,7 @@ namespace Game.Scripts.Camera
             print("SetBackwardMask()");
             if (_entity.gameObject == player1)
             {
-                print(_entity.gameObject.name);
+                //print(_entity.gameObject.name);
                 if (_callback_type == EColliderCallbackType.STAY)
                     backwardScrollMask |= 1 << 1;
                 else if (_callback_type == EColliderCallbackType.EXIT)
@@ -160,7 +160,7 @@ namespace Game.Scripts.Camera
             }
             else if (_entity.gameObject == player2)
             {
-                print(_entity.gameObject.name);
+                //print(_entity.gameObject.name);
                 if (_callback_type == EColliderCallbackType.STAY)
                     backwardScrollMask |= 1 << 2;
                 else if (_callback_type == EColliderCallbackType.EXIT)
