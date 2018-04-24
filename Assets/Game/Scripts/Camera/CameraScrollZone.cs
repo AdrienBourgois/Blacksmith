@@ -8,33 +8,33 @@ namespace Game.Scripts.Camera
         ENTER,
         STAY,
         EXIT
-    };
+    }
 
     public class CameraScrollZone : MonoBehaviour
     {
         [SerializeField] private EBorderSide side;
-        [SerializeField] private float percent_size;
-        private BoxCollider2D collider;
+        [SerializeField] private float percentSize;
+        private BoxCollider2D cameraCollider;
         private CameraController cameraController;
 
         private delegate void ComputeDelegate();
-        private ComputeDelegate ComputePositionFunction;
+        private ComputeDelegate computePositionFunction;
         public delegate void TriggerDelegate(Collider2D _collider, EBorderSide _collider_side, EColliderCallbackType _callback_type);
         private TriggerDelegate triggerStayCallback;
         private TriggerDelegate triggerExitCallback;
 
-        void Start()
+        private void Start()
         {
             cameraController = GetComponentInParent<CameraController>();
-            collider = this.gameObject.GetComponent<BoxCollider2D>();
+            cameraCollider = gameObject.GetComponent<BoxCollider2D>();
 
             if (side == EBorderSide.RIGHT)
-                ComputePositionFunction = ComputeRightPosition;
+                computePositionFunction = ComputeRightPosition;
             else
-                ComputePositionFunction = ComputeLeftPosition;
+                computePositionFunction = ComputeLeftPosition;
         }
 
-        void Update()
+        private void Update()
         {
             ComputeTransform();
         }
@@ -52,29 +52,29 @@ namespace Game.Scripts.Camera
         private void ComputeTransform()
         {
             ComputeScale();
-            ComputePositionFunction();
+            computePositionFunction();
         }
 
         private void ComputeScale()
         {
-            Vector2 collider_size = collider.size;
-            float scale_percent = (percent_size / 100f) * cameraController.HorizontalViewingVolume;
+            Vector2 collider_size = cameraCollider.size;
+            float scale_percent = percentSize / 100f * cameraController.HorizontalViewingVolume;
             collider_size.x = scale_percent;
             collider_size.y = cameraController.VerticalViewingVolume;
-            collider.size = collider_size;
+            cameraCollider.size = collider_size;
         }
 
         private void ComputeRightPosition()
         {
             Vector3 position = transform.parent.position;
-            position.x += (cameraController.HalfHorizontalViewingVolume - (collider.size.x / 2f));
+            position.x += cameraController.HalfHorizontalViewingVolume - cameraCollider.size.x / 2f;
             transform.position = position;
         }
 
         private void ComputeLeftPosition()
         {
             Vector3 position = transform.parent.position;
-            position.x -= (cameraController.HalfHorizontalViewingVolume - (collider.size.x / 2f));
+            position.x -= cameraController.HalfHorizontalViewingVolume - cameraCollider.size.x / 2f;
             transform.position = position;
         }
 

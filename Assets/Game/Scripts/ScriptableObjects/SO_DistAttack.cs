@@ -1,14 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Game.Scripts.Entity;
 using Game.Scripts.SceneObjects;
-using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "DistAttack", menuName = "Attacks/DistAttack")]
-    public class SO_DistAttack : SO_BaseAttack
+    public class SoDistAttack : SoBaseAttack
     {
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private float bulletSpeed;
@@ -27,13 +25,13 @@ namespace Game.Scripts.ScriptableObjects
 
             Debug.Log("ATTACK !");
 
-            GameObject bullet = GameObject.Instantiate(bulletPrefab);
+            GameObject bullet = Instantiate(bulletPrefab);
             bullet.GetComponent<SpriteSceneObject>().location = myAttackEntity.location;
 
             Destroy(bullet, bulletLifeTime);
 
             myAttackEntity.StartCoroutine(BulletAddForceCoroutine(
-                bullet.GetComponent<SpriteSceneObject>(), 
+                bullet.GetComponent<SpriteSceneObject>(),
                 new Vector3(1 * Mathf.Sign(myAttackEntity.transform.localScale.x), 0, 0)));
 
             StartCooldown();
@@ -54,7 +52,7 @@ namespace Game.Scripts.ScriptableObjects
             myAttackEntity.StartCoroutine(Cooldown());
         }
 
-        IEnumerator BulletAddForceCoroutine(SpriteSceneObject _bullet, Vector3 _direction)
+        private IEnumerator BulletAddForceCoroutine(SceneObject _bullet, Vector3 _direction)
         {
             while (true)
             {
@@ -63,7 +61,7 @@ namespace Game.Scripts.ScriptableObjects
             }
         }
 
-        IEnumerator Cooldown()
+        private IEnumerator Cooldown()
         {
             Debug.Log("Cooldown");
 

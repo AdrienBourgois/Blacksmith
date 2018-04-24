@@ -8,10 +8,6 @@ namespace Game.Scripts.SceneObjects
         public Vector3 location;
         private const float slope = 0.5f;
 
-        protected virtual void Awake()
-        {
-        }
-
         protected virtual void Update()
         {
             UpdateRuntimeDebug();
@@ -20,10 +16,6 @@ namespace Game.Scripts.SceneObjects
         protected virtual void LateUpdate()
         {
             SetUnityPosition();
-        }
-
-        protected virtual void OnValidate()
-        {
         }
 
         [ContextMenu("Set Unity Position")]

@@ -13,15 +13,8 @@ namespace Game.Scripts.SceneObjects
             SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
         }
 
-        protected override void Update()
+        protected virtual void OnValidate()
         {
-            base.Update();
-        }
-
-        protected override void OnValidate()
-        {
-            base.OnValidate();
-
             SetGraphicProperties();
         }
 
@@ -31,16 +24,6 @@ namespace Game.Scripts.SceneObjects
 
             sprite_renderer.sprite = sprite;
             sprite_renderer.sortingLayerName = "Default";
-        }
-
-        protected override void UpdateRuntimeDebug()
-        {
-            base.UpdateRuntimeDebug();
-        }
-
-        protected override void OnDrawGizmos()
-        {
-            base.OnDrawGizmos();
         }
     }
 }

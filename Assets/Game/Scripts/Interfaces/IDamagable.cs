@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IDamagable
+﻿namespace Game.Scripts.Interfaces
 {
-    void ReceiveDamages(int _damages);
+    public interface IDamagable
+    {
+        void ReceiveDamages(int _damages);
 
-    void Die();
+        void Die();
+    }
 }

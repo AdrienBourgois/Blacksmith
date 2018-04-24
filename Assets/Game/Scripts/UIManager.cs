@@ -1,33 +1,34 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIManager : MonoBehaviour
+namespace Game.Scripts
 {
+    public class UiManager : MonoBehaviour
+    {
 
-    [SerializeField]
-    private EventSystem eventSystem;
+        [SerializeField]
+        private EventSystem eventSystem;
 
-    // Use this for initialization
-    void Start () {
+        // Use this for initialization
+        private void Start () {
 		
-	}
+        }
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        private void Update () {
 		
-	}
+        }
 
-    public void EnableMenu(Transform menu)
-    {
-        menu.gameObject.SetActive(true);
+        public void EnableMenu(Transform _menu)
+        {
+            _menu.gameObject.SetActive(true);
 
-        eventSystem.SetSelectedGameObject(menu.GetChild(0).gameObject);
-    }
+            eventSystem.SetSelectedGameObject(_menu.GetChild(0).gameObject);
+        }
 
-    public void DisableMenu(Transform menu)
-    {
-        menu.gameObject.SetActive(false);
+        public void DisableMenu(Transform _menu)
+        {
+            _menu.gameObject.SetActive(false);
+        }
     }
 }

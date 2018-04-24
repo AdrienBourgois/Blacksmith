@@ -5,53 +5,53 @@ namespace Game.Scripts.Camera
     public class CameraBorder : MonoBehaviour
     {
         [SerializeField] private EBorderSide side;
-        private BoxCollider2D collider;
+        private BoxCollider2D cameraCollider;
         private CameraController cameraController;
 
         private delegate Vector3 ComputeDelegate();
-        private ComputeDelegate ComputePositionFunction;
+        private ComputeDelegate computePositionFunction;
 
         private void Start()
         {
             cameraController = GetComponentInParent<CameraController>();
-            collider = this.gameObject.GetComponent<BoxCollider2D>();
+            cameraCollider = gameObject.GetComponent<BoxCollider2D>();
 
             if (side == EBorderSide.RIGHT)
-                ComputePositionFunction = ComputeRightPosition;
+                computePositionFunction = ComputeRightPosition;
             else
-                ComputePositionFunction = ComputeLeftPosition;
+                computePositionFunction = ComputeLeftPosition;
         }
 
-        void Update()
+        private void Update()
         {
             ComputeTransform();
         }
 
         private void ComputeTransform()
         {
-            transform.position = ComputePositionFunction();
+            transform.position = computePositionFunction();
             ComputeScale();
         }
 
         private Vector3 ComputeRightPosition()
         {
-            Vector3 position = this.transform.parent.position;
+            Vector3 position = transform.parent.position;
             position.x += cameraController.HalfHorizontalViewingVolume;
             return position;
         }
 
         private Vector3 ComputeLeftPosition()
         {
-            Vector3 position = this.transform.parent.position;
+            Vector3 position = transform.parent.position;
             position.x -= cameraController.HalfHorizontalViewingVolume;
             return position;
         }
 
         private void ComputeScale()
         {
-            Vector2 collider_size = collider.size;
+            Vector2 collider_size = cameraCollider.size;
             collider_size.y = cameraController.VerticalViewingVolume;
-            collider.size = collider_size;
+            cameraCollider.size = collider_size;
         }
     }
 }

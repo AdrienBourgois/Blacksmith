@@ -1,75 +1,72 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameState : MonoBehaviour
+namespace Game.Scripts
 {
-    #region Instance
-    private static GameState instance;
-    public static GameState Instance
+    public class GameState : MonoBehaviour
     {
-        get { return instance; }
-    }
-    #endregion
+        #region Instance
+        private static GameState instance;
+        public static GameState Instance
+        {
+            get { return instance; }
+        }
+        #endregion
 
-    private bool isTwoPlayer;
-    private int currentLevel;
+        private bool isTwoPlayer;
+        private int currentLevel;
 
-    private EGameState eGameState = EGameState.MAIN_MENU;
-    private EGamePlayState eGamePlayState = EGamePlayState.EXPLORATION;
+        private EGameState eGameState = EGameState.MAIN_MENU;
+        private EGamePlayState eGamePlayState = EGamePlayState.EXPLORATION;
 
-    private enum EGameState
-    {
-        MAIN_MENU,
-        IN_GAME,
-        PAUSED
-    }
+        private enum EGameState
+        {
+            MAIN_MENU,
+            IN_GAME,
+            PAUSED
+        }
 
-    private enum EGamePlayState
-    {
-        COMBAT,
-        EXPLORATION,
-        CINEMATIC
-    }
+        private enum EGamePlayState
+        {
+            COMBAT,
+            EXPLORATION,
+            CINEMATIC
+        }
 
-    #region Unity Methods
+        #region Unity Methods
 
-    private void Awake()
-    {
-        instance = this;
-    }
+        private void Awake()
+        {
+            instance = this;
+        }
 
-    void Start()
-    {
-        DontDestroyOnLoad(this);
-        FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatState);
-    }
+        private void Start()
+        {
+            DontDestroyOnLoad(this);
+            FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatState);
+        }
 
-    void Update()
-    {
+        #endregion
 
-    }
-    #endregion
+        private void SwitchToCombatState()
+        {
+            print("SwitchToCombatState");
+        }
 
-    private void SwitchToCombatState()
-    {
-        print("SwitchToCombatState");
-    }
+        private void SwitchGameState(EGameState _new_e_game_state)
+        {
+            eGameState = _new_e_game_state; 
 
-    private void SwitchGameState(EGameState _new_e_game_state)
-    {
-        eGameState = _new_e_game_state; 
+            // invoke event with state ?
+        }
+        public void SetIsTwoPlayers(bool _two_player)
+        {
+            isTwoPlayer = _two_player;
+        }
 
-        // invoke event with state ?
-    }
-    public void SetIsTwoPlayers(bool _twoPlayer)
-    {
-        isTwoPlayer = _twoPlayer;
-    }
-
-    public void IsGameOver(uint _knockedCount)
-    {
-        if (_knockedCount == 2)
-            GameInstance.Instance.InvokeGameOver();
+        public void IsGameOver(uint _knocked_count)
+        {
+            if (_knocked_count == 2)
+                GameInstance.Instance.InvokeGameOver();
+        }
     }
 }

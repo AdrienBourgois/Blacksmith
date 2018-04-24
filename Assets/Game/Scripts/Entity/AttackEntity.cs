@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Interfaces;
-using Game.Scripts.SceneObjects;
-using Game.Scripts.ScriptableObjects;
+﻿using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Scripts.Entity
@@ -10,7 +6,7 @@ namespace Game.Scripts.Entity
     public class AttackEntity : BaseEntity
     {
         [SerializeField]
-        protected SO_BaseAttack soAttack;
+        protected SoBaseAttack soAttack;
 
         // Use this for initialization
         protected override void Start()
@@ -37,12 +33,6 @@ namespace Game.Scripts.Entity
         {
             if (!soAttack.IsAttacking())
                 base.Jump();
-        }
-
-        // Update is called once per frame
-        protected override void Update()
-        {
-            base.Update();
         }
     }
 }

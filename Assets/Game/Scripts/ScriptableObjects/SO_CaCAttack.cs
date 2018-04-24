@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Game.Scripts.Entity;
-using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
 {
     [CreateAssetMenu (fileName = "CaCAttack", menuName = "Attacks/CaCAttack")]
-    public class SO_CaCAttack : SO_BaseAttack
+    public class SoCaCAttack : SoBaseAttack
     {
         private void SameTmpAttack() // TMP
         {
@@ -41,7 +39,7 @@ namespace Game.Scripts.ScriptableObjects
             myAttackEntity.StartCoroutine(Cooldown());
         }
 
-        IEnumerator Cooldown()
+        private IEnumerator Cooldown()
         {
             Debug.Log("Cooldown");
 
@@ -57,7 +55,7 @@ namespace Game.Scripts.ScriptableObjects
             isInCooldwnl = false;
         }
 
-        IEnumerator AttackDuration(float _duration)
+        private IEnumerator AttackDuration(float _duration)
         {
             Debug.Log("AttackDuration");
 

@@ -1,27 +1,28 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class EntityManager : MonoBehaviour
+namespace Game.Scripts.Entity
 {
-
-    private uint playerKncokedDown = 0;
-    public uint PlayerKncokedDown
+    public class EntityManager : MonoBehaviour
     {
-        get { return playerKncokedDown; }
-        set
+
+        private uint playerKncokedDown = 0;
+        public uint PlayerKncokedDown
         {
-            playerKncokedDown = value;
-            GameState.Instance.IsGameOver(playerKncokedDown);
+            get { return playerKncokedDown; }
+            set
+            {
+                playerKncokedDown = value;
+                GameState.Instance.IsGameOver(playerKncokedDown);
+            }
         }
-    }
 
-    private void Start()
-    {
-    }
+        private void Start()
+        {
+        }
 
-    public void SpawnEntity(GameObject _entity)
-    {
-        Instantiate(_entity);
+        public void SpawnEntity(GameObject _entity)
+        {
+            Instantiate(_entity);
+        }
     }
 }

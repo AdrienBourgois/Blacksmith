@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Game.Scripts.Camera
 {
@@ -36,7 +37,7 @@ namespace Game.Scripts.Camera
 
         private float AspectRatio
         {
-            get { return (float)(gameCamera.pixelWidth) / (float)(gameCamera.pixelHeight); }
+            get { return (float)gameCamera.pixelWidth / gameCamera.pixelHeight; }
         }
 
         public float VerticalViewingVolume
@@ -54,15 +55,15 @@ namespace Game.Scripts.Camera
             get { return HorizontalViewingVolume / 2f; }
         }
 
-        void Awake()
+        private void Awake()
         {
             forwardScrollMask = 0;
         }
 
-        void Start ()
+        private void Start ()
         {
-            gameCamera = this.GetComponent<UnityEngine.Camera>();
-            cameraCollider = this.gameObject.GetComponent<BoxCollider2D>();
+            gameCamera = GetComponent<UnityEngine.Camera>();
+            cameraCollider = gameObject.GetComponent<BoxCollider2D>();
             CameraScrollZone camera_scroll_zone = FindObjectOfType<CameraScrollZone>();
 
             rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
@@ -70,28 +71,25 @@ namespace Game.Scripts.Camera
             leftScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
             leftScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
         }
-	
-        void Update ()
+
+        private void Update ()
         {
             float distance = ComputeDistance();
             ComputeZoom(distance);
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
-
-            //print("HorizontalViewingVolume = " + HorizontalViewingVolume / 2f);
         }
 
-        float ComputeDistance()
+        private float ComputeDistance()
         {
             Vector3 direction = player1.transform.position - player2.transform.position;
             return Mathf.Abs(direction.x);
         }
 
-        void ComputeZoom(float _distance)
+        private void ComputeZoom(float _distance)
         {
             float raw_zoom = _distance / attenuationFactor;
             float smooth_zoom = Mathf.Lerp(gameCamera.orthographicSize, raw_zoom, smoothness);
-            // print("smooth_zoom : " + smooth_zoom);
 
             if (MaxZoomInReached(smooth_zoom) || MaxZoomOutReached(smooth_zoom))
                 return;
@@ -106,7 +104,7 @@ namespace Game.Scripts.Camera
             transform.position = transform_position;
         }
 
-        void ComputeCameraColliderScale()
+        private void ComputeCameraColliderScale()
         {
             Vector2 current_scale = cameraCollider.size;
             current_scale.x = HorizontalViewingVolume;
@@ -115,85 +113,121 @@ namespace Game.Scripts.Camera
             cameraCollider.size = current_scale;
         }
 
-        bool AreCloseEnough(float _distance)
+        private bool AreCloseEnough(float _distance)
         {
             return _distance <= maxZoomInDistance;
         }
 
-        bool MaxZoomInReached(float _value)
+        private bool MaxZoomInReached(float _value)
         {
             return _value <= maxZoomInDistance;
         }
 
-        bool MaxZoomOutReached(float _value)
+        private bool MaxZoomOutReached(float _value)
         {
             return _value >= maxZoomOutDistance;
         }
 
-        public void ComputeScroll(Collider2D _entity, EBorderSide _collider_side, EColliderCallbackType _callback_type)
+        private void ComputeScroll(Collider2D _entity, EBorderSide _collider_side, EColliderCallbackType _callback_type)
         {
-            if (_collider_side == EBorderSide.RIGHT)
-                SetForwardMask(_entity, _callback_type);
-            else if (_collider_side == EBorderSide.LEFT)
-                SetBackwardMask(_entity, _callback_type);
+            switch (_collider_side)
+            {
+                case EBorderSide.RIGHT:
+                    SetForwardMask(_entity, _callback_type);
+                    break;
+                case EBorderSide.LEFT:
+                    SetBackwardMask(_entity, _callback_type);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("_collider_side", _collider_side, null);
+            }
 
-            //print("forwardScrollMask = " + forwardScrollMask);
-            //print("backwardScrollMask = " + backwardScrollMask);
-
-            byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
+            const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
             if ((forwardScrollMask ^ mask) == 0)
                 ForwardScroll();
             else if ((backwardScrollMask ^ mask) == 0)
                 BackwardScroll();
         }
 
-        public void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
+        private void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
             if (_entity.gameObject == player1)
             {
-                if (_callback_type == EColliderCallbackType.STAY)
-                    forwardScrollMask |= 1 << 1;
-                else if (_callback_type == EColliderCallbackType.EXIT)
-                    forwardScrollMask ^= 1 << 1;
+                switch (_callback_type)
+                {
+                    case EColliderCallbackType.STAY:
+                        forwardScrollMask |= 1 << 1;
+                        break;
+                    case EColliderCallbackType.EXIT:
+                        forwardScrollMask ^= 1 << 1;
+                        break;
+                    case EColliderCallbackType.ENTER:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                }
             }
             else if (_entity.gameObject == player2)
             {
-                if (_callback_type == EColliderCallbackType.STAY)
-                    forwardScrollMask |= 1 << 2;
-                else if (_callback_type == EColliderCallbackType.EXIT)
-                    forwardScrollMask ^= 1 << 2;
+                switch (_callback_type)
+                {
+                    case EColliderCallbackType.STAY:
+                        forwardScrollMask |= 1 << 2;
+                        break;
+                    case EColliderCallbackType.EXIT:
+                        forwardScrollMask ^= 1 << 2;
+                        break;
+                    case EColliderCallbackType.ENTER:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                }
             }
         }
 
-        public void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
+        private void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
             if (_entity.gameObject == player1)
             {
-                //print(_entity.gameObject.name);
-                if (_callback_type == EColliderCallbackType.STAY)
-                    backwardScrollMask |= 1 << 1;
-                else if (_callback_type == EColliderCallbackType.EXIT)
-                    backwardScrollMask ^= 1 << 1;
+                switch (_callback_type)
+                {
+                    case EColliderCallbackType.STAY:
+                        backwardScrollMask |= 1 << 1;
+                        break;
+                    case EColliderCallbackType.EXIT:
+                        backwardScrollMask ^= 1 << 1;
+                        break;
+                    case EColliderCallbackType.ENTER:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                }
             }
             else if (_entity.gameObject == player2)
             {
-                //print(_entity.gameObject.name);
-                if (_callback_type == EColliderCallbackType.STAY)
-                    backwardScrollMask |= 1 << 2;
-                else if (_callback_type == EColliderCallbackType.EXIT)
-                    backwardScrollMask ^= 1 << 2;
+                switch (_callback_type)
+                {
+                    case EColliderCallbackType.STAY:
+                        backwardScrollMask |= 1 << 2;
+                        break;
+                    case EColliderCallbackType.EXIT:
+                        backwardScrollMask ^= 1 << 2;
+                        break;
+                    case EColliderCallbackType.ENTER:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                }
             }
         }
 
-        public void ForwardScroll()
+        private void ForwardScroll()
         {
-            //print("ForwardScroll()");
             transform.Translate(Vector3.right * Time.deltaTime);
         }
 
-        public void BackwardScroll()
+        private void BackwardScroll()
         {
-            //print("BackwardScroll()");
             transform.Translate(Vector3.left * Time.deltaTime);
         }
     }

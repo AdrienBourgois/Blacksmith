@@ -30,7 +30,7 @@ namespace Game.Scripts
             {
                 x = _vector.x,
                 y = 0f,
-                z = _vector.z,
+                z = _vector.z
             };
         }
     }

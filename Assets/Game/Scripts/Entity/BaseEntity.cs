@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Lifetime;
-using Game.Scripts.Interfaces;
+﻿using Game.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Game.Scripts.Entity
 {
-    public class BaseEntity : Game.Scripts.SceneObjects.MovablePhysicSceneObject, IDamagable
+    public class BaseEntity : SceneObjects.MovablePhysicSceneObject, IDamagable
     {
         [SerializeField] protected float maxHealth;
 
@@ -21,8 +18,6 @@ namespace Game.Scripts.Entity
         // Update is called once per frame
         protected override void Update()
         {
-            base.Update();
-
             if (Input.GetKeyDown(KeyCode.Space))
                 ReceiveDamages(3);
         }
@@ -40,9 +35,9 @@ namespace Game.Scripts.Entity
 
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider _other)
         {
-            IAttack attack = other.GetComponent<IAttack>();
+            IAttack attack = _other.GetComponent<IAttack>();
             if (attack != null)
             {
                 print("AIIIIE");

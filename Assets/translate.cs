@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class translate : MonoBehaviour {
+public class Translate : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+    private void Start () {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+    private void Update () {
 		transform.Translate(Vector3.right * Time.deltaTime);
 	}
 }

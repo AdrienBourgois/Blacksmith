@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Entity;
-using Game.Scripts.Interfaces;
+﻿using Game.Scripts.Entity;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
 {
-    public class SO_BaseAttack : ScriptableObject, Game.Scripts.Interfaces.IAttack
+    public class SoBaseAttack : ScriptableObject, Interfaces.IAttack
     {
         [SerializeField] protected float damages;
         [SerializeField] protected float coolDown;

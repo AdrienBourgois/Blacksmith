@@ -17,15 +17,12 @@ namespace Game.Scripts.SceneObjects
             ON_AIR_UP,
             ON_AIR_DOWN,
             ON_GROUND,
-            ON_OBJECT,
+            ON_OBJECT
         }
 
         protected override void Update()
         {
-            base.Update();
-
             UpdatePhysic();
-            UpdateRuntimeDebug();
 
             if (Input.GetKey(KeyCode.S))
             {
@@ -80,18 +77,6 @@ namespace Game.Scripts.SceneObjects
         {
             velocity.y = 0f;
             currentPhysicState = PhysicState.ON_GROUND;
-        }
-
-        
-
-        protected override void UpdateRuntimeDebug()
-        {
-            base.UpdateRuntimeDebug();
-        }
-
-        protected override void OnDrawGizmos()
-        {
-            base.OnDrawGizmos();
         }
     }
 }

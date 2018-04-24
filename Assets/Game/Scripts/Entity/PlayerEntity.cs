@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +8,7 @@ namespace Game.Scripts.Entity
 {
     public class PlayerEntity : AttackEntity
     {
-        enum EPlayerState
+        private enum EPlayerState
         {
             NORMAL,
             KNOCKED_OUT
@@ -35,10 +35,10 @@ namespace Game.Scripts.Entity
         {
             base.Start();
 
-            InputManager input_manager = FindObjectOfType<InputManager>();
+            InputManager.InputManager input_manager = FindObjectOfType<InputManager.InputManager>();
             switch (soAttack.GetAttackType())
             {
-                case SO_BaseAttack.EAttackType.DISTANCE:
+                case SoBaseAttack.EAttackType.DISTANCE:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
@@ -49,7 +49,7 @@ namespace Game.Scripts.Entity
                         healthSlider = GameObject.FindGameObjectWithTag("P1_healthSlider").GetComponent<Slider>();
                     break;
                 }
-                case SO_BaseAttack.EAttackType.CAC:
+                case SoBaseAttack.EAttackType.CAC:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
@@ -60,6 +60,8 @@ namespace Game.Scripts.Entity
                         healthSlider = GameObject.FindGameObjectWithTag("P2_healthSlider").GetComponent<Slider>();
                     break;
                 }
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             healthSlider.maxValue = maxHealth;
@@ -67,11 +69,6 @@ namespace Game.Scripts.Entity
 
             KnockedOut += () => { inReviveCoroutine = StartCoroutine(ToReviveState()); };
             KnockedOut += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
-        }
-
-        protected override void Update()
-        {
-            base.Update();
         }
 
         #endregion
@@ -102,6 +99,8 @@ namespace Game.Scripts.Entity
                     Destroy(gameObject);
                     break;
                 }
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

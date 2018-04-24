@@ -12,11 +12,6 @@ namespace Game.Scripts.SceneObjects
         [Header("Debug")]
         public bool enableKeyboard;
 
-        protected override void Update()
-        {
-            base.Update();
-        }
-
         protected virtual void ListenXAxis(float _value)
         {
             if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
@@ -68,8 +63,6 @@ namespace Game.Scripts.SceneObjects
 
         protected override void UpdateRuntimeDebug()
         {
-            base.UpdateRuntimeDebug();
-
             if (enableKeyboard)
             {
                 if (Input.GetKey(KeyCode.UpArrow))
@@ -87,7 +80,6 @@ namespace Game.Scripts.SceneObjects
 
         protected override void OnDrawGizmos()
         {
-            base.OnDrawGizmos();
         }
     }
 }
