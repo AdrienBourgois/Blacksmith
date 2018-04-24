@@ -44,12 +44,24 @@ namespace Game.Scripts.SceneObjects
             new_location.z += _move.z * Time.deltaTime * speed;
             if (Physics2D.OverlapPointNonAlloc(location.ToFloor().ToUnitySpace(), floorColliders, 1 << LayerMask.NameToLayer("Floor")) > 0)
                 location = new_location;
+            else
+                Debug.Log("Stuck");
         }
 
         protected void Jump()
         {
             velocity.y = 0.4f;
             currentPhysicState = PhysicState.ON_AIR_UP;
+        }
+
+        protected override void UpdateRuntimeDebug()
+        {
+            base.UpdateRuntimeDebug();
+        }
+
+        protected override void OnDrawGizmos()
+        {
+            base.OnDrawGizmos();
         }
     }
 }

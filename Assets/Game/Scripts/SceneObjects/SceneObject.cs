@@ -14,21 +14,40 @@ namespace Game.Scripts.SceneObjects
 
         protected virtual void Update()
         {
+            UpdateRuntimeDebug();
         }
 
         protected virtual void LateUpdate()
         {
-            SetPosition();
+            SetUnityPosition();
         }
 
         protected virtual void OnValidate()
         {
+        }
+
+        [ContextMenu("Set Unity Position")]
+        public void SetUnityPosition()
+        {
+            transform.position = location.ToUnitySpace();
+        }
+
+        [ContextMenu("Set Game Position")]
+        public void SetGamePosition()
+        {
+            location = transform.position.ToGameSpace();
+        }
+
+        protected virtual void UpdateRuntimeDebug()
+        {
 
         }
 
-        public void SetPosition()
+        protected virtual void OnDrawGizmos()
         {
-            transform.position = location.ToUnitySpace();
+            Debug.DrawLine(location.ToUnitySpace(), location.ToFloor().ToUnitySpace(), Color.blue);
+            UnityEditor.Handles.color = Color.red;
+            UnityEditor.Handles.DrawWireDisc(location.ToFloor().ToUnitySpace(), Vector3.forward, 0.15f);
         }
     }
 }

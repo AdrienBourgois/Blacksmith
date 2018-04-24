@@ -19,7 +19,7 @@ namespace Game.Scripts
             return new Vector3
             {
                 x = _vector.x,
-                y = _vector.y - _vector.z * GamePhysic.slope,
+                y = _vector.y - _vector.z,
                 z = _vector.z / GamePhysic.slope
             };
         }
