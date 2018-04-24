@@ -45,6 +45,7 @@ public class PlayerEntity : BaseEntity
 	    {
             case EPlayerType.CAC:
                 healthSlider = GameObject.FindGameObjectWithTag("P1_healthSlider").GetComponent<Slider>();
+
                 break;
             case EPlayerType.DISTANCE:
                 healthSlider = GameObject.FindGameObjectWithTag("P2_healthSlider").GetComponent<Slider>();

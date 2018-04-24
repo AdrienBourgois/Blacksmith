@@ -52,7 +52,9 @@ public class GameState : MonoBehaviour
 
     private void SwitchGameState(EGameState _new_e_game_state)
     {
-        eGameState = _new_e_game_state;
+        eGameState = _new_e_game_state; 
+
+        // invoke event with state ?
     }
     public void SetIsTwoPlayers(bool _twoPlayer)
     {
