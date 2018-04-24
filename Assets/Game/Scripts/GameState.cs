@@ -42,6 +42,7 @@ public class GameState : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(this);
+        FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatState);
     }
 
     void Update()
@@ -49,6 +50,11 @@ public class GameState : MonoBehaviour
 
     }
     #endregion
+
+    private void SwitchToCombatState()
+    {
+        print("SwitchToCombatState");
+    }
 
     private void SwitchGameState(EGameState _new_e_game_state)
     {

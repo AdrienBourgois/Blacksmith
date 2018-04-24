@@ -86,6 +86,7 @@ namespace Game.Scripts.Camera
 
         private void OnTriggerExit2D(Collider2D _other)
         {
+            print(_other.name);
             if (triggerExitCallback != null)
                 triggerExitCallback(_other, side, EColliderCallbackType.EXIT);
         }

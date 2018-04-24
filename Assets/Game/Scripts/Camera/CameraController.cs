@@ -137,7 +137,7 @@ namespace Game.Scripts.Camera
             else if (_collider_side == EBorderSide.LEFT)
                 SetBackwardMask(_entity, _callback_type);
 
-            print("forwardScrollMask = " + forwardScrollMask);
+            //print("forwardScrollMask = " + forwardScrollMask);
             //print("backwardScrollMask = " + backwardScrollMask);
 
             byte mask = 0 | ((1 << 1) | (1 << 2)); // mask = 6;
@@ -189,13 +189,13 @@ namespace Game.Scripts.Camera
 
         public void ForwardScroll()
         {
-            print("ForwardScroll()");
+            //print("ForwardScroll()");
             transform.Translate(Vector3.right * Time.deltaTime);
         }
 
         public void BackwardScroll()
         {
-            print("BackwardScroll()");
+            //print("BackwardScroll()");
             transform.Translate(Vector3.left * Time.deltaTime);
         }
     }
