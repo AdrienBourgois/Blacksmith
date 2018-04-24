@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Remoting.Lifetime;
 using UnityEngine;
 
-namespace Game.Scripts.SceneObjects
+namespace Game.Scripts.Entity
 {
     public class BaseEntity : Game.Scripts.SceneObjects.MovablePhysicSceneObject, IDamagable
     {
@@ -12,13 +12,13 @@ namespace Game.Scripts.SceneObjects
         protected float health;
 
         // Use this for initialization
-        protected virtual void Start()
+        protected override void Start()
         {
             health = maxHealth;
         }
 
         // Update is called once per frame
-        protected virtual void Update()
+        protected override void Update()
         {
             base.Update();
 
@@ -26,6 +26,7 @@ namespace Game.Scripts.SceneObjects
                 ReceiveDamages(3);
         }
 
+        #region IDamagable
         public virtual void ReceiveDamages(int _damages)
         {
             health -= _damages;
@@ -37,5 +38,7 @@ namespace Game.Scripts.SceneObjects
         {
 
         }
+        #endregion
+
     }
 }

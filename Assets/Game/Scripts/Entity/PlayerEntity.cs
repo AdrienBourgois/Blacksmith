@@ -1,25 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Game.Scripts.SceneObjects
+namespace Game.Scripts.Entity
 {
-    public class PlayerEntity : BaseEntity
+    public class PlayerEntity : AttackEntity
     {
-        enum EPlayerType
-        {
-            CAC,
-            DISTANCE
-        }
-
         enum EPlayerState
         {
             NORMAL,
             KNOCKED_OUT
         }
-
-        [SerializeField] private EPlayerType playerType;
 
         [SerializeField] private float reviveTimeTeammate;
 
@@ -43,22 +36,26 @@ namespace Game.Scripts.SceneObjects
             base.Start();
 
             InputManager input_manager = FindObjectOfType<InputManager>();
-            switch (playerType)
+            switch (soAttack.GetAttackType())
             {
-                case EPlayerType.CAC:
+                case SO_BaseAttack.EAttackType.CAC:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
                     input_manager.SubscribeToJumpReviveP1Event(Jump);
+                    input_manager.SubscribeToWeakAttackP1Event(soAttack.LightGroundedAttack);
+                    input_manager.SubscribeToStrongAttackP1Event(soAttack.HeavyGroundedAttack);
 
-                    healthSlider = GameObject.FindGameObjectWithTag("P1_healthSlider").GetComponent<Slider>();
+                        healthSlider = GameObject.FindGameObjectWithTag("P1_healthSlider").GetComponent<Slider>();
                     break;
                 }
-                case EPlayerType.DISTANCE:
+                case SO_BaseAttack.EAttackType.DISTANCE:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
                     input_manager.SubscribeToJumpReviveP2Event(Jump);
+                    input_manager.SubscribeToWeakAttackP2Event(soAttack.LightGroundedAttack);
+                    input_manager.SubscribeToStrongAttackP2Event(soAttack.HeavyGroundedAttack);
 
                         healthSlider = GameObject.FindGameObjectWithTag("P2_healthSlider").GetComponent<Slider>();
                     break;

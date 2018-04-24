@@ -27,31 +27,43 @@ namespace Game.Scripts.SceneObjects
                 Jump();*/
         }
 
-        protected void ListenXAxis(float _value)
+        protected virtual void ListenXAxis(float _value)
         {
-            TryMove(new Vector3(_value, 0, 0));
+            if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
+                TryMove(new Vector3(_value, 0, 0));
         }
 
-        protected void ListenZAxis(float _value)
+        protected virtual void ListenZAxis(float _value)
         {
-            TryMove(new Vector3(0, 0, _value));
+            if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
+                    TryMove(new Vector3(0, 0, _value));
         }
 
         private void TryMove(Vector3 _move)
         {
+            Vector3 new_scale = transform.localScale;
+            new_scale.x = Mathf.Abs(new_scale.x);
+            new_scale.x *= Mathf.Sign(_move.x);
+
             Vector3 new_location = location;
             new_location.x += _move.x * Time.deltaTime * speed;
             new_location.z += _move.z * Time.deltaTime * speed;
             if (Physics2D.OverlapPointNonAlloc(location.ToFloor().ToUnitySpace(), floorColliders, 1 << LayerMask.NameToLayer("Floor")) > 0)
+            {
                 location = new_location;
+                transform.localScale = new_scale;
+            }
             else
                 Debug.Log("Stuck");
         }
 
-        protected void Jump()
+        protected virtual void Jump()
         {
-            velocity.y = 0.4f;
-            currentPhysicState = PhysicState.ON_AIR_UP;
+            if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
+            {
+                velocity.y = 0.4f;
+                currentPhysicState = PhysicState.ON_AIR_UP;
+            }
         }
 
         protected override void UpdateRuntimeDebug()
