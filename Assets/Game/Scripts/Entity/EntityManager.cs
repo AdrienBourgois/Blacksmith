@@ -27,7 +27,7 @@ namespace Game.Scripts.Entity
                     {
                         player_entity.Revive();
                     }
-                } 
+                }
             }
         }
 

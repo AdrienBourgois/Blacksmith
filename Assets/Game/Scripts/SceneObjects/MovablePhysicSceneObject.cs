@@ -7,6 +7,7 @@ namespace Game.Scripts.SceneObjects
         [Header("Movable Physic Scene Object")]
         public float speed = 3f;
 
+        public float jumpPower = 0.3f;
         public bool mustBeInCameraSpace;
 
         [Header("Debug")]
@@ -60,7 +61,7 @@ namespace Game.Scripts.SceneObjects
         {
             if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
             {
-                velocity.y = 0.4f;
+                velocity.y = jumpPower;
                 currentPhysicState = PhysicState.ON_AIR_UP;
             }
         }

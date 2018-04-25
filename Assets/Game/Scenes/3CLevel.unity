@@ -607,13 +607,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: -13.109329, y: 0.028671265, z: 1.6468897}
+  location: {x: -3.6071901, y: 0.028671265, z: 1.6468897}
   sprite: {fileID: 21300000, guid: d6349df1e3a2c4142a43159de7aa714a, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
-  speed: 3
+  gravityScale: 12
+  speed: 4
+  jumpPower: 0.3
   mustBeInCameraSpace: 1
-  enableKeyboard: 0
+  enableKeyboard: 1
   recoveryTime: 1
   maxHealth: 10
   recoveryColor: {r: 0.5058824, g: 0.23921569, b: 0.23921569, a: 1}
@@ -628,7 +630,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 205095110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.109329, y: 0.8521161, z: 0.82344484}
+  m_LocalPosition: {x: -3.6071901, y: 0.8521161, z: 0.82344484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 822456519}
@@ -1468,11 +1470,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 205095110}
   player2: {fileID: 1127114077}
-  maxZoomInDistance: 4
-  maxZoomOutDistance: 8
+  maxZoomInDistance: 5
+  maxZoomOutDistance: 6
   attenuationFactor: 1
-  zoomSmoothness: 0.054
-  scrollSpeed: 2
+  zoomSmoothness: 0.01
+  scrollSpeed: 4
   rightScrollZone: {fileID: 215328374}
   leftScrollZone: {fileID: 126654610}
 --- !u!61 &729275891
@@ -1874,7 +1876,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e9eb6d57b11e8234ebf6d2b0a1507414, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
+  gravityScale: 8
   speed: 3
+  jumpPower: 8
   mustBeInCameraSpace: 0
   enableKeyboard: 0
   recoveryTime: 1
@@ -2144,13 +2148,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: -13.2896385, y: 0.004047394, z: 6.1305313}
+  location: {x: -15.714321, y: 0.004047394, z: 6.1305313}
   sprite: {fileID: 21300000, guid: 40541fa9cc19c5c42ab257f055604881, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
-  speed: 3
+  gravityScale: 12
+  speed: 4
+  jumpPower: 0.31
   mustBeInCameraSpace: 1
-  enableKeyboard: 0
+  enableKeyboard: 1
   recoveryTime: 1
   maxHealth: 8
   recoveryColor: {r: 0.5058824, g: 0.23921569, b: 0.23921569, a: 1}
@@ -2165,7 +2171,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1127114077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.2896385, y: 3.069313, z: 3.0652657}
+  m_LocalPosition: {x: -15.714321, y: 3.069313, z: 3.0652657}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
   - {fileID: 1720141495}
@@ -2814,7 +2820,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e9eb6d57b11e8234ebf6d2b0a1507414, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
+  gravityScale: 8
   speed: 3
+  jumpPower: 8
   mustBeInCameraSpace: 0
   enableKeyboard: 0
   recoveryTime: 1
