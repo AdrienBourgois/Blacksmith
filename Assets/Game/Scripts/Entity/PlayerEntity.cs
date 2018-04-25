@@ -43,7 +43,7 @@ namespace Game.Scripts.Entity
             InputManager.InputManager input_manager = FindObjectOfType<InputManager.InputManager>();
             switch (soAttack.GetAttackType())
             {
-                case SoBaseAttack.EAttackType.DISTANCE:
+                case SoBaseAttack.EAttackType.CAC:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
@@ -51,10 +51,12 @@ namespace Game.Scripts.Entity
                     input_manager.SubscribeToWeakAttackP1Event(soAttack.LightGroundedAttack);
                     input_manager.SubscribeToStrongAttackP1Event(soAttack.HeavyGroundedAttack);
 
-                        healthSlider = GameObject.FindGameObjectWithTag("P1_healthSlider").GetComponent<Slider>();
+                    healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(0).GetComponent<Slider>();
+                    furySlider = GameObject.FindGameObjectWithTag("FuryUI").transform.GetChild(0).GetComponent<Slider>();
+
                     break;
                 }
-                case SoBaseAttack.EAttackType.CAC:
+                case SoBaseAttack.EAttackType.DISTANCE:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
@@ -62,7 +64,9 @@ namespace Game.Scripts.Entity
                     input_manager.SubscribeToWeakAttackP2Event(soAttack.LightGroundedAttack);
                     input_manager.SubscribeToStrongAttackP2Event(soAttack.HeavyGroundedAttack);
 
-                        healthSlider = GameObject.FindGameObjectWithTag("P2_healthSlider").GetComponent<Slider>();
+                    healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(1).GetComponent<Slider>();
+                    furySlider = GameObject.FindGameObjectWithTag("FuryUI").transform.GetChild(1).GetComponent<Slider>();
+
                     break;
                 }
                 default:
@@ -71,6 +75,7 @@ namespace Game.Scripts.Entity
 
             healthSlider.maxValue = maxHealth;
             healthSlider.value = health;
+            furySlider.value = fury;
 
             KnockedOut += () => { inReviveCoroutine = StartCoroutine(ToReviveState()); };
             KnockedOut += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
@@ -141,6 +146,7 @@ namespace Game.Scripts.Entity
             if (fury >= maxFury)
                 return;
 
+            print("add fury ! " + name);
             ++fury;
             furySlider.value = fury;
         }
