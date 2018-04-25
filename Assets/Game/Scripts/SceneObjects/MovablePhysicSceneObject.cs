@@ -63,6 +63,8 @@ namespace Game.Scripts.SceneObjects
 
         protected override void UpdateRuntimeDebug()
         {
+            base.UpdateRuntimeDebug();
+
             if (enableKeyboard)
             {
                 if (Input.GetKey(KeyCode.UpArrow))
@@ -76,10 +78,6 @@ namespace Game.Scripts.SceneObjects
                 if (Input.GetKey(KeyCode.Space) && currentPhysicState == PhysicState.ON_GROUND)
                     Jump();
             }
-        }
-
-        protected override void OnDrawGizmos()
-        {
         }
     }
 }

@@ -22,6 +22,8 @@ namespace Game.Scripts.SceneObjects
 
         protected override void Update()
         {
+            base.Update();
+
             UpdatePhysic();
 
             if (Input.GetKey(KeyCode.S))
