@@ -146,7 +146,6 @@ namespace Game.Scripts.Entity
             if (fury >= maxFury)
                 return;
 
-            print("add fury ! " + name);
             ++fury;
             furySlider.value = fury;
         }
