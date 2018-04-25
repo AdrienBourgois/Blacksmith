@@ -1370,7 +1370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 3.9922066, y: 0, z: 0.47997427}
+  location: {x: 0, y: 0, z: 0}
   sprite: {fileID: 21300000, guid: 10e33a5d1df58ea40a55c264633b3fde, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
@@ -1389,7 +1389,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1173803980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.9922066, y: 0.23998713, z: 0.23998713}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 1194199624}
@@ -1464,7 +1464,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1194199623}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4164648, y: 2.7522652, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1173803983}
@@ -1481,7 +1481,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55ad005018b9064190d17bcf89da214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 5.700439, y: 1.3761326, z: 0.47997427}
+  location: {x: 3.5, y: 2.6, z: 0}
 --- !u!1 &1309305594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,7 +1748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 0, y: 0, z: 0.44482517}
+  location: {x: -3.089349, y: 0, z: 0.44482517}
   sprite: {fileID: 21300000, guid: d517d102d95a5874393d1be29293060e, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
@@ -1767,7 +1767,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1705283867}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.22241259, z: 0.22241259}
+  m_LocalPosition: {x: -3.089349, y: 0.22241259, z: 0.22241259}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 107279957}

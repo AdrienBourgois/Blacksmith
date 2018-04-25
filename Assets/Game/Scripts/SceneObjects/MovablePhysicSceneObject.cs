@@ -27,8 +27,12 @@ namespace Game.Scripts.SceneObjects
         private void TryMove(Vector3 _move)
         {
             Vector3 new_scale = transform.localScale;
-            new_scale.x = Mathf.Abs(new_scale.x);
-            new_scale.x *= Mathf.Sign(_move.x);
+
+            if (_move.x != 0)
+            {
+                new_scale.x = Mathf.Abs(new_scale.x);
+                new_scale.x *= Mathf.Sign(_move.x);
+            }
 
             Vector3 new_location = location;
             new_location.x += _move.x * Time.deltaTime * speed;
