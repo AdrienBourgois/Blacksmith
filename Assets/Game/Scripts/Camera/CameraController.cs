@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Game.Scripts.Camera
@@ -58,18 +59,15 @@ namespace Game.Scripts.Camera
         private void Awake()
         {
             forwardScrollMask = 0;
+            backwardScrollMask = 0;
         }
 
         private void Start ()
         {
             gameCamera = GetComponent<UnityEngine.Camera>();
             cameraCollider = gameObject.GetComponent<BoxCollider2D>();
-            CameraScrollZone camera_scroll_zone = FindObjectOfType<CameraScrollZone>();
-
-            rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
-            rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
-            leftScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
-            leftScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+            SubscribeToCameraScrollZoneEvents();
+            FindObjectOfType<GameState>().SubscribeToGamePlayStateCallback(ListenToGamePlayState);
         }
 
         private void Update ()
@@ -78,6 +76,42 @@ namespace Game.Scripts.Camera
             ComputeZoom(distance);
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
+        }
+
+        public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
+        {
+            //print("ListenToGamePlayState");
+            switch (_e_game_play_state)
+            {
+                case GameState.EGamePlayState.EXPLORATION:
+                    SubscribeToCameraScrollZoneEvents();
+                    break;
+                case GameState.EGamePlayState.COMBAT:
+                    UnsubscribeToCameraScrollZoneEvents();
+                    break;
+                case GameState.EGamePlayState.CINEMATIC:
+                    UnsubscribeToCameraScrollZoneEvents();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void SubscribeToCameraScrollZoneEvents()
+        {
+            rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
+            rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+            leftScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
+            leftScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+        }
+
+        private void UnsubscribeToCameraScrollZoneEvents()
+        {
+            print("UnsubscribeToCameraScrollZoneEvents");
+            rightScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
+            rightScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
+            leftScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
+            leftScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
         }
 
         private float ComputeDistance()

@@ -401,6 +401,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114640390276778992, guid: a7905202c60fe2c47be1988de67d3dec,
+        type: 2}
+      propertyPath: percentSize
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
   m_IsPrefabParent: 0
@@ -466,6 +471,11 @@ Prefab:
     - target: {fileID: 1489306092595792, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114640390276778992, guid: a7905202c60fe2c47be1988de67d3dec,
+        type: 2}
+      propertyPath: percentSize
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7905202c60fe2c47be1988de67d3dec, type: 2}
@@ -788,6 +798,7 @@ GameObject:
   - component: {fileID: 729275886}
   - component: {fileID: 729275890}
   - component: {fileID: 729275891}
+  - component: {fileID: 729275892}
   m_Layer: 12
   m_Name: Camera
   m_TagString: Untagged
@@ -906,6 +917,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &729275892
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 729275885}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &1051175569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,9 +1059,10 @@ MonoBehaviour:
   mustBeInCameraSpace: 1
   enableKeyboard: 0
   maxHealth: 8
-  playerType: 1
+  soAttack: {fileID: 11400000, guid: 4505b0c737c05394c9196dd20a57ced7, type: 2}
   reviveTimeTeammate: 3
   reviveTime: 3
+  maxFury: 0
 --- !u!4 &1173803983
 Transform:
   m_ObjectHideFlags: 0
@@ -1236,7 +1268,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1623715740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.95, y: 0, z: 35.075676}
+  m_LocalPosition: {x: 26.46, y: 0, z: 35.075676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1262,7 +1294,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1276,7 +1308,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.6, y: 18.62}
   m_EdgeRadius: 0
 --- !u!1 &1705283867
 GameObject:
@@ -1360,9 +1392,10 @@ MonoBehaviour:
   mustBeInCameraSpace: 1
   enableKeyboard: 0
   maxHealth: 15
-  playerType: 0
+  soAttack: {fileID: 11400000, guid: e78bebe51704602478e572dc9d44c084, type: 2}
   reviveTimeTeammate: 4
   reviveTime: 3
+  maxFury: 0
 --- !u!4 &1705283870
 Transform:
   m_ObjectHideFlags: 0
@@ -1489,7 +1522,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1758819022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.3, y: 0, z: 10}
+  m_LocalPosition: {x: 10.3, y: 3, z: 10}
   m_LocalScale: {x: 1, y: 1.0000001, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

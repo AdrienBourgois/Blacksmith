@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114324422350119570}
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   EditorEvents:
   - {fileID: 114915593541934992}
   - {fileID: 114837513124833466}
@@ -21,11 +21,44 @@ MonoBehaviour:
   - {fileID: 114658825182452476}
   - {fileID: 114489279463318946}
   - {fileID: 114711423539370520}
-  MasterBankRef: {fileID: 114800892922350264}
+  MasterBankRef: {fileID: 114107040351169062}
   StringsBankRef: {fileID: 114324422350119570}
-  stringsBankWriteTime: 636602528148186099
+  stringsBankWriteTime: 636602521350006130
   cacheVersion: 2
 --- !u!114 &114089640414052696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Changer phase de  jeu
+  Min: 0
+  Max: 3
+  Default: 0
+--- !u!114 &114107040351169062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Programming\Projects\BTA\Blacksmith\Assets\Game\FmodBanks\Master Bank.bank
+  lastModified: 636602521349885806
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 14737728
+  Exists: 1
+--- !u!114 &114280412769928890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -52,13 +85,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Game\FmodBanks\Master Bank.strings.bank
-  lastModified: 636602528148186099
+  lastModified: 636602521350006130
   LoadResult: 0
   FileSizes:
   - Name: 
     Value: 978
   Exists: 1
---- !u!114 &114369419731989346
+--- !u!114 &114329443638125222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -87,7 +120,7 @@ MonoBehaviour:
   Path: event:/Sound Design (3D)/Sea
   guid: 84b4a6a54856cf41a44dfd672034c1d6
   Banks:
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -113,7 +146,7 @@ MonoBehaviour:
   - Name: 
     Value: 14737728
   Exists: 1
---- !u!114 &114526377874109004
+--- !u!114 &114512136892278334
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -142,30 +175,15 @@ MonoBehaviour:
   Path: event:/Music (2D)/LVL03_Loop
   guid: 1482e41a5ef3c044ac544e3b2e0dca06
   Banks:
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114658394466859104}
+  - {fileID: 114329443638125222}
   MinDistance: 0
   MaxDistance: 0
   Length: 89302
---- !u!114 &114658394466859104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: Changer phase de  jeu
-  Min: 0
-  Max: 3
-  Default: 0
 --- !u!114 &114658825182452476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,12 +198,12 @@ MonoBehaviour:
   Path: event:/Music (2D)/LVL01_Loop
   guid: 3efa7dfc47796641ab7b83239f0f8443
   Banks:
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114369419731989346}
+  - {fileID: 114512136892278334}
   MinDistance: 0
   MaxDistance: 0
   Length: 80000
@@ -203,12 +221,12 @@ MonoBehaviour:
   Path: event:/Music (2D)/LVL02_Loop
   guid: a3df20f2dedf4247822e94bbc0fd4f3b
   Banks:
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114526377874109004}
+  - {fileID: 114280412769928890}
   MinDistance: 0
   MaxDistance: 0
   Length: 57062
@@ -227,24 +245,6 @@ MonoBehaviour:
   Min: 0
   Max: 3
   Default: 0
---- !u!114 &114800892922350264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: D:\Projets\GitHub\Blacksmith\Assets\Game\FmodBanks\Master Bank.bank
-  lastModified: 636602528148156335
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 14737728
-  Exists: 1
 --- !u!114 &114837513124833466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ MonoBehaviour:
   Path: event:/Sound Design (3D)/Jungle
   guid: 13150298db3a3f4aa5b4f93300520498
   Banks:
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -281,7 +281,7 @@ MonoBehaviour:
   Path: event:/Sound Design (3D)/Construction site
   guid: 0756539741d1524ba746f113caf4a8a7
   Banks:
-  - {fileID: 114800892922350264}
+  - {fileID: 114107040351169062}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0

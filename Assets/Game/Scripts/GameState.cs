@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
 {
@@ -18,14 +19,20 @@ namespace Game.Scripts
         private EGameState eGameState = EGameState.MAIN_MENU;
         private EGamePlayState eGamePlayState = EGamePlayState.EXPLORATION;
 
-        private enum EGameState
+        public delegate void GameStateDelegate(EGameState _e_game_state);
+        public delegate void GamePlayStateDelegate(EGamePlayState _e_game_play_state);
+
+        private GameStateDelegate gameStateCallback;
+        private GamePlayStateDelegate gamePlayStateCallback;
+
+        public enum EGameState
         {
             MAIN_MENU,
             IN_GAME,
             PAUSED
         }
 
-        private enum EGamePlayState
+        public enum EGamePlayState
         {
             COMBAT,
             EXPLORATION,
@@ -42,13 +49,51 @@ namespace Game.Scripts
         private void Start()
         {
             DontDestroyOnLoad(this);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         #endregion
 
-        private void SwitchToCombatState()
+        #region CallbackSubscription
+        public void SubscribeToGameStateCallback(GameStateDelegate _function_pointer)
         {
-            print("SwitchToCombatState");
+            gameStateCallback += _function_pointer;
+        }
+
+        public void SubscribeToGamePlayStateCallback(GamePlayStateDelegate _function_pointer)
+        {
+            gamePlayStateCallback += _function_pointer;
+        }
+        #endregion
+
+        #region CallbackUnsubscription
+        public void UnsubscribeToGameStateCallback(GameStateDelegate _function_pointer)
+        {
+            gameStateCallback -= _function_pointer;
+        }
+
+        public void UnsubscribeToGamePlayStateCallback(GamePlayStateDelegate _function_pointer)
+        {
+            gamePlayStateCallback -= _function_pointer;
+        }
+        #endregion
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Debug.Log("OnSceneLoaded: " + scene.name);
+
+            if (scene.name == "3CLevel")
+                SwitchGameState(EGameState.IN_GAME);
+        }
+
+        private void SwitchToCombatGamePlayState(Collider2D _other, GameObject trigger)
+        {
+            //print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
+            if (_other.gameObject.name == "Camera")
+            {
+                trigger.SetActive(false);
+                SwitchGamePlayState(EGamePlayState.COMBAT);
+            }
         }
 
         private void SwitchGameState(EGameState _new_e_game_state)
@@ -58,12 +103,22 @@ namespace Game.Scripts
             switch (_new_e_game_state)
             {
                 case EGameState.IN_GAME:
-                    FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatState);
+                    FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatGamePlayState);
                     break;
             }
 
-            // invoke event with state ?
+            if (gameStateCallback != null)
+                gameStateCallback(eGameState);
         }
+
+        private void SwitchGamePlayState(EGamePlayState _new_e_game_play_state)
+        {
+            eGamePlayState = _new_e_game_play_state;
+
+            if (gamePlayStateCallback != null)
+                gamePlayStateCallback(eGamePlayState);
+        }
+
         public void SetIsTwoPlayers(bool _two_player)
         {
             isTwoPlayer = _two_player;
