@@ -24,7 +24,7 @@ namespace Game.Scripts.ScriptableObjects
             eAttackType = EAttackType.CAC;
 
             TriggerBaseAttack trigger_attack_weak = myAttackEntity.transform.GetChild(0).GetComponent<TriggerBaseAttack>();
-            trigger_attack_weak.damages = heavyDamages;
+            trigger_attack_weak.damages = weakDamages;
             trigger_attack_weak.onEntityHit += DamageEntity;
 
             TriggerBaseAttack trigger_attack_heavy = myAttackEntity.transform.GetChild(1).GetComponent<TriggerBaseAttack>();

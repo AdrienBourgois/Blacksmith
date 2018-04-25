@@ -113,7 +113,6 @@ namespace Game.Scripts.Camera
 
         private void UnsubscribeToCameraScrollZoneEvents()
         {
-            print("UnsubscribeToCameraScrollZoneEvents");
             rightScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
             rightScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
             leftScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);

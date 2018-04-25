@@ -80,15 +80,12 @@ namespace Game.Scripts
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            Debug.Log("OnSceneLoaded: " + scene.name);
-
             if (scene.name == "3CLevel")
                 SwitchGameState(EGameState.IN_GAME);
         }
 
         private void ListenToCallback(Collider2D _other, GameObject trigger)
         {
-            print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
             if (trigger.layer == LayerMask.NameToLayer("CombatZone"))
             {
                 if (_other.gameObject.name == "Camera")

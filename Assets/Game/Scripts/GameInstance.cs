@@ -75,8 +75,6 @@ namespace Game.Scripts
 
 		private void LoadLevel()
 		{
-			print("Loading scene: " + levelToLoad);
-
 			SceneManager.LoadScene(levelToLoad);
 		}
 		#endregion

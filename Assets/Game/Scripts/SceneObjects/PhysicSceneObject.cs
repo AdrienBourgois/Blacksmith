@@ -25,12 +25,6 @@ namespace Game.Scripts.SceneObjects
             base.Update();
 
             UpdatePhysic();
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                velocity.x = -0.2f;
-                velocity.y = 0.35f;
-            }
         }
 
         protected virtual void UpdatePhysic()

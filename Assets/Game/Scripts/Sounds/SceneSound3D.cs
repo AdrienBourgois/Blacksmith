@@ -1,4 +1,5 @@
-﻿using FMODUnity;
+﻿using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 namespace Game.Scripts.Sounds
@@ -13,7 +14,7 @@ namespace Game.Scripts.Sounds
         [Range(0f, 1f)]
         private float volume = 0.5f;
 
-        private FMOD.Studio.EventInstance soundInstance;
+        private EventInstance soundInstance;
 
         private void Start()
         {
@@ -33,6 +34,7 @@ namespace Game.Scripts.Sounds
 
         private void OnDestroy()
         {
+            soundInstance.stop(STOP_MODE.ALLOWFADEOUT);
             soundInstance.release();
         }
     }
