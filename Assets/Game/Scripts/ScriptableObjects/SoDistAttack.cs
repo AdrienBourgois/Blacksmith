@@ -20,7 +20,7 @@ namespace Game.Scripts.ScriptableObjects
 
         private void SameTmpAttack() // TMP
         {
-            if (isAttacking || isInCooldwnl)
+            if (isAttacking || isInCooldown)
                 return;
 
             Debug.Log("ATTACK !");
@@ -72,7 +72,7 @@ namespace Game.Scripts.ScriptableObjects
         {
             Debug.Log("Cooldown");
 
-            isInCooldwnl = true;
+            isInCooldown = true;
             float time = coolDown;
 
             while (time >= 0)
@@ -81,7 +81,7 @@ namespace Game.Scripts.ScriptableObjects
                 yield return null;
             }
 
-            isInCooldwnl = false;
+            isInCooldown = false;
         }
     }
 }

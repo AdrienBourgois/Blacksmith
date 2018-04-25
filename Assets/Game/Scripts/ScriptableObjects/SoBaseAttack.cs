@@ -12,7 +12,7 @@ namespace Game.Scripts.ScriptableObjects
         protected AttackEntity myAttackEntity;
 
         protected bool isAttacking;
-        protected bool isInCooldwnl;
+        protected bool isInCooldown;
 
         protected bool isPlayer;
 
@@ -28,6 +28,9 @@ namespace Game.Scripts.ScriptableObjects
         {
             myAttackEntity = _my_attack_entity;
             isPlayer = (PlayerEntity) myAttackEntity != null ? true : false;
+
+            isAttacking = false;
+            isInCooldown = false;
         }
 
         public virtual void LightGroundedAttack() { }

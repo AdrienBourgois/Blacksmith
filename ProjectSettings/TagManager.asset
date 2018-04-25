@@ -4,8 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - P1_healthSlider
-  - P2_healthSlider
+  - HealthUI
+  - FuryUI
   layers:
   - Default
   - TransparentFX
@@ -20,7 +20,7 @@ TagManager:
   - OnObject
   - Floor
   - Camera
-  - 
+  - Entity
   - 
   - 
   - 

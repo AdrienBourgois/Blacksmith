@@ -9,19 +9,25 @@ namespace Game.Scripts.ScriptableObjects
     {
         private void SameTmpAttack() // TMP
         {
-            if (isAttacking || isInCooldwnl)
+            if (isAttacking || isInCooldown)
                 return;
 
-            Debug.Log("ATTACK !");
-
             myAttackEntity.transform.GetChild(0).gameObject.SetActive(true);
+            myAttackEntity.transform.GetChild(0).GetComponent<TriggerCaCAttack>().Attack();
             myAttackEntity.StartCoroutine(AttackDuration(1f));
         }
 
         public override void Init(AttackEntity _my_attack_entity)
         {
             base.Init(_my_attack_entity);
+
             eAttackType = EAttackType.CAC;
+
+            TriggerBaseAttack trigger_attack = myAttackEntity.transform.GetChild(0).GetComponent<TriggerBaseAttack>();
+            trigger_attack.damages = damages;
+            trigger_attack.onEntityHit += DamageEntity;
+            if (isPlayer)
+                trigger_attack.onEntityHit += ((PlayerEntity)myAttackEntity).OnEntityHit;
         }
 
         public override void LightGroundedAttack()
@@ -41,9 +47,7 @@ namespace Game.Scripts.ScriptableObjects
 
         private IEnumerator Cooldown()
         {
-            Debug.Log("Cooldown");
-
-            isInCooldwnl = true;
+            isInCooldown = true;
             float time = coolDown;
 
             while (time >= 0)
@@ -52,13 +56,11 @@ namespace Game.Scripts.ScriptableObjects
                 yield return null;
             }
 
-            isInCooldwnl = false;
+            isInCooldown = false;
         }
 
         private IEnumerator AttackDuration(float _duration)
         {
-            Debug.Log("AttackDuration");
-
             isAttacking = true;
             float time = _duration;
 
