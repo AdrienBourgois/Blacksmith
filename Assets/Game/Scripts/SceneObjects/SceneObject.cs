@@ -54,12 +54,5 @@ namespace Game.Scripts.SceneObjects
         {
 
         }
-
-        protected virtual void OnDrawGizmos()
-        {
-            Debug.DrawLine(location.ToUnitySpace(), location.ToFloor().ToUnitySpace(), Color.blue);
-            UnityEditor.Handles.color = Color.red;
-            UnityEditor.Handles.DrawWireDisc(location.ToFloor().ToUnitySpace(), Vector3.forward, 0.15f);
-        }
     }
 }

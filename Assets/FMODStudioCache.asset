@@ -23,8 +23,27 @@ MonoBehaviour:
   - {fileID: 114711423539370520}
   MasterBankRef: {fileID: 114107040351169062}
   StringsBankRef: {fileID: 114324422350119570}
+<<<<<<< Updated upstream
   stringsBankWriteTime: 636602521350006130
+=======
+  stringsBankWriteTime: 636602712603752371
+>>>>>>> Stashed changes
   cacheVersion: 2
+--- !u!114 &114058234401602298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Changer phase de  jeu
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114089640414052696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,11 +104,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Game\FmodBanks\Master Bank.strings.bank
+<<<<<<< Updated upstream
   lastModified: 636602521350006130
+=======
+  lastModified: 636602712603752371
+>>>>>>> Stashed changes
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 978
+    Value: 1048
   Exists: 1
 --- !u!114 &114329443638125222
 MonoBehaviour:
@@ -122,11 +145,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114107040351169062}
   IsStream: 1
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 90474
 --- !u!114 &114507134581731396
 MonoBehaviour:
@@ -140,11 +163,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: C:\Users\Adrien\Desktop\Blacksmith\Assets\Game\FmodBanks\Master Bank.bank
-  lastModified: 636602456608255226
+  lastModified: 636602712603558592
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 14737728
+    Value: 57265728
   Exists: 1
 --- !u!114 &114512136892278334
 MonoBehaviour:
@@ -180,10 +203,44 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
+<<<<<<< Updated upstream
   - {fileID: 114329443638125222}
+=======
+  - {fileID: 114914337673567198}
+>>>>>>> Stashed changes
   MinDistance: 0
   MaxDistance: 0
-  Length: 89302
+  Length: 96744
+--- !u!114 &114562599124149046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Changer phase de  jeu
+  Min: 0
+  Max: 3
+  Default: 0
+--- !u!114 &114617782312352126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Changer phase de  jeu
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114658825182452476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +260,11 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
+<<<<<<< Updated upstream
   - {fileID: 114512136892278334}
+=======
+  - {fileID: 114995073540071822}
+>>>>>>> Stashed changes
   MinDistance: 0
   MaxDistance: 0
   Length: 80000
@@ -226,7 +287,11 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
+<<<<<<< Updated upstream
   - {fileID: 114280412769928890}
+=======
+  - {fileID: 114782344503212124}
+>>>>>>> Stashed changes
   MinDistance: 0
   MaxDistance: 0
   Length: 57062
@@ -242,6 +307,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Changer phase de  jeu
+  Min: 0
+  Max: 3
+  Default: 0
+--- !u!114 &114782344503212124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DynamicMusic
   Min: 0
   Max: 3
   Default: 0
@@ -261,12 +341,27 @@ MonoBehaviour:
   Banks:
   - {fileID: 114107040351169062}
   IsStream: 1
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 121994
+--- !u!114 &114914337673567198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DynamicMusic
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114915593541934992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,11 +378,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114107040351169062}
   IsStream: 1
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 0
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 58000
 --- !u!114 &114979729573689476
 MonoBehaviour:
@@ -301,6 +396,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Changer phase de  jeu
+  Min: 0
+  Max: 3
+  Default: 0
+--- !u!114 &114995073540071822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DynamicMusic
   Min: 0
   Max: 3
   Default: 0
