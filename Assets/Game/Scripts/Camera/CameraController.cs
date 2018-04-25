@@ -72,7 +72,7 @@ namespace Game.Scripts.Camera
 
         private void Update ()
         {
-            float distance = ComputeDistance();
+            float distance = UnsignedHorizontalDistance(player1.transform.position, player2.transform.position);
             ComputeZoom(distance);
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
@@ -120,10 +120,27 @@ namespace Game.Scripts.Camera
             return Mathf.Abs(direction.x);
         }
 
+        private float SignedHorizontalDistance(Vector3 A, Vector3 B)
+        {
+            Vector3 direction = A - B;
+            return direction.x;
+        }
+
+        private float UnsignedHorizontalDistance(Vector3 A, Vector3 B)
+        {
+            Vector3 direction = A - B;
+            return Mathf.Abs(direction.x);
+        }
+
         private void ComputeZoom(float _distance)
         {
             float raw_zoom = _distance / attenuationFactor;
             float smooth_zoom = Mathf.Lerp(gameCamera.orthographicSize, raw_zoom, smoothness);
+
+            if ((UnsignedHorizontalDistance(this.transform.position, player1.transform.position) + 0.3f) >= HalfHorizontalViewingVolume
+                ||
+                (UnsignedHorizontalDistance(this.transform.position, player2.transform.position) + 0.3f) >= HalfHorizontalViewingVolume)
+                return;
 
             if (MaxZoomInReached(smooth_zoom) || MaxZoomOutReached(smooth_zoom))
                 return;
