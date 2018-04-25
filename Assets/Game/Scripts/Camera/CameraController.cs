@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Game.Scripts.Camera
@@ -97,7 +96,7 @@ namespace Game.Scripts.Camera
             }
         }
 
-        private void SubscribeToCameraScrollZoneEvents()
+        public void SubscribeToCameraScrollZoneEvents()
         {
             rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
             rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);

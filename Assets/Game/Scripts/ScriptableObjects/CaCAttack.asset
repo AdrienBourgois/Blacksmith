@@ -11,5 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af6dd4d5842fe14495ddb4980abd80b, type: 3}
   m_Name: CaCAttack
   m_EditorClassIdentifier: 
-  damages: 4
-  coolDown: 2
+  weakDamages: 2
+  heavyDamages: 4
+  weakCoolDown: 1
+  heavyCoolDown: 2

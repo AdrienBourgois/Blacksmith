@@ -6,6 +6,8 @@ TagManager:
   tags:
   - HealthUI
   - FuryUI
+  - P2_healthSlider
+  - P1_healthSlider
   layers:
   - Default
   - TransparentFX
@@ -21,8 +23,8 @@ TagManager:
   - Floor
   - Camera
   - Entity
-  - 
-  - 
+  - CombatZone
+  - GameOverZone
   - 
   - 
   - 

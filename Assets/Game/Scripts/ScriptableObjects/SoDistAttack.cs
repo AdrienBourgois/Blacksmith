@@ -8,8 +8,13 @@ namespace Game.Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "DistAttack", menuName = "Attacks/DistAttack")]
     public class SoDistAttack : SoBaseAttack
     {
-        [SerializeField] private GameObject bulletPrefab;
-        [SerializeField] private float bulletSpeed;
+        [SerializeField] private GameObject weakBulletPrefab;
+        [SerializeField] private GameObject heavyBulletPrefab;
+
+
+        [SerializeField] private float weakBulletSpeed;
+        [SerializeField] private float heavyBulletSpeed;
+
         [SerializeField] private float bulletLifeTime;
 
         public override void Init(AttackEntity _my_attack_entity)
@@ -18,17 +23,17 @@ namespace Game.Scripts.ScriptableObjects
             eAttackType = EAttackType.DISTANCE;
         }
 
-        private void SameTmpAttack() // TMP
+        private void SameTmpAttack(GameObject _prefab, float _damages, float _cooldown, float _speed) // TMP
         {
             if (isAttacking || isInCooldown)
                 return;
 
-            GameObject bullet = Instantiate(bulletPrefab);
+            GameObject bullet = Instantiate(_prefab);
             bullet.GetComponent<SpriteSceneObject>().location = myAttackEntity.transform.GetChild(0).GetComponent<SceneObject>().transform.position.ToGameSpace();
             bullet.tag = myAttackEntity.tag;
 
             TriggerBaseAttack trigger_attack = bullet.GetComponent<TriggerBaseAttack>();
-            trigger_attack.damages = damages;
+            trigger_attack.damages = _damages;
             trigger_attack.onEntityHit += DamageEntity;
             if (isPlayer)
                 trigger_attack.onEntityHit += ((PlayerEntity) myAttackEntity).OnEntityHit;
@@ -37,39 +42,40 @@ namespace Game.Scripts.ScriptableObjects
 
             myAttackEntity.StartCoroutine(BulletAddForceCoroutine(
                 bullet.GetComponent<SpriteSceneObject>(),
-                new Vector3(1 * Mathf.Sign(myAttackEntity.transform.localScale.x), 0, 0)));
+                new Vector3(1 * Mathf.Sign(myAttackEntity.transform.localScale.x), 0, 0), 
+                _speed));
 
-            StartCooldown();
+            StartCooldown(_cooldown);
         }
 
         public override void LightGroundedAttack()
         {
-            SameTmpAttack();
+            SameTmpAttack(weakBulletPrefab, weakDamages, weakCoolDown, weakBulletSpeed);
         }
 
         public override void HeavyGroundedAttack()
         {
-            SameTmpAttack();
+            SameTmpAttack(heavyBulletPrefab, heavyDamages, heavyCoolDown, heavyBulletSpeed);
         }
 
-        public override void StartCooldown()
+        public override void StartCooldown(float _cooldown)
         {
-            myAttackEntity.StartCoroutine(Cooldown());
+            myAttackEntity.StartCoroutine(Cooldown(_cooldown));
         }
 
-        private IEnumerator BulletAddForceCoroutine(SceneObject _bullet, Vector3 _direction)
+        private IEnumerator BulletAddForceCoroutine(SceneObject _bullet, Vector3 _direction, float _speed)
         {
             while (true)
             {
-                _bullet.location += _direction * Time.deltaTime * bulletSpeed;
+                _bullet.location += _direction * Time.deltaTime * _speed;
                 yield return null;
             }
         }
 
-        private IEnumerator Cooldown()
+        private IEnumerator Cooldown(float _cooldown)
         {
             isInCooldown = true;
-            float time = coolDown;
+            float time = _cooldown;
 
             while (time >= 0)
             {

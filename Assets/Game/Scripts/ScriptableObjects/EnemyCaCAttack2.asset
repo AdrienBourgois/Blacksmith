@@ -11,5 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af6dd4d5842fe14495ddb4980abd80b, type: 3}
   m_Name: EnemyCaCAttack2
   m_EditorClassIdentifier: 
-  damages: 3
-  coolDown: 1
+  weakDamages: 2
+  heavyDamages: 4
+  weakCoolDown: 1
+  heavyCoolDown: 2

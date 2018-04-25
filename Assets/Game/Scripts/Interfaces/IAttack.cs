@@ -11,9 +11,9 @@ namespace Game.Scripts.Interfaces
 
         void HeavyGroundedAttack();
 
-        void StartCooldown();
+        void StartCooldown(float _cooldown);
 
-        void DamageEntity(BaseEntity _entity);
+        void DamageEntity(BaseEntity _entity, float _damages);
 
         bool CanAttack();
 

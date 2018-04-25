@@ -22,6 +22,8 @@ public class TmpEnemyEntity : AttackEntity {
     {
         base.Die();
 
+        EntityManager.Instance.EnemyNum -= 1;
+        this.gameObject.SetActive(false);
         // notify entity manager
     }
 }

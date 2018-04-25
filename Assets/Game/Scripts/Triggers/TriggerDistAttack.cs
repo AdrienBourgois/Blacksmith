@@ -12,7 +12,7 @@ public class TriggerDistAttack : TriggerBaseAttack {
             BaseEntity entity = _other.gameObject.GetComponent<BaseEntity>();
             if (entity != null)
             {
-                onEntityHit(entity);
+                onEntityHit(entity, damages);
                 Destroy(gameObject);
             }
         }

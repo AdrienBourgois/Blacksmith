@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TriggerBaseAttack : MonoBehaviour
 {
-    public delegate void TriggerHandler(BaseEntity _entity);
+    public delegate void TriggerHandler(BaseEntity _entity, float _damages);
     public TriggerHandler onEntityHit;
 
     [HideInInspector] public float damages;

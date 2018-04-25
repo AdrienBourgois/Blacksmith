@@ -86,14 +86,28 @@ namespace Game.Scripts
                 SwitchGameState(EGameState.IN_GAME);
         }
 
-        private void SwitchToCombatGamePlayState(Collider2D _other, GameObject trigger)
+        private void ListenToCallback(Collider2D _other, GameObject trigger)
         {
-            //print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
-            if (_other.gameObject.name == "Camera")
+            print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
+            if (trigger.layer == LayerMask.NameToLayer("CombatZone"))
             {
-                trigger.SetActive(false);
-                SwitchGamePlayState(EGamePlayState.COMBAT);
+                if (_other.gameObject.name == "Camera")
+                {
+                    trigger.SetActive(false);
+                    SwitchGamePlayState(EGamePlayState.COMBAT);
+                }
             }
+
+            if (trigger.layer == LayerMask.NameToLayer("GameOverZone"))
+            {
+                if (_other.gameObject.name == "Camera")
+                    GameInstance.Instance.InvokeGameOver();
+            }
+        }
+
+        private void ListenToCallback()
+        {
+
         }
 
         private void SwitchGameState(EGameState _new_e_game_state)
@@ -103,7 +117,12 @@ namespace Game.Scripts
             switch (_new_e_game_state)
             {
                 case EGameState.IN_GAME:
-                    FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatGamePlayState);
+                    ZoneTrigger[] triggers = FindObjectsOfType<ZoneTrigger>();
+                    foreach (ZoneTrigger zone_trigger in triggers)
+                    {
+                    //
+                        zone_trigger.SubscribeToonStayZoneCallback(ListenToCallback);
+                    }
                     break;
             }
 

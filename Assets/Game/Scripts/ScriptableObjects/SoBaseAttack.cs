@@ -6,8 +6,11 @@ namespace Game.Scripts.ScriptableObjects
 {
     public class SoBaseAttack : ScriptableObject, Interfaces.IAttack
     {
-        [SerializeField] protected float damages;
-        [SerializeField] protected float coolDown;
+        [SerializeField] protected float weakDamages;
+        [SerializeField] protected float heavyDamages;
+
+        [SerializeField] protected float weakCoolDown;
+        [SerializeField] protected float heavyCoolDown;
 
         protected AttackEntity myAttackEntity;
 
@@ -37,11 +40,11 @@ namespace Game.Scripts.ScriptableObjects
 
         public virtual void HeavyGroundedAttack() { }
 
-        public virtual void StartCooldown() { }
+        public virtual void StartCooldown(float _cooldown) { }
 
-        public void DamageEntity(BaseEntity _entity)
+        public void DamageEntity(BaseEntity _entity, float _dammages)
         {
-            _entity.GetComponent<IDamagable>().ReceiveDamages(damages);
+            _entity.GetComponent<IDamagable>().ReceiveDamages(_dammages);
         }
 
         public EAttackType GetAttackType()

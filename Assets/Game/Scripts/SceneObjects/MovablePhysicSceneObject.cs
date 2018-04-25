@@ -14,7 +14,7 @@ namespace Game.Scripts.SceneObjects
 
         protected virtual void ListenXAxis(float _value)
         {
-            if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
+            //if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
                 TryMove(new Vector3(_value, 0, 0));
         }
 

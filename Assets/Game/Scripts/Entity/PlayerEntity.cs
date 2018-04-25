@@ -139,7 +139,7 @@ namespace Game.Scripts.Entity
 
         #endregion
 
-        public void OnEntityHit(BaseEntity _entity)
+        public void OnEntityHit(BaseEntity _entity, float useless)
         {
             // if _entity is Enemy
 
@@ -168,6 +168,17 @@ namespace Game.Scripts.Entity
         {
             if (currentState != EPlayerState.KNOCKED_OUT)
                 base.Jump();
+        }
+
+        public void Revive()
+        {
+            if (currentState == EPlayerState.KNOCKED_OUT)
+            {
+                gameObject.SetActive(true);
+                currentState = EPlayerState.NORMAL;
+                health = maxHealth;
+                healthSlider.value = health;
+            }
         }
     }
 }

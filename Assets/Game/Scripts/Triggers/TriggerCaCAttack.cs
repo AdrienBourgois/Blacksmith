@@ -41,7 +41,7 @@ public class TriggerCaCAttack : TriggerBaseAttack
                 BaseEntity entity = collide.GetComponent<BaseEntity>();
 
                 if (onEntityHit != null)
-                    onEntityHit(entity);
+                    onEntityHit(entity, damages);
             }
         }
     }

@@ -7,7 +7,7 @@ namespace Game.Scripts.ScriptableObjects
     [CreateAssetMenu (fileName = "CaCAttack", menuName = "Attacks/CaCAttack")]
     public class SoCaCAttack : SoBaseAttack
     {
-        private void SameTmpAttack() // TMP
+        /*private void SameTmpAttack() // TMP
         {
             if (isAttacking || isInCooldown)
                 return;
@@ -15,7 +15,7 @@ namespace Game.Scripts.ScriptableObjects
             myAttackEntity.transform.GetChild(0).gameObject.SetActive(true);
             myAttackEntity.transform.GetChild(0).GetComponent<TriggerCaCAttack>().Attack();
             myAttackEntity.StartCoroutine(AttackDuration(1f));
-        }
+        }*/
 
         public override void Init(AttackEntity _my_attack_entity)
         {
@@ -23,32 +23,50 @@ namespace Game.Scripts.ScriptableObjects
 
             eAttackType = EAttackType.CAC;
 
-            TriggerBaseAttack trigger_attack = myAttackEntity.transform.GetChild(0).GetComponent<TriggerBaseAttack>();
-            trigger_attack.damages = damages;
-            trigger_attack.onEntityHit += DamageEntity;
+            TriggerBaseAttack trigger_attack_weak = myAttackEntity.transform.GetChild(0).GetComponent<TriggerBaseAttack>();
+            trigger_attack_weak.damages = heavyDamages;
+            trigger_attack_weak.onEntityHit += DamageEntity;
+
+            TriggerBaseAttack trigger_attack_heavy = myAttackEntity.transform.GetChild(1).GetComponent<TriggerBaseAttack>();
+            trigger_attack_heavy.damages = heavyDamages;
+            trigger_attack_heavy.onEntityHit += DamageEntity;
+
             if (isPlayer)
-                trigger_attack.onEntityHit += ((PlayerEntity)myAttackEntity).OnEntityHit;
+            {
+                trigger_attack_heavy.onEntityHit += ((PlayerEntity)myAttackEntity).OnEntityHit;
+                trigger_attack_heavy.onEntityHit += ((PlayerEntity)myAttackEntity).OnEntityHit;
+            }
         }
 
         public override void LightGroundedAttack()
         {
-            SameTmpAttack();
+            if (isAttacking || isInCooldown)
+                return;
+
+            myAttackEntity.transform.GetChild(0).gameObject.SetActive(true);
+            myAttackEntity.transform.GetChild(0).GetComponent<TriggerCaCAttack>().Attack();
+            myAttackEntity.StartCoroutine(AttackDuration(1f, weakCoolDown));
         }
 
         public override void HeavyGroundedAttack()
         {
-            SameTmpAttack();
+            if (isAttacking || isInCooldown)
+                return;
+
+            myAttackEntity.transform.GetChild(1).gameObject.SetActive(true);
+            myAttackEntity.transform.GetChild(1).GetComponent<TriggerCaCAttack>().Attack();
+            myAttackEntity.StartCoroutine(AttackDuration(0.5f, heavyCoolDown));
         }
 
-        public override void StartCooldown()
+        public override void StartCooldown(float _coolddown)
         {
-            myAttackEntity.StartCoroutine(Cooldown());
+            myAttackEntity.StartCoroutine(Cooldown(_coolddown));
         }
 
-        private IEnumerator Cooldown()
+        private IEnumerator Cooldown(float _coolDown)
         {
             isInCooldown = true;
-            float time = coolDown;
+            float time = _coolDown;
 
             while (time >= 0)
             {
@@ -59,7 +77,7 @@ namespace Game.Scripts.ScriptableObjects
             isInCooldown = false;
         }
 
-        private IEnumerator AttackDuration(float _duration)
+        private IEnumerator AttackDuration(float _duration, float _cooldown)
         {
             isAttacking = true;
             float time = _duration;
@@ -73,7 +91,9 @@ namespace Game.Scripts.ScriptableObjects
             isAttacking = false;
 
             myAttackEntity.transform.GetChild(0).gameObject.SetActive(false);
-            StartCooldown();
+            myAttackEntity.transform.GetChild(1).gameObject.SetActive(false);
+
+            StartCooldown(_cooldown);
         }
     }
 }
