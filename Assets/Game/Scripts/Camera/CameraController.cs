@@ -97,7 +97,7 @@ namespace Game.Scripts.Camera
             }
         }
 
-        private void SubscribeToCameraScrollZoneEvents()
+        public void SubscribeToCameraScrollZoneEvents()
         {
             rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
             rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
