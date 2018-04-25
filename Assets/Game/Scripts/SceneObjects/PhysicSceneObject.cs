@@ -8,6 +8,7 @@ namespace Game.Scripts.SceneObjects
         [Header("Physic Scene Object")]
         public Vector3 velocity;
         public float friction = 5f;
+        public float gravityScale = 8f;
         protected PhysicState currentPhysicState = PhysicState.ON_GROUND;
 
         protected readonly Collider2D[] floorColliders = new Collider2D[3];
@@ -37,12 +38,12 @@ namespace Game.Scripts.SceneObjects
             switch (currentPhysicState)
             {
                 case PhysicState.ON_AIR_UP:
-                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / 5f);
+                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / gravityScale);
                     if (velocity.y < 0f)
                         currentPhysicState = PhysicState.ON_AIR_DOWN;
                     break;
                 case PhysicState.ON_AIR_DOWN:
-                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / 5f);
+                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / gravityScale);
                     break;
                 case PhysicState.ON_GROUND:
                     if (velocity.x != 0f)

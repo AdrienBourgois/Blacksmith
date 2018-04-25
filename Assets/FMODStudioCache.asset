@@ -23,7 +23,7 @@ MonoBehaviour:
   - {fileID: 114016541938201202}
   MasterBankRef: {fileID: 114334411295894916}
   StringsBankRef: {fileID: 114195529205058752}
-  stringsBankWriteTime: 636602720028154534
+  stringsBankWriteTime: 636602975434386625
   cacheVersion: 2
 --- !u!114 &114008931748675320
 MonoBehaviour:
@@ -59,7 +59,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114133863147749024}
+  - {fileID: 114395409475644672}
   MinDistance: 0
   MaxDistance: 0
   Length: 57062
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\Game\FmodBanks\Master Bank.strings.bank
-  lastModified: 636602720028154534
+  lastModified: 636602975434386625
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -201,13 +201,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: C:\Users\Adrien\Desktop\Blacksmith\Assets\Game\FmodBanks\Master Bank.bank
-  lastModified: 636602720028084558
+  lastModified: 636602975434331539
   LoadResult: 0
   FileSizes:
   - Name: 
     Value: 57265728
   Exists: 1
 --- !u!114 &114342428648829638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DynamicMusic
+  Min: 0
+  Max: 3
+  Default: 0
+--- !u!114 &114395409475644672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -262,6 +277,21 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 121994
+--- !u!114 &114539432230904484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DynamicMusic
+  Min: 0
+  Max: 3
+  Default: 0
 --- !u!114 &114612138242034456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,11 +418,26 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114008931748675320}
+  - {fileID: 114947020691639218}
   MinDistance: 0
   MaxDistance: 0
   Length: 96744
 --- !u!114 &114861020120091952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: DynamicMusic
+  Min: 0
+  Max: 3
+  Default: 0
+--- !u!114 &114947020691639218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -426,7 +471,7 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114789130372611230}
+  - {fileID: 114539432230904484}
   MinDistance: 0
   MaxDistance: 0
   Length: 80000
