@@ -97,8 +97,12 @@ namespace Game.Scripts
                     SwitchGamePlayState(EGamePlayState.COMBAT);
                 }
             }
+
             if (trigger.layer == LayerMask.NameToLayer("GameOverZone"))
-                GameInstance.Instance.InvokeGameOver();
+            {
+                if (_other.gameObject.name == "Camera")
+                    GameInstance.Instance.InvokeGameOver();
+            }
         }
 
         private void ListenToCallback()

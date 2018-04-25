@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 546296107}
   - component: {fileID: 546296106}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Musique
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,6 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicEvent: event:/Music (2D)/LVL01_Loop
+  volume: 1
+  parameter: 3
 --- !u!4 &546296107
 Transform:
   m_ObjectHideFlags: 0
@@ -283,7 +285,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 965599853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0.77, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -460,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83fd0caebf4847deac4a00d2ae5f65c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 1.4648688, y: 4.15394, z: -6.8378468}
+  location: {x: 2.7796087, y: 1.7170544, z: -5.4584675}
   sprite: {fileID: 21300000, guid: 81f49e3b8d1dc00439824465c0d4f91f, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
@@ -474,9 +476,51 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1888679113}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4648688, y: 0.7350168, z: -3.4189234}
+  m_LocalPosition: {x: 2.7796087, y: -1.0121794, z: -2.7292337}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1952216455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1952216456}
+  - component: {fileID: 1952216457}
+  m_Layer: 0
+  m_Name: SeaSounds
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1952216456
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1952216455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.85, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1952216457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1952216455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c277a3366dab6b4595f81612da81cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/Sound Design (3D)/Sea
+  volume: 1
