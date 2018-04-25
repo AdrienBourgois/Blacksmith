@@ -76,7 +76,7 @@ namespace Game.Scripts
         }
         #endregion
 
-        private void SwitchToCombatGamePlayState()
+        private void SwitchToCombatGamePlayState(Collider2D _other)
         {
             print("SwitchToCombatState");
             SwitchGamePlayState(EGamePlayState.COMBAT);

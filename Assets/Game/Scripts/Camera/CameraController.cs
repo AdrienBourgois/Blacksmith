@@ -58,6 +58,7 @@ namespace Game.Scripts.Camera
         private void Awake()
         {
             forwardScrollMask = 0;
+            backwardScrollMask = 0;
         }
 
         private void Start ()

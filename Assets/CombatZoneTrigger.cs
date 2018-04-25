@@ -2,7 +2,7 @@
 
 public class CombatZoneTrigger : MonoBehaviour
 {
-	public delegate void CombatZoneDelegate();
+	public delegate void CombatZoneDelegate(Collider2D _collider);
 
 	private CombatZoneDelegate stayCombatZoneCallback;
 
@@ -19,6 +19,6 @@ public class CombatZoneTrigger : MonoBehaviour
 	private void OnTriggerStay2D(Collider2D _other)
 	{
 		if (stayCombatZoneCallback != null)
-			stayCombatZoneCallback();
+			stayCombatZoneCallback(_other);
 	}
 }
