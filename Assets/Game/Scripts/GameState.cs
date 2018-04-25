@@ -86,10 +86,14 @@ namespace Game.Scripts
                 SwitchGameState(EGameState.IN_GAME);
         }
 
-        private void SwitchToCombatGamePlayState(Collider2D _other)
+        private void SwitchToCombatGamePlayState(Collider2D _other, GameObject trigger)
         {
-            print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
-            //SwitchGamePlayState(EGamePlayState.COMBAT);
+            //print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
+            if (_other.gameObject.name == "Camera")
+            {
+                trigger.SetActive(false);
+                SwitchGamePlayState(EGamePlayState.COMBAT);
+            }
         }
 
         private void SwitchGameState(EGameState _new_e_game_state)

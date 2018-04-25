@@ -2,7 +2,7 @@
 
 public class CombatZoneTrigger : MonoBehaviour
 {
-	public delegate void CombatZoneDelegate(Collider2D _collider);
+	public delegate void CombatZoneDelegate(Collider2D _collider, GameObject trigger);
 
 	private CombatZoneDelegate stayCombatZoneCallback;
 
@@ -18,9 +18,9 @@ public class CombatZoneTrigger : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D _other)
 	{
-	    print("OnTriggerStay2D = " + _other.gameObject.name);
+	    //print("OnTriggerStay2D = " + _other.gameObject.name);
 
         if (stayCombatZoneCallback != null)
-			stayCombatZoneCallback(_other);
+			stayCombatZoneCallback(_other, this.gameObject);
 	}
 }

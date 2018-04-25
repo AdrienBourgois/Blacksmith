@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Game.Scripts.Camera
@@ -79,7 +80,21 @@ namespace Game.Scripts.Camera
 
         public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
         {
-            print("ListenToGamePlayState");
+            //print("ListenToGamePlayState");
+            switch (_e_game_play_state)
+            {
+                case GameState.EGamePlayState.EXPLORATION:
+                    SubscribeToCameraScrollZoneEvents();
+                    break;
+                case GameState.EGamePlayState.COMBAT:
+                    UnsubscribeToCameraScrollZoneEvents();
+                    break;
+                case GameState.EGamePlayState.CINEMATIC:
+                    UnsubscribeToCameraScrollZoneEvents();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void SubscribeToCameraScrollZoneEvents()
@@ -92,6 +107,7 @@ namespace Game.Scripts.Camera
 
         private void UnsubscribeToCameraScrollZoneEvents()
         {
+            print("UnsubscribeToCameraScrollZoneEvents");
             rightScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
             rightScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
             leftScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
