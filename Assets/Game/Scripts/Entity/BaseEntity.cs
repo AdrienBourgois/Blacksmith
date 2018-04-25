@@ -18,12 +18,14 @@ namespace Game.Scripts.Entity
         // Update is called once per frame
         protected override void Update()
         {
+            base.Update();
+
             if (Input.GetKeyDown(KeyCode.Space))
                 ReceiveDamages(3);
         }
 
         #region IDamagable
-        public virtual void ReceiveDamages(int _damages)
+        public virtual void ReceiveDamages(float _damages)
         {
             health -= _damages;
             if (health <= 0)
@@ -35,14 +37,10 @@ namespace Game.Scripts.Entity
 
         }
 
-        private void OnTriggerEnter(Collider _other)
+        /*private void OnCollisionEnter2D(Collision2D other)
         {
-            IAttack attack = _other.GetComponent<IAttack>();
-            if (attack != null)
-            {
-                print("AIIIIE");
-            }
-        }
+            print("Detected");
+        }*/
 
         #endregion
 

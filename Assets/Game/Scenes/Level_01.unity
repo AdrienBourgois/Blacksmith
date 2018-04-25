@@ -1059,7 +1059,7 @@ GameObject:
   - component: {fileID: 1173803984}
   m_Layer: 0
   m_Name: Player2
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1119,17 +1119,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: 2.64, y: 0, z: 0.47997427}
+  location: {x: 3.9922066, y: 0, z: 0.47997427}
   sprite: {fileID: 21300000, guid: 10e33a5d1df58ea40a55c264633b3fde, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
   speed: 3
   mustBeInCameraSpace: 1
-  enableKeyboard: 0
+  enableKeyboard: 1
   maxHealth: 8
-  soAttack: {fileID: 11400000, guid: 9eebc070882d3b742b097a76804b7888, type: 2}
+  soAttack: {fileID: 11400000, guid: 1a25183f62c60744bbbad10d21935aa8, type: 2}
   reviveTimeTeammate: 3
   reviveTime: 3
+  maxFury: 0
 --- !u!4 &1173803983
 Transform:
   m_ObjectHideFlags: 0
@@ -1137,9 +1138,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1173803980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.64, y: 0.23998713, z: 0.23998713}
+  m_LocalPosition: {x: 3.9922066, y: 0.23998713, z: 0.23998713}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1194199624}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1188,6 +1190,47 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.1200476, y: 4.3884206}
   m_EdgeRadius: 0
+--- !u!1 &1194199623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1194199624}
+  - component: {fileID: 1194199625}
+  m_Layer: 0
+  m_Name: SpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1194199624
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1194199623}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4164648, y: 2.7522652, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1173803983}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1194199625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1194199623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55ad005018b9064190d17bcf89da214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  location: {x: 5.700439, y: 1.3761326, z: 0.47997427}
 --- !u!1001 &1320501560
 Prefab:
   m_ObjectHideFlags: 0
@@ -1325,7 +1368,7 @@ GameObject:
   - component: {fileID: 1705283871}
   m_Layer: 0
   m_Name: Player1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1393,9 +1436,10 @@ MonoBehaviour:
   mustBeInCameraSpace: 1
   enableKeyboard: 0
   maxHealth: 15
-  soAttack: {fileID: 11400000, guid: 39b9a9066856c07468e4d6b38f4ce98a, type: 2}
+  soAttack: {fileID: 11400000, guid: e78bebe51704602478e572dc9d44c084, type: 2}
   reviveTimeTeammate: 4
   reviveTime: 3
+  maxFury: 0
 --- !u!4 &1705283870
 Transform:
   m_ObjectHideFlags: 0

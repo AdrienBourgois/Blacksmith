@@ -48,7 +48,10 @@ namespace Game.Scripts
         private void Start()
         {
             DontDestroyOnLoad(this);
+<<<<<<< HEAD
             //FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatState);
+=======
+>>>>>>> 851d44c4fa8a0897e8430563dc2c1ba9b89c09e9
         }
 
         #endregion
@@ -86,6 +89,16 @@ namespace Game.Scripts
         private void SwitchGameState(EGameState _new_e_game_state)
         {
             eGameState = _new_e_game_state;
+<<<<<<< HEAD
+=======
+
+            switch (_new_e_game_state)
+            {
+                case EGameState.IN_GAME:
+                    FindObjectOfType<CombatZoneTrigger>().SubscribeToEnterCombatZoneCallback(SwitchToCombatState);
+                    break;
+            }
+>>>>>>> 851d44c4fa8a0897e8430563dc2c1ba9b89c09e9
 
             if (gameStateCallback != null)
                 gameStateCallback(eGameState);

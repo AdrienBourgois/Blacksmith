@@ -26,7 +26,14 @@ namespace Game.Scripts.ScriptableObjects
             Debug.Log("ATTACK !");
 
             GameObject bullet = Instantiate(bulletPrefab);
-            bullet.GetComponent<SpriteSceneObject>().location = myAttackEntity.location;
+            bullet.GetComponent<SpriteSceneObject>().location = myAttackEntity.location; //transform.GetChild(0).GetComponent<SceneObject>().location;
+            bullet.tag = myAttackEntity.tag;
+
+            TriggerBaseAttack trigger_attack = bullet.GetComponent<TriggerBaseAttack>();
+            trigger_attack.damages = damages;
+            trigger_attack.onEntityHit += DamageEntity;
+            if (isPlayer)
+                trigger_attack.onEntityHit += ((PlayerEntity) myAttackEntity).OnEntityHit;
 
             Destroy(bullet, bulletLifeTime);
 

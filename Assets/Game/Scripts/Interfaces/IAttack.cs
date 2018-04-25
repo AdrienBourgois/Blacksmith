@@ -13,6 +13,8 @@ namespace Game.Scripts.Interfaces
 
         void StartCooldown();
 
+        void DamageEntity(BaseEntity _entity);
+
         bool IsAttacking();
 
         SoBaseAttack.EAttackType GetAttackType();
