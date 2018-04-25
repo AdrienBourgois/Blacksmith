@@ -81,11 +81,7 @@ namespace Game.Scripts.Camera
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
 
-            const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
-            if ((forwardScrollMask ^ mask) == 0)
-                ForwardScroll();
-            else if ((backwardScrollMask ^ mask) == 0)
-                BackwardScroll();
+            CheckIfCameraCanScroll();
         }
 
         public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
@@ -208,6 +204,15 @@ namespace Game.Scripts.Camera
             //    ForwardScroll();
             //else if ((backwardScrollMask ^ mask) == 0)
             //    BackwardScroll();
+        }
+
+        private void CheckIfCameraCanScroll()
+        {
+            const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
+            if ((forwardScrollMask ^ mask) == 0)
+                ForwardScroll();
+            else if ((backwardScrollMask ^ mask) == 0)
+                BackwardScroll();
         }
 
         private void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
