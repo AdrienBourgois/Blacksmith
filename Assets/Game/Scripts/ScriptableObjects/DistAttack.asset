@@ -11,8 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3af0c8173b6f694ca8d54ec1fe0cfa6, type: 3}
   m_Name: DistAttack
   m_EditorClassIdentifier: 
-  damages: 0
-  coolDown: 0
-  bulletPrefab: {fileID: 0}
-  bulletSpeed: 0
-  bulletLifeTime: 0
+  damages: 2
+  coolDown: 1
+  bulletPrefab: {fileID: 1143028808171318, guid: 8e5ef3ee15d09cd459b0860aa38c08cb,
+    type: 2}
+  bulletSpeed: 10
+  bulletLifeTime: 5

@@ -1378,7 +1378,7 @@ MonoBehaviour:
   mustBeInCameraSpace: 1
   enableKeyboard: 1
   maxHealth: 8
-  soAttack: {fileID: 11400000, guid: 1a25183f62c60744bbbad10d21935aa8, type: 2}
+  soAttack: {fileID: 11400000, guid: 4505b0c737c05394c9196dd20a57ced7, type: 2}
   reviveTimeTeammate: 3
   reviveTime: 3
   maxFury: 10
