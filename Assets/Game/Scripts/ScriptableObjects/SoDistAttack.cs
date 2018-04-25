@@ -23,10 +23,8 @@ namespace Game.Scripts.ScriptableObjects
             if (isAttacking || isInCooldown)
                 return;
 
-            Debug.Log("ATTACK !");
-
             GameObject bullet = Instantiate(bulletPrefab);
-            bullet.GetComponent<SpriteSceneObject>().location = myAttackEntity.location; //transform.GetChild(0).GetComponent<SceneObject>().location;
+            bullet.GetComponent<SpriteSceneObject>().location = myAttackEntity.transform.GetChild(0).GetComponent<SceneObject>().transform.position.ToGameSpace();
             bullet.tag = myAttackEntity.tag;
 
             TriggerBaseAttack trigger_attack = bullet.GetComponent<TriggerBaseAttack>();
@@ -70,8 +68,6 @@ namespace Game.Scripts.ScriptableObjects
 
         private IEnumerator Cooldown()
         {
-            Debug.Log("Cooldown");
-
             isInCooldown = true;
             float time = coolDown;
 

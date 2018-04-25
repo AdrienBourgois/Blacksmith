@@ -43,7 +43,7 @@ namespace Game.Scripts.Entity
             InputManager.InputManager input_manager = FindObjectOfType<InputManager.InputManager>();
             switch (soAttack.GetAttackType())
             {
-                case SoBaseAttack.EAttackType.CAC:
+                case SoBaseAttack.EAttackType.DISTANCE:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
@@ -56,7 +56,7 @@ namespace Game.Scripts.Entity
 
                     break;
                 }
-                case SoBaseAttack.EAttackType.DISTANCE:
+                case SoBaseAttack.EAttackType.CAC:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
@@ -149,6 +149,26 @@ namespace Game.Scripts.Entity
             print("add fury ! " + name);
             ++fury;
             furySlider.value = fury;
+        }
+
+
+        protected override void ListenXAxis(float _value)
+        {
+            if (currentState != EPlayerState.KNOCKED_OUT)
+                base.ListenXAxis(_value);
+
+        }
+
+        protected override void ListenZAxis(float _value)
+        {
+            if (currentState != EPlayerState.KNOCKED_OUT)
+                base.ListenZAxis(_value);
+        }
+
+        protected override void Jump()
+        {
+            if (currentState != EPlayerState.KNOCKED_OUT)
+                base.Jump();
         }
     }
 }

@@ -28,6 +28,8 @@ namespace Game.Scripts.Entity
         public virtual void ReceiveDamages(float _damages)
         {
             health -= _damages;
+            print(health);
+
             if (health <= 0)
                 Die();
         }

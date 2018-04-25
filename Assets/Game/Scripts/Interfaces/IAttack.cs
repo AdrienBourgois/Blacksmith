@@ -15,6 +15,8 @@ namespace Game.Scripts.Interfaces
 
         void DamageEntity(BaseEntity _entity);
 
+        bool CanAttack();
+
         bool IsAttacking();
 
         SoBaseAttack.EAttackType GetAttackType();

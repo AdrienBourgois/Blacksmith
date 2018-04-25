@@ -27,7 +27,7 @@ namespace Game.Scripts.ScriptableObjects
         public virtual void Init(AttackEntity _my_attack_entity)
         {
             myAttackEntity = _my_attack_entity;
-            isPlayer = (PlayerEntity) myAttackEntity != null ? true : false;
+            isPlayer = myAttackEntity as PlayerEntity != null ? true : false;
 
             isAttacking = false;
             isInCooldown = false;
@@ -49,6 +49,11 @@ namespace Game.Scripts.ScriptableObjects
             return eAttackType;
         }
         
+        public bool CanAttack()
+        {
+            return !isAttacking && !isInCooldown;
+        }
+
         public bool IsAttacking()
         {
             return isAttacking;
