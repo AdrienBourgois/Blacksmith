@@ -2,7 +2,7 @@
 {
     public interface IDamagable
     {
-        void ReceiveDamages(int _damages);
+        void ReceiveDamages(float _damages);
 
         void Die();
     }

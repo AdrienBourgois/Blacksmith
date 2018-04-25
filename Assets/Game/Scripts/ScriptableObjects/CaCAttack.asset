@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: CaCAttack
   m_EditorClassIdentifier: 
   damages: 4
-  coolDown: 3
+  coolDown: 2

@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.Entity;
+using Game.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
@@ -13,6 +14,8 @@ namespace Game.Scripts.ScriptableObjects
         protected bool isAttacking;
         protected bool isInCooldwnl;
 
+        protected bool isPlayer;
+
         public enum EAttackType
         {
             CAC,
@@ -24,6 +27,7 @@ namespace Game.Scripts.ScriptableObjects
         public virtual void Init(AttackEntity _my_attack_entity)
         {
             myAttackEntity = _my_attack_entity;
+            isPlayer = (PlayerEntity) myAttackEntity != null ? true : false;
         }
 
         public virtual void LightGroundedAttack() { }
@@ -32,12 +36,16 @@ namespace Game.Scripts.ScriptableObjects
 
         public virtual void StartCooldown() { }
 
+        public void DamageEntity(BaseEntity _entity)
+        {
+            _entity.GetComponent<IDamagable>().ReceiveDamages(damages);
+        }
+
         public EAttackType GetAttackType()
         {
             return eAttackType;
         }
-
-
+        
         public bool IsAttacking()
         {
             return isAttacking;

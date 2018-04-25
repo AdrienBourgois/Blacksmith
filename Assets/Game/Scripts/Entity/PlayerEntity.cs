@@ -18,12 +18,17 @@ namespace Game.Scripts.Entity
 
         [SerializeField] private float reviveTime;
 
+        [SerializeField] private float maxFury;
+
+        private float fury;
+
         private delegate void PlayerState();
 
         private event PlayerState KnockedOut;
         private event PlayerState Revived;
 
         private Slider healthSlider;
+        private Slider furySlider;
 
         private EPlayerState currentState = EPlayerState.NORMAL;
 
@@ -74,8 +79,7 @@ namespace Game.Scripts.Entity
         #endregion
 
         #region IDamagable
-
-        public override void ReceiveDamages(int _damages)
+        public override void ReceiveDamages(float _damages)
         {
             base.ReceiveDamages(_damages);
 
@@ -96,7 +100,8 @@ namespace Game.Scripts.Entity
                 }
                 case EPlayerState.KNOCKED_OUT:
                 {
-                    Destroy(gameObject);
+                    gameObject.SetActive(false);
+                    //Destroy(gameObject);
                     break;
                 }
                 default:
@@ -129,5 +134,15 @@ namespace Game.Scripts.Entity
 
         #endregion
 
+        public void OnEntityHit(BaseEntity _entity)
+        {
+            // if _entity is Enemy
+
+            if (fury >= maxFury)
+                return;
+
+            ++fury;
+            furySlider.value = fury;
+        }
     }
 }
