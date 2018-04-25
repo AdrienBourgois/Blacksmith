@@ -18,6 +18,8 @@ namespace Game.Scripts.Entity
         // Update is called once per frame
         protected override void Update()
         {
+            base.Update();
+
             if (Input.GetKeyDown(KeyCode.Space))
                 ReceiveDamages(3);
         }
