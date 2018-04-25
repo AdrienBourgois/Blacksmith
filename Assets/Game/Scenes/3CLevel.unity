@@ -1408,7 +1408,8 @@ MonoBehaviour:
   maxZoomInDistance: 4
   maxZoomOutDistance: 8
   attenuationFactor: 1
-  smoothness: 0.016
+  zoomSmoothness: 0.054
+  scrollSpeed: 2
   rightScrollZone: {fileID: 215328374}
   leftScrollZone: {fileID: 126654610}
 --- !u!61 &729275891

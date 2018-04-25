@@ -16,8 +16,13 @@ namespace Game.Scripts.Camera
         [SerializeField]
         private float attenuationFactor;
         [SerializeField]
-        [Range(0f, 1f)]
-        private float smoothness;
+        [Range(0f, 0.5f)]
+        private float zoomSmoothness;
+        //[SerializeField]
+        //[Range(0f, 1f)]
+        //private float scrollSmoothness;
+        [SerializeField]
+        private float scrollSpeed;
 
         [SerializeField]
         private CameraScrollZone rightScrollZone;
@@ -75,6 +80,12 @@ namespace Game.Scripts.Camera
             ComputeZoom(distance);
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
+
+            const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
+            if ((forwardScrollMask ^ mask) == 0)
+                ForwardScroll();
+            else if ((backwardScrollMask ^ mask) == 0)
+                BackwardScroll();
         }
 
         public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
@@ -134,7 +145,7 @@ namespace Game.Scripts.Camera
         private void ComputeZoom(float _distance)
         {
             float raw_zoom = _distance / attenuationFactor;
-            float smooth_zoom = Mathf.Lerp(gameCamera.orthographicSize, raw_zoom, smoothness);
+            float smooth_zoom = Mathf.Lerp(gameCamera.orthographicSize, raw_zoom, zoomSmoothness);
 
             if ((UnsignedHorizontalDistance(this.transform.position, player1.transform.position) + 0.3f) >= HalfHorizontalViewingVolume
                 ||
@@ -192,11 +203,11 @@ namespace Game.Scripts.Camera
                     throw new ArgumentOutOfRangeException("_collider_side", _collider_side, null);
             }
 
-            const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
-            if ((forwardScrollMask ^ mask) == 0)
-                ForwardScroll();
-            else if ((backwardScrollMask ^ mask) == 0)
-                BackwardScroll();
+            //const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
+            //if ((forwardScrollMask ^ mask) == 0)
+            //    ForwardScroll();
+            //else if ((backwardScrollMask ^ mask) == 0)
+            //    BackwardScroll();
         }
 
         private void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
@@ -273,12 +284,18 @@ namespace Game.Scripts.Camera
 
         private void ForwardScroll()
         {
-            transform.Translate(Vector3.right * Time.deltaTime);
+            //Vector3 pos = transform.position;
+            //float incrementation = Mathf.Lerp(pos.x, pos.x + 1, scrollSmoothness);
+            //pos.x = incrementation * Time.deltaTime;
+            //transform.position = pos;
+            //print("pos.x = " + pos.x);
+
+            transform.Translate(Vector3.right * Time.deltaTime * scrollSpeed);
         }
 
         private void BackwardScroll()
         {
-            transform.Translate(Vector3.left * Time.deltaTime);
+            transform.Translate(Vector3.left * Time.deltaTime * scrollSpeed);
         }
     }
 }
