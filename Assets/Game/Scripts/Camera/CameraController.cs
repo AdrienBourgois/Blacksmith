@@ -65,12 +65,8 @@ namespace Game.Scripts.Camera
         {
             gameCamera = GetComponent<UnityEngine.Camera>();
             cameraCollider = gameObject.GetComponent<BoxCollider2D>();
-            CameraScrollZone camera_scroll_zone = FindObjectOfType<CameraScrollZone>();
-
-            rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
-            rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
-            leftScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
-            leftScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+            SubscribeToCameraScrollZoneEvents();
+            FindObjectOfType<GameState>().SubscribeToGamePlayStateCallback(ListenToGamePlayState);
         }
 
         private void Update ()
@@ -79,6 +75,27 @@ namespace Game.Scripts.Camera
             ComputeZoom(distance);
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
+        }
+
+        public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
+        {
+            print("ListenToGamePlayState");
+        }
+
+        private void SubscribeToCameraScrollZoneEvents()
+        {
+            rightScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
+            rightScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+            leftScrollZone.SubscribeToTriggerStayCallback(ComputeScroll);
+            leftScrollZone.SubscribeToTriggerExitCallback(ComputeScroll);
+        }
+
+        private void UnsubscribeToCameraScrollZoneEvents()
+        {
+            rightScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
+            rightScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
+            leftScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
+            leftScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
         }
 
         private float ComputeDistance()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
 {
@@ -48,6 +49,7 @@ namespace Game.Scripts
         private void Start()
         {
             DontDestroyOnLoad(this);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         #endregion
@@ -76,10 +78,18 @@ namespace Game.Scripts
         }
         #endregion
 
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            Debug.Log("OnSceneLoaded: " + scene.name);
+
+            if (scene.name == "3CLevel")
+                SwitchGameState(EGameState.IN_GAME);
+        }
+
         private void SwitchToCombatGamePlayState(Collider2D _other)
         {
-            print("SwitchToCombatState");
-            SwitchGamePlayState(EGamePlayState.COMBAT);
+            print("SwitchToCombatGamePlayState = " + _other.gameObject.name);
+            //SwitchGamePlayState(EGamePlayState.COMBAT);
         }
 
         private void SwitchGameState(EGameState _new_e_game_state)

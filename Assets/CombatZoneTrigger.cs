@@ -18,7 +18,9 @@ public class CombatZoneTrigger : MonoBehaviour
 
 	private void OnTriggerStay2D(Collider2D _other)
 	{
-		if (stayCombatZoneCallback != null)
+	    print("OnTriggerStay2D = " + _other.gameObject.name);
+
+        if (stayCombatZoneCallback != null)
 			stayCombatZoneCallback(_other);
 	}
 }

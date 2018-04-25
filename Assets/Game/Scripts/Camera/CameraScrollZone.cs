@@ -49,6 +49,16 @@ namespace Game.Scripts.Camera
             triggerExitCallback += _function_pointer;
         }
 
+        public void UnsubscribeToTriggerStayCallback(TriggerDelegate _function_pointer)
+        {
+            triggerStayCallback -= _function_pointer;
+        }
+
+        public void UnsubscribeToTriggerExitCallback(TriggerDelegate _function_pointer)
+        {
+            triggerExitCallback -= _function_pointer;
+        }
+
         private void ComputeTransform()
         {
             ComputeScale();
@@ -86,7 +96,6 @@ namespace Game.Scripts.Camera
 
         private void OnTriggerExit2D(Collider2D _other)
         {
-            print(_other.name);
             if (triggerExitCallback != null)
                 triggerExitCallback(_other, side, EColliderCallbackType.EXIT);
         }
