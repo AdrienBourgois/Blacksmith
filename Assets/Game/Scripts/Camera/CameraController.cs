@@ -117,9 +117,9 @@ namespace Game.Scripts.Camera
             rightScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
             leftScrollZone.UnsubscribeToTriggerStayCallback(ComputeScroll);
             leftScrollZone.UnsubscribeToTriggerExitCallback(ComputeScroll);
+
             forwardScrollMask = 0;
             backwardScrollMask = 0;
-
         }
 
         private float ComputeDistance()
