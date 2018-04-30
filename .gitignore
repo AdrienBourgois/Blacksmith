@@ -36,5 +36,8 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+# Logs files
+*.log
+
 # Perforce ignore file
 .p4ignore

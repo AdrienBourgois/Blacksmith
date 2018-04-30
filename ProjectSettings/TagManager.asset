@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - HealthUI
+  - FuryUI
+  - P2_healthSlider
+  - P1_healthSlider
   layers:
   - Default
   - TransparentFX
@@ -13,14 +17,14 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Fall
+  - OnObject
+  - Floor
+  - Camera
+  - Entity
+  - CombatZone
+  - GameOverZone
   - 
   - 
   - 
@@ -38,6 +42,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 381801921
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 3836509393
     locked: 0
