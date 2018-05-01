@@ -10,7 +10,8 @@ public class TimerCreator : MonoBehaviour
 	void Start ()
 	{
 	    id = TimerManager.Instance.AddTimer(OnElapased1, "OnElapsed1", 5f, true);
-	}
+	    TimerManager.Instance.AddTimer(OnElapased2, "OnElapased2", 3f, true, true);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -22,5 +23,10 @@ public class TimerCreator : MonoBehaviour
     private void OnElapased1()
     {
         print("OnElapased1");
+    }
+
+    private void OnElapased2()
+    {
+        print("OnElapased2");
     }
 }

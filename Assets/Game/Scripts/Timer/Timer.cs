@@ -66,7 +66,8 @@ namespace Game.Scripts.Timer
 
                 if (currentTime <= 0f)
                 {
-                    elapsedCallback();
+                    if (elapsedCallback != null)
+                        elapsedCallback();
 
                     if (loopAtElapsed == true)
                         Reset();
