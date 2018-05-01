@@ -6,14 +6,20 @@ namespace Game.Scripts.Timer
 {
     public class TimerManager : MonoBehaviour
     {
-        [SerializeField]
+        //[SerializeField]
         private List<Timer> timerList;
-
         public delegate void TimerDelegate();
+        static private TimerManager instance;
+
+        static public TimerManager Instance
+        {
+            get { return instance; }
+        }
 
         private void Awake()
         {
             timerList = new List<Timer>();
+            instance = this;
         }
 
         private void Update ()
@@ -106,6 +112,16 @@ namespace Game.Scripts.Timer
             GetTimer(_name).Stop();
         }
 
+        public void ResetTimer(int _id)
+        {
+            GetTimer(_id).Reset();
+        }
+
+        public void ResetTimer(string _name)
+        {
+            GetTimer(_name).Reset();
+        }
+
         public bool GetLoopAtElapsed(int _id)
         {
             return GetTimer(_id).LoopAtElapsed;
@@ -124,6 +140,56 @@ namespace Game.Scripts.Timer
         public void SetLoopAtElapsed(string _name, bool _value)
         {
             GetTimer(_name).LoopAtElapsed = _value;
+        }
+
+        public E_TIMER_STATE GetStatus(int _id)
+        {
+            return GetTimer(_id).Status;
+        }
+
+        public E_TIMER_STATE GetStatus(string _name)
+        {
+            return GetTimer(_name).Status;
+        }
+
+        public int GetId(string _name)
+        {
+            return GetTimer(_name).Id;
+        }
+
+        public string GetName(int _id)
+        {
+            return GetTimer(_id).Name;
+        }
+
+        public float GetCurrentTime(int _id)
+        {
+            return GetTimer(_id).CurrentTime;
+        }
+
+        public float GetCurrentTime(string _name)
+        {
+            return GetTimer(_name).CurrentTime;
+        }
+
+        public bool IsRunning(int _id)
+        {
+            return GetStatus(_id) == E_TIMER_STATE.RUNNING;
+        }
+
+        public bool IsRunning(string _name)
+        {
+            return GetStatus(_name) == E_TIMER_STATE.RUNNING;
+        }
+
+        public void Display(int _id)
+        {
+            print("Timer id <" +_id + "> : " + GetCurrentTime(_id));
+        }
+
+        public void Display(string _name)
+        {
+            print("Timer named <" + _name + "> : " + GetCurrentTime(_name));
         }
     }
 }
