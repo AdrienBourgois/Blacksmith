@@ -13,7 +13,12 @@ namespace Game.Scripts.Timer
         private float currentTime;
         private bool loopAtElapsed;
         private E_TIMER_STATE status;
+
         private TimerManager.TimerDelegate elapsedCallback;
+        private TimerManager.TimerDelegate startCallback;
+        private TimerManager.TimerDelegate pauseCallback;
+        private TimerManager.TimerDelegate stopCallback;
+        private TimerManager.TimerDelegate resetCallback;
 
         public int Id { get { return id; } }
         public string Name { get { return name; } }
@@ -25,15 +30,16 @@ namespace Game.Scripts.Timer
         public float CurrentTime { get { return currentTime; } }
         public E_TIMER_STATE Status { get { return status; } }
 
-        public Timer(TimerManager.TimerDelegate _listener_function, int _timer_id, string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed)
+        public Timer(int _timer_id, string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerManager.TimerDelegate _listener_function)
         {
-            elapsedCallback += _listener_function;
             id = _timer_id;
             name = _timer_name;
             timeOut = _elapse_at;
             currentTime = timeOut;
             loopAtElapsed = _loop_at_elapsed;
             status = _start_on_creation ?  E_TIMER_STATE.RUNNING : E_TIMER_STATE.STOP;
+
+            elapsedCallback += _listener_function;
         }
 
         public void Start()

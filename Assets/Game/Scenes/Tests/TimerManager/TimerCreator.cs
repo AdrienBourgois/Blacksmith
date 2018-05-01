@@ -5,13 +5,14 @@ using UnityEngine;
 
 public class TimerCreator : MonoBehaviour
 {
-    private int id;
-	// Use this for initialization
-	void Start ()
+    private int id1;
+    private int id2;
+    // Use this for initialization
+    void Start ()
 	{
-	    id = TimerManager.Instance.AddTimer(OnElapased1, "OnElapsed1", 5f, true);
-	    TimerManager.Instance.AddTimer(OnElapased2, "OnElapased2", 3f, true, true);
-    }
+	    id1 = TimerManager.Instance.AddTimer("OnElapsed1", 5f, true, false, OnElapased1);
+	    id2 = TimerManager.Instance.AddTimer("OnElapased2", 3f, true, true, OnElapased2);
+	}
 	
 	// Update is called once per frame
 	void Update () {

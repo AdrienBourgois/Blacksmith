@@ -54,14 +54,28 @@ namespace Game.Scripts.Timer
 
         private int CreateUniqueId()
         {
-            return Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+            int id =  Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+
+            while(IsIdUnique(id) == false)
+                id = Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+
+            return id;
         }
 
-        public int AddTimer(TimerDelegate _listener_function, string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed = false)
+        private bool IsIdUnique(int _id)
+        {
+            foreach (Timer timer in timerList)
+                if (timer.Id == _id)
+                    return false;
+
+            return true;
+        }
+
+        public int AddTimer(string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerDelegate _listener_function)
         {
             int id = CreateUniqueId();
 
-            timerList.Add(new Timer(_listener_function, id, _timer_name,  _elapse_at, _start_on_creation, _loop_at_elapsed));
+            timerList.Add(new Timer(id, _timer_name,  _elapse_at, _start_on_creation, _loop_at_elapsed, _listener_function));
 
             return id;
         }
