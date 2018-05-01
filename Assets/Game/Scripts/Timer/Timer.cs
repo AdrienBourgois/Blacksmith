@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor.PackageManager.Requests;
 
 namespace Game.Scripts.Timer
 {
@@ -14,7 +15,8 @@ namespace Game.Scripts.Timer
 
         private int id;
         private string name;
-        private float countdown;
+        private float timeOut;
+        private float currentTime;
         private bool loopAtElapsed;
         private E_TIMER_STATE state;
         private TimerManager.TimerDelegate elapsedCallback;
@@ -32,30 +34,46 @@ namespace Game.Scripts.Timer
             elapsedCallback += _listener_function;
             id = _timer_id;
             name = _timer_name;
-            countdown = _elapse_at;
+            timeOut = _elapse_at;
+            currentTime = timeOut;
             loopAtElapsed = _loop_at_elapsed;
-            if (_start_on_creation == false)
-                state = E_TIMER_STATE.STOP;
+            state = _start_on_creation ?  E_TIMER_STATE.RUNNING : E_TIMER_STATE.STOP;
         }
 
         public void Start()
         {
-
+            state = E_TIMER_STATE.RUNNING;
         }
 
         public void Pause()
         {
-
+            state = E_TIMER_STATE.PAUSE;
         }
 
         public void Stop()
         {
-
+            currentTime = timeOut;
+            state = E_TIMER_STATE.STOP;
         }
 
         public void Update(float _delta_time)
         {
+            if (state == E_TIMER_STATE.RUNNING)
+            {
+                currentTime -= _delta_time;
 
+                if (currentTime <= 0f)
+                    elapsedCallback();
+
+                if(loopAtElapsed == true)
+                    Reset();
+            }
+        }
+
+        private void Reset()
+        {
+            Stop();
+            Start();
         }
     }
 }
