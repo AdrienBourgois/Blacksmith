@@ -30,38 +30,62 @@ namespace Game.Scripts.Timer
         public float CurrentTime { get { return currentTime; } }
         public E_TIMER_STATE Status { get { return status; } }
 
-        public Timer(int _timer_id, string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerManager.TimerDelegate _listener_function)
+        public Timer(int _timer_id, string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerManager.TimerDelegate _elapsed_listener_function, TimerManager.TimerDelegate _start_listener_function, TimerManager.TimerDelegate _pause_listener_function, TimerManager.TimerDelegate _stop_listener_function, TimerManager.TimerDelegate _reset_listener_function)
         {
             id = _timer_id;
             name = _timer_name;
             timeOut = _elapse_at;
             currentTime = timeOut;
             loopAtElapsed = _loop_at_elapsed;
-            status = _start_on_creation ?  E_TIMER_STATE.RUNNING : E_TIMER_STATE.STOP;
 
-            elapsedCallback += _listener_function;
+            elapsedCallback += _elapsed_listener_function;
+            startCallback += _start_listener_function;
+            pauseCallback += _pause_listener_function;
+            stopCallback += _stop_listener_function;
+            resetCallback += _reset_listener_function;
+
+            if (_start_on_creation == true)
+                Start();
+            else
+                status = E_TIMER_STATE.STOP;
+            
+            //status = _start_on_creation ?  E_TIMER_STATE.RUNNING : E_TIMER_STATE.STOP;
+
         }
 
         public void Start()
         {
             status = E_TIMER_STATE.RUNNING;
+
+            if (startCallback != null)
+                startCallback();
         }
 
         public void Pause()
         {
             status = E_TIMER_STATE.PAUSE;
+
+            if (pauseCallback != null)
+                pauseCallback();
         }
 
         public void Stop()
         {
-            currentTime = timeOut;
             status = E_TIMER_STATE.STOP;
+            currentTime = timeOut;
+
+            if (stopCallback != null)
+                stopCallback();
         }
 
         public void Reset()
         {
-            Stop();
-            Start();
+            //Stop();
+            //Start();
+            currentTime = timeOut;
+
+            if (resetCallback != null)
+                resetCallback();
         }
 
         public void Update(float _delta_time)

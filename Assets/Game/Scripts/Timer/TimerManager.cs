@@ -71,11 +71,22 @@ namespace Game.Scripts.Timer
             return true;
         }
 
-        public int AddTimer(string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerDelegate _listener_function)
+        // Add check for _elapse_at > 0f //
+
+        public int AddTimer(string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerDelegate _elapsed_listener_function)
         {
             int id = CreateUniqueId();
 
-            timerList.Add(new Timer(id, _timer_name,  _elapse_at, _start_on_creation, _loop_at_elapsed, _listener_function));
+            timerList.Add(new Timer(id, _timer_name,  _elapse_at, _start_on_creation, _loop_at_elapsed, _elapsed_listener_function, null, null, null, null));
+
+            return id;
+        }
+
+        public int AddTimer(string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerDelegate _elapsed_listener_function, TimerDelegate _start_listener_function, TimerDelegate _pause_listener_function, TimerDelegate _stop_listener_function, TimerDelegate _reset_listener_function)
+        {
+            int id = CreateUniqueId();
+
+            timerList.Add(new Timer(id, _timer_name, _elapse_at, _start_on_creation, _loop_at_elapsed, _elapsed_listener_function, _start_listener_function, _pause_listener_function, _stop_listener_function, _reset_listener_function));
 
             return id;
         }
