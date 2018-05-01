@@ -1,164 +1,129 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
-[Serializable]
-public class Timer
+namespace Game.Scripts.Timer
 {
-    private int id;
-    private string name;
-    private float countdown;
-    private bool loopAtElapsed;
-    private TimerManager.TimerDelegate elapsedCallback;
-
-    public int Id { get { return id; } }
-    public string Name { get { return name; } }
-    public bool LoopAtElapsed
+    public class TimerManager : MonoBehaviour
     {
-        get { return loopAtElapsed; }
-        set { loopAtElapsed = value; }
-    }
+        [SerializeField]
+        private List<Timer> timerList;
 
-    public Timer(TimerManager.TimerDelegate _listener_function, int _timer_id, string _timer_name, float _elapse_at, bool _loop_at_elapsed)
-    {
-        elapsedCallback += _listener_function;
-        id = _timer_id;
-        name = _timer_name;
-        countdown = _elapse_at;
-        loopAtElapsed = _loop_at_elapsed;
-    }
+        public delegate void TimerDelegate();
 
-    public void Start()
-    {
+        private void Awake()
+        {
+            timerList = new List<Timer>();
+        }
 
-    }
+        private void Update ()
+        {
+            float delta_time = Time.deltaTime;
 
-    public void Pause()
-    {
+            foreach (Timer timer in timerList)
+                timer.Update(delta_time);
+        }
 
-    }
+        private Timer GetTimer(int _id)
+        {
+            foreach (Timer timer in timerList)
+                if (timer.Id == _id)
+                    return timer;
 
-    public void Stop()
-    {
+            Debug.LogError("Error : the timer with the following id <" + _id + "> was not found.");
 
-    }
+            return null;
+        }
 
-    public void Update(float _delta_time)
-    {
+        private Timer GetTimer(string _name)
+        {
+            foreach (Timer timer in timerList)
+                if (timer.Name == _name)
+                    return timer;
 
-    }
-}
+            Debug.LogError("Error : the timer named " + _name + " was not found.");
 
-public class TimerManager : MonoBehaviour
-{
-    [SerializeField]
-    private List<Timer> timerList;
+            return null;
+        }
 
-    public delegate void TimerDelegate();
+        private int CreateUniqueId()
+        {
+            return Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+        }
 
-    private void Awake()
-    {
-        timerList = new List<Timer>();
-    }
+        public int AddTimer(TimerDelegate _listener_function, string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed = false)
+        {
+            int id = CreateUniqueId();
 
-	private void Update ()
-	{
-	    float delta_time = Time.deltaTime;
+            timerList.Add(new Timer(_listener_function, id, _timer_name,  _elapse_at, _start_on_creation, _loop_at_elapsed));
 
-	    foreach (Timer timer in timerList)
-	        timer.Update(delta_time);
+            return id;
+        }
 
-	    int i = Guid.NewGuid().GetHashCode();
-	    i += UnityEngine.Random.Range(1, 1000);
-	    //i += (int)(Time.realtimeSinceStartup);
+        public void DestroyTimer(int _id)
+        {
+            bool success = timerList.Remove(GetTimer(_id));
 
-        print("i = " + i);
-    }
+            if (success == false)
+                Debug.LogError("Error : the timer with the following id <" + _id + "> can't be successfully destroyed.");
+        }
 
-    private Timer GetTimer(int _id)
-    {
-        foreach (Timer timer in timerList)
-            if (timer.Id == _id)
-                return timer;
+        public void DestroyTimer(string _name)
+        {
+            bool success = timerList.Remove(GetTimer(_name));
 
-        Debug.LogError("Error : the timer with id " + _id + "was not found.");
+            if (success == false)
+                Debug.LogError("Error : the timer named " + _name + " can't be successfully destroyed.");
+        }
 
-        return null;
-    }
+        public void StartTimer(int _id)
+        {
+            GetTimer(_id).Start();
+        }
 
-    private Timer GetTimer(string _name)
-    {
-        foreach (Timer timer in timerList)
-            if (timer.Name == _name)
-                return timer;
+        public void StartTimer(string _name)
+        {
+            GetTimer(_name).Start();
+        }
 
-        Debug.LogError("Error : the timer named " + _name + "was not found.");
+        public void PauseTimer(int _id)
+        {
+            GetTimer(_id).Pause();
+        }
 
-        return null;
-    }
+        public void PauseTimer(string _name)
+        {
+            GetTimer(_name).Pause();
+        }
 
-    ///**************************************///
-    /// ADD A PARAMETER CALLED "START ON CREATION" ///
-    ///**************************************///
+        public void StopTimer(int _id)
+        {
+            GetTimer(_id).Stop();
+        }
 
-    public int AddTimer(TimerDelegate _listener_function, string _timer_name, float _elapse_at, bool _loop_at_elapsed = false)
-    {
-        int id = Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+        public void StopTimer(string _name)
+        {
+            GetTimer(_name).Stop();
+        }
 
-        timerList.Add(new Timer(_listener_function, id, _timer_name,  _elapse_at,  _loop_at_elapsed));
+        public bool GetLoopAtElapsed(int _id)
+        {
+            return GetTimer(_id).LoopAtElapsed;
+        }
 
-        return id;
-    }
+        public bool GetLoopAtElapsed(string _name)
+        {
+            return GetTimer(_name).LoopAtElapsed;
+        }
 
-    public void StartTimer(int _id)
-    {
-        GetTimer(_id).Start();
-    }
+        public void SetLoopAtElapsed(int _id, bool _value)
+        {
+            GetTimer(_id).LoopAtElapsed = _value;
+        }
 
-    public void StartTimer(string _name)
-    {
-        GetTimer(_name).Start();
-    }
-
-    public void PauseTimer(int _id)
-    {
-        GetTimer(_id).Pause();
-    }
-
-    public void PauseTimer(string _name)
-    {
-        GetTimer(_name).Pause();
-    }
-
-    public void StopTimer(int _id)
-    {
-        GetTimer(_id).Stop();
-    }
-
-    public void StopTimer(string _name)
-    {
-        GetTimer(_name).Stop();
-    }
-
-    public bool GetLoopAtElapsed(int _id)
-    {
-        return GetTimer(_id).LoopAtElapsed;
-    }
-
-    public bool GetLoopAtElapsed(string _name)
-    {
-        return GetTimer(_name).LoopAtElapsed;
-    }
-
-    public void SetLoopAtElapsed(int _id, bool _value)
-    {
-        GetTimer(_id).LoopAtElapsed = _value;
-    }
-
-    public void SetLoopAtElapsed(string _name, bool _value)
-    {
-        GetTimer(_name).LoopAtElapsed = _value;
+        public void SetLoopAtElapsed(string _name, bool _value)
+        {
+            GetTimer(_name).LoopAtElapsed = _value;
+        }
     }
 }
