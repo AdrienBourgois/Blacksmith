@@ -7,7 +7,6 @@ namespace Game.Scripts.Timer
 {
     public class TimerManager : MonoBehaviour
     {
-        //[SerializeField]
         private List<Timer> timerList;
         public delegate void TimerDelegate();
         static private TimerManager instance;
@@ -72,34 +71,32 @@ namespace Game.Scripts.Timer
             return true;
         }
 
-        private void SecurityAsserts(string _timer_name, float _elapse_at, TimerDelegate _elapsed_listener_function)
+        private void SecurityAsserts(string _timer_name, float _expire_at, TimerDelegate _expired_listener_function)
         {
             string error_prefix = "[TimerManager] Error In function AddTimer() : ";
             Assert.AreNotEqual("", _timer_name, error_prefix + "the given _timer_name string must be bigger than 0 characters.");
-            Assert.AreNotApproximatelyEqual(0f, _elapse_at, error_prefix + "the given _elapse_at value must be greater than 0.");
-            Assert.IsNotNull(_elapsed_listener_function, error_prefix + "the given _elapsed_listener_function must be different than NULL");
+            Assert.AreNotApproximatelyEqual(0f, _expire_at, error_prefix + "the given _expire_at value must be greater than 0.");
+            Assert.IsNotNull(_expired_listener_function, error_prefix + "the given _expired_listener_function must be different than NULL");
         }
 
-        // Add check for _elapse_at > 0f //
-
-        public int AddTimer(string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerDelegate _elapsed_listener_function)
+        public int AddTimer(string _timer_name, float _expire_at, bool _start_on_creation, bool _loop_at_expired, TimerDelegate _expired_listener_function)
         {
-            SecurityAsserts(_timer_name, _elapse_at, _elapsed_listener_function);
+            SecurityAsserts(_timer_name, _expire_at, _expired_listener_function);
 
             int id = CreateUniqueId();
 
-            timerList.Add(new Timer(id, _timer_name,  _elapse_at, _start_on_creation, _loop_at_elapsed, _elapsed_listener_function, null, null, null, null));
+            timerList.Add(new Timer(id, _timer_name, _expire_at, _start_on_creation, _loop_at_expired, _expired_listener_function, null, null, null, null));
 
             return id;
         }
 
-        public int AddTimer(string _timer_name, float _elapse_at, bool _start_on_creation, bool _loop_at_elapsed, TimerDelegate _elapsed_listener_function, TimerDelegate _start_listener_function, TimerDelegate _pause_listener_function, TimerDelegate _stop_listener_function, TimerDelegate _reset_listener_function)
+        public int AddTimer(string _timer_name, float _expire_at, bool _start_on_creation, bool _loop_at_expired, TimerDelegate _expired_listener_function, TimerDelegate _start_listener_function, TimerDelegate _pause_listener_function, TimerDelegate _stop_listener_function, TimerDelegate _reset_listener_function)
         {
-            SecurityAsserts(_timer_name, _elapse_at, _elapsed_listener_function);
+            SecurityAsserts(_timer_name, _expire_at, _expired_listener_function);
 
             int id = CreateUniqueId();
 
-            timerList.Add(new Timer(id, _timer_name, _elapse_at, _start_on_creation, _loop_at_elapsed, _elapsed_listener_function, _start_listener_function, _pause_listener_function, _stop_listener_function, _reset_listener_function));
+            timerList.Add(new Timer(id, _timer_name, _expire_at, _start_on_creation, _loop_at_expired, _expired_listener_function, _start_listener_function, _pause_listener_function, _stop_listener_function, _reset_listener_function));
 
             return id;
         }
@@ -160,24 +157,24 @@ namespace Game.Scripts.Timer
             GetTimer(_name).Reset();
         }
 
-        public bool GetLoopAtElapsed(int _id)
+        public bool GetLoopAtExpired(int _id)
         {
-            return GetTimer(_id).LoopAtElapsed;
+            return GetTimer(_id).LoopAtExpired;
         }
 
-        public bool GetLoopAtElapsed(string _name)
+        public bool GetLoopAtExpired(string _name)
         {
-            return GetTimer(_name).LoopAtElapsed;
+            return GetTimer(_name).LoopAtExpired;
         }
 
-        public void SetLoopAtElapsed(int _id, bool _value)
+        public void SetLoopAtExpired(int _id, bool _value)
         {
-            GetTimer(_id).LoopAtElapsed = _value;
+            GetTimer(_id).LoopAtExpired = _value;
         }
 
-        public void SetLoopAtElapsed(string _name, bool _value)
+        public void SetLoopAtExpired(string _name, bool _value)
         {
-            GetTimer(_name).LoopAtElapsed = _value;
+            GetTimer(_name).LoopAtExpired = _value;
         }
 
         public E_TIMER_STATE GetStatus(int _id)
