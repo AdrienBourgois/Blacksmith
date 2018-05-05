@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace Game.Scripts
 {
-    public class UiManager : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
 
         [SerializeField]

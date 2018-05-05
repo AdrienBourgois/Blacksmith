@@ -48,7 +48,7 @@ namespace Game.Scripts
 		{
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
-			DontDestroyOnLoad(FindObjectOfType<UiManager>());
+			DontDestroyOnLoad(FindObjectOfType<UIManager>());
 
 
 			startGame.AddListener(LoadLevel);
@@ -60,7 +60,7 @@ namespace Game.Scripts
 				Destroy(GameObject.Find("EventSystem"));
 				Destroy(FindObjectOfType<GameState>().gameObject);
 				Destroy(FindObjectOfType<EntityManager>().gameObject);
-				Destroy(FindObjectOfType<UiManager>().gameObject);
+				Destroy(FindObjectOfType<UIManager>().gameObject);
 
 				print("Game Over");
 			});
