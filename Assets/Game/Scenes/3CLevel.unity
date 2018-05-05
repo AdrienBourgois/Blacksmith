@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: -3.6071901, y: 0.028671265, z: 1.6468897}
+  location: {x: -10.058241, y: 0.028671265, z: 1.6468897}
   sprite: {fileID: 21300000, guid: d6349df1e3a2c4142a43159de7aa714a, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
@@ -630,7 +630,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 205095110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6071901, y: 0.8521161, z: 0.82344484}
+  m_LocalPosition: {x: -10.058241, y: 0.8521161, z: 0.82344484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 822456519}
@@ -1470,10 +1470,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 205095110}
   player2: {fileID: 1127114077}
-  maxZoomInDistance: 5
+  maxZoomInDistance: 4
   maxZoomOutDistance: 6
   attenuationFactor: 1
-  zoomSmoothness: 0.01
+  zoomSmoothness: 0.054
   scrollSpeed: 4
   rightScrollZone: {fileID: 215328374}
   leftScrollZone: {fileID: 126654610}
@@ -1692,6 +1692,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e64507059ee75e479ec226c6044420b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 1
 --- !u!61 &782369280
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2148,7 +2149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5415fd81da061fd498bb6630c1de1e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  location: {x: -15.714321, y: 0.004047394, z: 6.1305313}
+  location: {x: -9.840987, y: 0.004047394, z: 6.1305313}
   sprite: {fileID: 21300000, guid: 40541fa9cc19c5c42ab257f055604881, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
@@ -2171,7 +2172,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1127114077}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.714321, y: 3.069313, z: 3.0652657}
+  m_LocalPosition: {x: -9.840987, y: 3.069313, z: 3.0652657}
   m_LocalScale: {x: 1.0000001, y: 1, z: 1}
   m_Children:
   - {fileID: 1720141495}
@@ -2726,6 +2727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e64507059ee75e479ec226c6044420b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
 --- !u!61 &1623715743
 BoxCollider2D:
   m_ObjectHideFlags: 0

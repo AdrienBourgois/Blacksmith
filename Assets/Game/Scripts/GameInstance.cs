@@ -48,7 +48,7 @@ namespace Game.Scripts
 		{
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
-			DontDestroyOnLoad(FindObjectOfType<UiManager>());
+			DontDestroyOnLoad(FindObjectOfType<UIManager>());
 		}
 		#endregion
 
@@ -65,7 +65,8 @@ namespace Game.Scripts
 
 	    public void RestartGame()
 	    {
-
+            SetLevelToLoad("3CMainMenu");
+            StartGame();
 	    }
 
 	    public void PauseGame()
@@ -75,13 +76,14 @@ namespace Game.Scripts
 
 	    public void GameOver()
 	    {
+            InvokeGameOver();
 	        Destroy(gameObject);
 	        Destroy(GameObject.Find("EventSystem"));
 	        Destroy(FindObjectOfType<GameState>().gameObject);
 	        Destroy(FindObjectOfType<EntityManager>().gameObject);
-	        Destroy(FindObjectOfType<UiManager>().gameObject);
-
+	        Destroy(FindObjectOfType<UIManager>().gameObject);
 	        print("Game Over");
+            RestartGame();
         }
 
 	    public void QuitGame()

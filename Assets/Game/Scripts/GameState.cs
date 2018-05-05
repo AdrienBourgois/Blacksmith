@@ -111,7 +111,6 @@ namespace Game.Scripts
 
         private void ListenToCallback()
         {
-
         }
 
         private void SwitchGameState(EGameState _new_e_game_state)
