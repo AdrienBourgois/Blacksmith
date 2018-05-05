@@ -9,6 +9,8 @@ namespace Game.Scripts
         [SerializeField]
         private EventSystem eventSystem;
 
+        private float fury;
+
         // Use this for initialization
         private void Start () {
 		

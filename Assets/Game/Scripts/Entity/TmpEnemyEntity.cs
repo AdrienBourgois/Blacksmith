@@ -1,6 +1,6 @@
 ﻿namespace Game.Scripts.Entity
 {
-    public class TmpEnemyEntity : AttackEntity {
+    public class TmpEnemyEntity : BaseEntity {
 
         protected override void Start()
         {
@@ -11,8 +11,7 @@
         {
             base.Update();
 
-            if (soAttack.CanAttack())
-                soAttack.LightGroundedAttack();
+            LightGroundedAttack();
         }
 
         public override void Die()

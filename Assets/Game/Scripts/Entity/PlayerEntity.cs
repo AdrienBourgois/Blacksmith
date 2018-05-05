@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections;
 using Game.Scripts.ScriptableObjects;
+using Game.Scripts.Timer;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Game.Scripts.Entity
 {
-    public class PlayerEntity : AttackEntity
+    public class PlayerEntity : BaseEntity
     {
+        private enum EPlayerType
+        {
+            MELEE,
+            RANGE
+        }
+
         private enum EPlayerState
         {
             NORMAL,
@@ -15,24 +22,23 @@ namespace Game.Scripts.Entity
         }
 
         [SerializeField] private float reviveTimeTeammate;
-
         [SerializeField] private float reviveTime;
-
         [SerializeField] private float maxFury;
 
         private float fury;
 
-        private delegate void PlayerState();
+        private delegate void PlayerStateHanlder();
 
-        private event PlayerState KnockedOut;
-        private event PlayerState Revived;
+        private event PlayerStateHanlder KnockedOutEvent;
+        private event PlayerStateHanlder RevivedEvent;
 
         private Slider healthSlider;
         private Slider furySlider;
 
         private EPlayerState currentState = EPlayerState.NORMAL;
+        [SerializeField] private EPlayerType playerType;
 
-        private Coroutine inReviveCoroutine;
+        private int reviveTimerId;
 
         #region Unity Methods
 
@@ -41,28 +47,28 @@ namespace Game.Scripts.Entity
             base.Start();
 
             InputManager.InputManager input_manager = FindObjectOfType<InputManager.InputManager>();
-            switch (soAttack.GetAttackType())
+            switch (playerType)
             {
-                case SoBaseAttack.EAttackType.DISTANCE:
+                case EPlayerType.MELEE:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
                     input_manager.SubscribeToJumpReviveP1Event(Jump);
-                    input_manager.SubscribeToWeakAttackP1Event(soAttack.LightGroundedAttack);
-                    input_manager.SubscribeToStrongAttackP1Event(soAttack.HeavyGroundedAttack);
+                    input_manager.SubscribeToWeakAttackP1Event(LightGroundedAttack);
+                    input_manager.SubscribeToStrongAttackP1Event(HeavyGroundedAttack);
 
                     healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(0).GetComponent<Slider>();
                     furySlider = GameObject.FindGameObjectWithTag("FuryUI").transform.GetChild(0).GetComponent<Slider>();
 
                     break;
                 }
-                case SoBaseAttack.EAttackType.CAC:
+                case EPlayerType.RANGE:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
                     input_manager.SubscribeToJumpReviveP2Event(Jump);
-                    input_manager.SubscribeToWeakAttackP2Event(soAttack.LightGroundedAttack);
-                    input_manager.SubscribeToStrongAttackP2Event(soAttack.HeavyGroundedAttack);
+                    input_manager.SubscribeToWeakAttackP2Event(LightGroundedAttack);
+                    input_manager.SubscribeToStrongAttackP2Event(HeavyGroundedAttack);
 
                     healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(1).GetComponent<Slider>();
                     furySlider = GameObject.FindGameObjectWithTag("FuryUI").transform.GetChild(1).GetComponent<Slider>();
@@ -77,8 +83,8 @@ namespace Game.Scripts.Entity
             healthSlider.value = health;
             furySlider.value = fury;
 
-            KnockedOut += () => { inReviveCoroutine = StartCoroutine(ToReviveState()); };
-            KnockedOut += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
+            KnockedOutEvent += KnockedOut;
+            KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
         }
 
         #endregion
@@ -102,8 +108,8 @@ namespace Game.Scripts.Entity
             {
                 case EPlayerState.NORMAL:
                 {
-                    if (KnockedOut != null)
-                        KnockedOut();
+                    if (KnockedOutEvent != null)
+                        KnockedOutEvent();
                     break;
                 }
                 case EPlayerState.KNOCKED_OUT:
@@ -121,18 +127,11 @@ namespace Game.Scripts.Entity
 
         #region Revive
 
-        private IEnumerator ToReviveState()
+        private void KnockedOut()
         {
             currentState = EPlayerState.KNOCKED_OUT;
 
-            float time = reviveTime;
-            while (time >= 0)
-            {
-                time -= Time.deltaTime;
-                yield return null;
-            }
-
-            Die();
+            reviveTimerId = TimerManager.Instance.AddTimer("Revive Timer", reviveTime, true, false, Die);
         }
 
         private void RevivePlayer()
@@ -142,7 +141,14 @@ namespace Game.Scripts.Entity
 
         #endregion
 
-        public void OnEntityHit(BaseEntity _entity, float useless)
+        public override void DamageEntity(BaseEntity _entity, float _damages)
+        {
+            base.DamageEntity(_entity, _damages);
+
+            OnEntityHit(_entity, _damages);
+        }
+
+        public void OnEntityHit(BaseEntity _entity, float _useless)
         {
             // if _entity is Enemy
 
@@ -152,7 +158,6 @@ namespace Game.Scripts.Entity
             ++fury;
             furySlider.value = fury;
         }
-
 
         protected override void ListenXAxis(float _value)
         {
