@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3af0c8173b6f694ca8d54ec1fe0cfa6, type: 3}
+  m_Name: HeavyRange
+  m_EditorClassIdentifier: 
+  damages: 5
+  coolDown: 3
+  bulletPrefab: {fileID: 1308260776783714, guid: 2dde25b8827723b4393b5b414675f154,
+    type: 2}
+  bulletSpeed: 7
+  bulletLifeTime: 10
