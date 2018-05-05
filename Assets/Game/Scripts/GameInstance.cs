@@ -49,21 +49,6 @@ namespace Game.Scripts
 			DontDestroyOnLoad(gameObject);
 			DontDestroyOnLoad(GameObject.Find("EventSystem"));
 			DontDestroyOnLoad(FindObjectOfType<UiManager>());
-
-
-			startGame.AddListener(LoadLevel);
-			quitGame.AddListener(Application.Quit);
-
-			gameOver.AddListener(() =>
-			{
-				Destroy(gameObject);
-				Destroy(GameObject.Find("EventSystem"));
-				Destroy(FindObjectOfType<GameState>().gameObject);
-				Destroy(FindObjectOfType<EntityManager>().gameObject);
-				Destroy(FindObjectOfType<UiManager>().gameObject);
-
-				print("Game Over");
-			});
 		}
 		#endregion
 
@@ -73,38 +58,70 @@ namespace Game.Scripts
 			levelToLoad = _level_to_load;
 		}
 
-		private void LoadLevel()
+	    public void StartGame()
+	    {
+	        LoadLevel();
+	    }
+
+	    public void RestartGame()
+	    {
+
+	    }
+
+	    public void PauseGame()
+	    {
+
+	    }
+
+	    public void GameOver()
+	    {
+	        Destroy(gameObject);
+	        Destroy(GameObject.Find("EventSystem"));
+	        Destroy(FindObjectOfType<GameState>().gameObject);
+	        Destroy(FindObjectOfType<EntityManager>().gameObject);
+	        Destroy(FindObjectOfType<UiManager>().gameObject);
+
+	        print("Game Over");
+        }
+
+	    public void QuitGame()
+	    {
+            InvokeQuitGame();
+	        Application.Quit();
+	    }
+        #endregion
+
+        private void LoadLevel()
 		{
 			SceneManager.LoadScene(levelToLoad);
 		}
-		#endregion
 
 		#region Invokes
-		public void InvokeStartGame()
+		private void InvokeStartGame()
 		{
 			if (startGame != null)
 				startGame.Invoke();
 		}
 
-		public void InvokeRestartGame()
+		private void InvokeRestartGame()
 		{
 			if (restartGame != null)
 				restartGame.Invoke();
 		}
 
-		public void InvokePauseGame(bool _pause)
+		private void InvokePauseGame(bool _pause)
 		{
 			if (pauseGame != null)
 				pauseGame.Invoke(_pause);
 		}
 
-		public void InvokeGameOver()
+		private void InvokeGameOver()
 		{
 			if (gameOver != null)
 				gameOver.Invoke();
 		}
 
-		public void InvokeQuitGame()
+		private void InvokeQuitGame()
 		{
 			if (quitGame != null)
 				quitGame.Invoke();
