@@ -18,7 +18,7 @@ namespace Game.Scenes.Tests.InputManager
         {
             Scripts.InputManager.InputManager.Instance.SubscribeToHorizontalP1Event(Horizontal);
             Scripts.InputManager.InputManager.Instance.SubscribeToVerticalP1Event(Vertical);
-            Scripts.InputManager.InputManager.Instance.SubscribeToJumpReviveP1Event(JumpRevive);
+            Scripts.InputManager.InputManager.Instance.SubscribeToJumpP1Event(JumpRevive);
             Scripts.InputManager.InputManager.Instance.SubscribeToWeakAttackP1Event(WeakAttack);
             Scripts.InputManager.InputManager.Instance.SubscribeToStrongAttackP1Event(StrongAttack);
             Scripts.InputManager.InputManager.Instance.SubscribeToSpecialMoveP1Event(SpecialMove);
@@ -30,7 +30,7 @@ namespace Game.Scenes.Tests.InputManager
         {
             Scripts.InputManager.InputManager.Instance.SubscribeToHorizontalP2Event(Horizontal);
             Scripts.InputManager.InputManager.Instance.SubscribeToVerticalP2Event(Vertical);
-            Scripts.InputManager.InputManager.Instance.SubscribeToJumpReviveP2Event(JumpRevive);
+            Scripts.InputManager.InputManager.Instance.SubscribeToJumpP2Event(JumpRevive);
             Scripts.InputManager.InputManager.Instance.SubscribeToWeakAttackP2Event(WeakAttack);
             Scripts.InputManager.InputManager.Instance.SubscribeToStrongAttackP2Event(StrongAttack);
             Scripts.InputManager.InputManager.Instance.SubscribeToSpecialMoveP2Event(SpecialMove);
@@ -67,9 +67,9 @@ namespace Game.Scenes.Tests.InputManager
         {
             print(playerId + " SpecialMove");
         }
-        private void Fusion()
+        private void Fusion(float value)
         {
-            print(playerId + " Fusion");
+            print(playerId + " Fusion = " + value);
         }
         private void Pause()
         {

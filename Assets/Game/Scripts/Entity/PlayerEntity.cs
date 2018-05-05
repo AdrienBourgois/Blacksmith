@@ -47,7 +47,8 @@ namespace Game.Scripts.Entity
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
-                    input_manager.SubscribeToJumpReviveP1Event(Jump);
+                    input_manager.SubscribeToJumpP1Event(Jump);
+                    input_manager.SubscribeToFusionP1Event(Fusion);
                     input_manager.SubscribeToWeakAttackP1Event(soAttack.LightGroundedAttack);
                     input_manager.SubscribeToStrongAttackP1Event(soAttack.HeavyGroundedAttack);
 
@@ -60,7 +61,8 @@ namespace Game.Scripts.Entity
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
-                    input_manager.SubscribeToJumpReviveP2Event(Jump);
+                    input_manager.SubscribeToJumpP2Event(Jump);
+                    input_manager.SubscribeToFusionP2Event(Fusion);
                     input_manager.SubscribeToWeakAttackP2Event(soAttack.LightGroundedAttack);
                     input_manager.SubscribeToStrongAttackP2Event(soAttack.HeavyGroundedAttack);
 
@@ -171,6 +173,11 @@ namespace Game.Scripts.Entity
         {
             if (currentState != EPlayerState.KNOCKED_OUT)
                 base.Jump();
+        }
+
+        protected void Fusion(float axe_value)
+        {
+            print("Fusion = " + axe_value);
         }
 
         public void Revive()
