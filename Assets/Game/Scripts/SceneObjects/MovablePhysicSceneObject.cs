@@ -13,19 +13,7 @@ namespace Game.Scripts.SceneObjects
         [Header("Debug")]
         public bool enableKeyboard;
 
-        protected virtual void ListenXAxis(float _value)
-        {
-            //if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
-                TryMove(new Vector3(_value, 0, 0));
-        }
-
-        protected virtual void ListenZAxis(float _value)
-        {
-            if (currentPhysicState == PhysicState.ON_GROUND || currentPhysicState == PhysicState.ON_OBJECT)
-                    TryMove(new Vector3(0, 0, _value));
-        }
-
-        private void TryMove(Vector3 _move)
+        protected void TryMove(Vector3 _move)
         {
             Vector3 new_scale = transform.localScale;
 

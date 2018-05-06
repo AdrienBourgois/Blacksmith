@@ -5,8 +5,11 @@ namespace Game.Scripts.SceneObjects
     public class SceneObject : MonoBehaviour
     {
         [Header("Scene Object")]
+        [HideInInspector]
         public Vector3 location;
-        private const float slope = 0.5f;
+
+        protected virtual void Start()
+        {}
 
         protected virtual void Update()
         {
@@ -30,7 +33,13 @@ namespace Game.Scripts.SceneObjects
             location = transform.position.ToGameSpace();
         }
 
-        protected bool IsOnFloorSpace()
+        public void ToFloor()
+        {
+            location.y = 0f;
+            SetUnityPosition();
+        }
+
+        public bool IsOnFloorSpace()
         {
             return GamePhysic.IsPointInCollider(location.ToFloor(), "Floor");
         }
@@ -40,7 +49,7 @@ namespace Game.Scripts.SceneObjects
             return GamePhysic.IsPointInCollider(_game_point, "Floor");
         }
 
-        protected bool IsInCameraSpace()
+        public bool IsInCameraSpace()
         {
             return GamePhysic.IsPointInCollider(location.ToFloor(), "Camera");
         }

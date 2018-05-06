@@ -16,17 +16,17 @@ namespace Game.Scripts.Entity
             soAttack.Init(this);
         }
 
-        protected override void ListenXAxis(float _value)
+        protected virtual void ListenXAxis(float _value)
         {
             if (!soAttack.IsAttacking())
-                base.ListenXAxis(_value);
+                TryMove(Vector3.right * _value);
 
         }
 
-        protected override void ListenZAxis(float _value)
+        protected virtual void ListenZAxis(float _value)
         {
             if (!soAttack.IsAttacking())
-                base.ListenZAxis(_value);
+                TryMove(Vector3.up * _value);
         }
 
         protected override void Jump()

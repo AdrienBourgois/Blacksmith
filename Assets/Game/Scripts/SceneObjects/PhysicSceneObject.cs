@@ -8,10 +8,8 @@ namespace Game.Scripts.SceneObjects
         [Header("Physic Scene Object")]
         public Vector3 velocity;
         public float friction = 5f;
-        public float gravityScale = 8f;
+        public float weight = 0.2f;
         protected PhysicState currentPhysicState = PhysicState.ON_GROUND;
-
-        protected readonly Collider2D[] floorColliders = new Collider2D[3];
 
         protected enum PhysicState
         {
@@ -21,11 +19,11 @@ namespace Game.Scripts.SceneObjects
             ON_OBJECT
         }
 
-        protected override void Update()
+        protected virtual void FixedUpdate()
         {
-            base.Update();
-
             UpdatePhysic();
+            UpdateCollision();
+            UpdatePosition();
         }
 
         protected virtual void UpdatePhysic()
@@ -38,29 +36,40 @@ namespace Game.Scripts.SceneObjects
             switch (currentPhysicState)
             {
                 case PhysicState.ON_AIR_UP:
-                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / gravityScale);
+                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime * weight);
                     if (velocity.y < 0f)
                         currentPhysicState = PhysicState.ON_AIR_DOWN;
                     break;
                 case PhysicState.ON_AIR_DOWN:
-                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime / gravityScale);
+                    velocity.y = Mathf.Lerp(velocity.y, GamePhysic.Gravity, Time.deltaTime * weight);
                     break;
                 case PhysicState.ON_GROUND:
-                    if (velocity.x != 0f)
-                        velocity.x = Mathf.Lerp(velocity.x, 0f, Time.deltaTime * friction);
-                    if (velocity.z != 0f)
-                        velocity.z = Mathf.Lerp(velocity.z, 0f, Time.deltaTime * friction);
-                    break;
                 case PhysicState.ON_OBJECT:
                     if (velocity.x != 0f)
                         velocity.x = Mathf.Lerp(velocity.x, 0f, Time.deltaTime * friction);
                     if (velocity.z != 0f)
                         velocity.z = Mathf.Lerp(velocity.z, 0f, Time.deltaTime * friction);
+                    if (velocity.x < 0.01f && velocity.x > 0.01f)
+                        velocity.x = 0f;
+                    if (velocity.z < 0.01f && velocity.z > 0.01f)
+                        velocity.z = 0f;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
 
+        protected virtual void UpdateCollision()
+        {
+            if (!IsOnFloorSpace(location + velocity))
+            {
+                velocity.x = 0f;
+                velocity.z = 0f;
+            }
+        }
+
+        protected virtual void UpdatePosition()
+        {
             location += velocity;
 
             if (location.y <= 0f)
@@ -70,7 +79,7 @@ namespace Game.Scripts.SceneObjects
             }
         }
 
-        protected void OnLand()
+        protected virtual void OnLand()
         {
             velocity.y = 0f;
             currentPhysicState = PhysicState.ON_GROUND;

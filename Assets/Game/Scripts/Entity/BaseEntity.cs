@@ -7,7 +7,7 @@ namespace Game.Scripts.Entity
     public class BaseEntity : SceneObjects.MovablePhysicSceneObject, IDamagable
     {
         [SerializeField] protected float recoveryTime;
-        
+
         [SerializeField] protected float maxHealth;
 
         [SerializeField] private Color recoveryColor;
@@ -30,7 +30,6 @@ namespace Game.Scripts.Entity
         // Update is called once per frame
         protected override void Update()
         {
-            base.Update();
         }
 
         #region IDamagable

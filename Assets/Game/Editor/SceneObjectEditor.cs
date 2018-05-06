@@ -8,28 +8,61 @@ namespace Game.Editor
     [CustomEditor(typeof(SceneObject), true)]
     public class SceneObjectEditor : UnityEditor.Editor
     {
-        private void OnEnable()
+        private SceneObject selection;
+
+        private static Rect windowRect = new Rect(20, 20, 250, 50);
+
+        protected virtual void OnEnable()
         {
+            selection = (SceneObject)target;
             Tools.hidden = true;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
+            selection = null;
             Tools.hidden = false;
         }
 
-        private void OnSceneGUI()
+        protected virtual void OnSceneGUI()
         {
             DisplayMoveTool();
+            HandleFunction();
         }
 
-        [DrawGizmo(GizmoType.Selected | GizmoType.Active | GizmoType.NotInSelectionHierarchy, typeof(SceneObject))]
-        private static void DrawGizmo(SceneObject _scene_object, GizmoType _type)
+        private void HandleFunction()
+        {
+            Handles.BeginGUI();
+
+            windowRect = GUILayout.Window(10, windowRect, WindowFunction, "SceneObject");
+
+            Handles.EndGUI();
+        }
+
+        private void WindowFunction(int _id)
+        {
+            EditorGUI.BeginChangeCheck();
+            selection.location = EditorGUILayout.Vector3Field("Location :", selection.location);
+            if(EditorGUI.EndChangeCheck())
+                selection.SetUnityPosition();
+
+            if (GUILayout.Button("To Floor"))
+                selection.ToFloor();
+            GUILayout.Toggle(selection.IsOnFloorSpace(), "Is On Floor ?");
+            GUI.DragWindow();
+        }
+
+        [DrawGizmo((GizmoType) 36, typeof(SceneObject))]
+        protected static void DrawGizmo(SceneObject _scene_object, GizmoType _type)
         {
             Vector3 location = _scene_object.location;
 
             if(DebugOptionsWindow.displayHeightRay)
-                Debug.DrawLine(location.ToUnitySpace(), location.ToFloor().ToUnitySpace(), Color.blue);
+            {
+                Handles.color = Color.blue;
+                Handles.DrawLine(location.ToUnitySpace(), location.ToFloor().ToUnitySpace());
+            }
+
             if (DebugOptionsWindow.displayFloorPoint)
             {
                 Handles.color = Color.red;
@@ -39,12 +72,10 @@ namespace Game.Editor
 
         private void DisplayMoveTool()
         {
-            SceneObject scene_object = (SceneObject)target;
-
-            float handle_size = HandleUtility.GetHandleSize(scene_object.location);
+            float handle_size = HandleUtility.GetHandleSize(selection.location);
             const float snap = 0.1f;
 
-            Vector3 location = scene_object.transform.position;
+            Vector3 location = selection.transform.position;
 
             EditorGUI.BeginChangeCheck();
             Handles.color = Color.red;
@@ -52,9 +83,9 @@ namespace Game.Editor
 
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(scene_object, "Change Scene Object Position");
-                scene_object.transform.position = x_handle_position;
-                scene_object.SetGamePosition();
+                Undo.RecordObject(selection, "Change Scene Object Position");
+                selection.transform.position = x_handle_position;
+                selection.SetGamePosition();
             }
 
             EditorGUI.BeginChangeCheck();
@@ -63,9 +94,9 @@ namespace Game.Editor
 
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(scene_object, "Change Scene Object Position");
-                scene_object.transform.position = z_handle_position;
-                scene_object.SetGamePosition();
+                Undo.RecordObject(selection, "Change Scene Object Position");
+                selection.transform.position = z_handle_position;
+                selection.SetGamePosition();
             }
 
             EditorGUI.BeginChangeCheck();
@@ -74,9 +105,20 @@ namespace Game.Editor
 
             if (EditorGUI.EndChangeCheck())
             {
-                Undo.RecordObject(scene_object, "Change Scene Object Position");
-                scene_object.transform.position = y_handle_position;
-                scene_object.SetGamePosition();
+                Undo.RecordObject(selection, "Change Scene Object Position");
+                selection.transform.position = y_handle_position;
+                selection.SetGamePosition();
+            }
+
+            EditorGUI.BeginChangeCheck();
+            Handles.color = Color.magenta;
+            Vector3 free_move_handle_position = Handles.Slider2D(location, Vector3.back, GamePhysic.zAxis, Vector3.right, handle_size / 4f, Handles.RectangleHandleCap, snap);
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                Undo.RecordObject(selection, "Change Scene Object Position");
+                selection.transform.position = free_move_handle_position;
+                selection.SetGamePosition();
             }
         }
     }
