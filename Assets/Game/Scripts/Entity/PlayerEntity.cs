@@ -25,15 +25,12 @@ namespace Game.Scripts.Entity
         [SerializeField] private float reviveTime;
         [SerializeField] private float maxFury;
 
-        private float fury;
-
         private delegate void PlayerStateHanlder();
 
         private event PlayerStateHanlder KnockedOutEvent;
         private event PlayerStateHanlder RevivedEvent;
 
         private Slider healthSlider;
-        private Slider furySlider;
 
         private EPlayerState currentState = EPlayerState.NORMAL;
         [SerializeField] private EPlayerType playerType;
@@ -58,7 +55,6 @@ namespace Game.Scripts.Entity
                     input_manager.SubscribeToStrongAttackP1Event(HeavyGroundedAttack);
 
                     healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(0).GetComponent<Slider>();
-                    furySlider = GameObject.FindGameObjectWithTag("FuryUI").transform.GetChild(0).GetComponent<Slider>();
 
                     break;
                 }
@@ -71,7 +67,6 @@ namespace Game.Scripts.Entity
                     input_manager.SubscribeToStrongAttackP2Event(HeavyGroundedAttack);
 
                     healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(1).GetComponent<Slider>();
-                    furySlider = GameObject.FindGameObjectWithTag("FuryUI").transform.GetChild(1).GetComponent<Slider>();
 
                     break;
                 }
@@ -81,7 +76,6 @@ namespace Game.Scripts.Entity
 
             healthSlider.maxValue = maxHealth;
             healthSlider.value = health;
-            furySlider.value = fury;
 
             KnockedOutEvent += KnockedOut;
             KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
@@ -151,12 +145,7 @@ namespace Game.Scripts.Entity
         public void OnEntityHit(BaseEntity _entity, float _useless)
         {
             // if _entity is Enemy
-
-            if (fury >= maxFury)
-                return;
-
-            ++fury;
-            furySlider.value = fury;
+            UiManager.Instance.IncreaseFury(1);
         }
 
         protected override void ListenXAxis(float _value)

@@ -616,13 +616,15 @@ MonoBehaviour:
   jumpPower: 0.3
   mustBeInCameraSpace: 1
   enableKeyboard: 1
+  lightAttack: {fileID: 11400000, guid: 01173b2f11147cb4bb4da0ef56228bb9, type: 2}
+  heavyAttack: {fileID: 11400000, guid: 6353327dc9be0a645ab471ff2ad83ffd, type: 2}
   recoveryTime: 1
   maxHealth: 10
   recoveryColor: {r: 0.5058824, g: 0.23921569, b: 0.23921569, a: 1}
-  soAttack: {fileID: 11400000, guid: e78bebe51704602478e572dc9d44c084, type: 2}
   reviveTimeTeammate: 4
   reviveTime: 3
   maxFury: 10
+  playerType: 0
 --- !u!4 &205095115
 Transform:
   m_ObjectHideFlags: 0
@@ -1022,6 +1024,46 @@ PolygonCollider2D:
       - {x: -13.471501, y: 4.594518}
       - {x: -16.932459, y: 4.6284328}
       - {x: -16.932266, y: 4.970249}
+--- !u!1 &431123714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 431123716}
+  - component: {fileID: 431123715}
+  m_Layer: 0
+  m_Name: TimerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &431123715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431123714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3074ee1c6917984d9f3920f63aa6b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &431123716
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 431123714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &561718671
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,7 +1902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &908470743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1881,10 +1923,11 @@ MonoBehaviour:
   jumpPower: 8
   mustBeInCameraSpace: 0
   enableKeyboard: 0
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
   recoveryTime: 1
   maxHealth: 10
   recoveryColor: {r: 0.5058824, g: 0.23921569, b: 0.23921569, a: 1}
-  soAttack: {fileID: 11400000, guid: c68dabda3a6e146428821b1f4b89ebfd, type: 2}
 --- !u!50 &908470744
 Rigidbody2D:
   serializedVersion: 4
@@ -2047,7 +2090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1127114078
 Rigidbody2D:
   serializedVersion: 4
@@ -2157,13 +2200,15 @@ MonoBehaviour:
   jumpPower: 0.31
   mustBeInCameraSpace: 1
   enableKeyboard: 1
+  lightAttack: {fileID: 11400000, guid: 067d9cd6eb666724aa69489e7f10022a, type: 2}
+  heavyAttack: {fileID: 11400000, guid: b7c5f7fa8f62ecd4bb5034ecd4808d5f, type: 2}
   recoveryTime: 1
   maxHealth: 8
   recoveryColor: {r: 0.5058824, g: 0.23921569, b: 0.23921569, a: 1}
-  soAttack: {fileID: 11400000, guid: 4505b0c737c05394c9196dd20a57ced7, type: 2}
   reviveTimeTeammate: 3
   reviveTime: 3
   maxFury: 10
+  playerType: 1
 --- !u!4 &1127114082
 Transform:
   m_ObjectHideFlags: 0
@@ -2804,7 +2849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1637426672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2825,10 +2870,11 @@ MonoBehaviour:
   jumpPower: 8
   mustBeInCameraSpace: 0
   enableKeyboard: 0
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
   recoveryTime: 1
   maxHealth: 10
   recoveryColor: {r: 0.50735295, g: 0.23875432, b: 0.23875432, a: 1}
-  soAttack: {fileID: 11400000, guid: 993e544b884f0f4409f9f2a1fa37f484, type: 2}
 --- !u!50 &1637426673
 Rigidbody2D:
   serializedVersion: 4

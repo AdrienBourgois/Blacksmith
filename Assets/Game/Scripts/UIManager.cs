@@ -1,24 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Game.Scripts
 {
     public class UiManager : MonoBehaviour
     {
+        static private UiManager instance;
+        static public UiManager Instance
+        {
+            get { return instance; }
+        }
 
         [SerializeField]
         private EventSystem eventSystem;
 
-        private float fury;
+        [SerializeField] private float maxFury;
 
-        // Use this for initialization
-        private void Start () {
-		
+        private float fury;
+        [SerializeField] private Slider furySlider;
+
+        private void Awake()
+        {
+            instance = this;
         }
-	
-        // Update is called once per frame
-        private void Update () {
-		
+
+        private void Start()
+        {
+            furySlider.value = fury;
+        }
+
+        public void IncreaseFury(int _value)
+        {
+            if (fury >= maxFury)
+                return;
+
+            ++fury;
+            furySlider.value = fury;
         }
 
         public void EnableMenu(Transform _menu)

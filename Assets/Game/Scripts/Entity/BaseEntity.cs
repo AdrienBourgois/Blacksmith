@@ -19,6 +19,7 @@ namespace Game.Scripts.Entity
         private bool isInCooldown;
         private bool isAttacking;
 
+        private int CooldownTimerId;
         protected bool inRecovery;
 
         private Color sColor;
@@ -80,7 +81,7 @@ namespace Game.Scripts.Entity
         public void StartCooldown(float _cooldown)
         {
             isInCooldown = true;
-            TimerManager.Instance.AddTimer("Cooldown", _cooldown, true, false, () => isInCooldown = false);
+            CooldownTimerId = TimerManager.Instance.AddTimer("Cooldown", _cooldown, true, false, () => isInCooldown = false);
         }
 
         public virtual void DamageEntity(BaseEntity _entity, float _damages)
