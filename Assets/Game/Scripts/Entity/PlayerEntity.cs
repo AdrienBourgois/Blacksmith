@@ -247,6 +247,8 @@ namespace Game.Scripts.Entity
         public void FusionAskAccepted()
         {
             SwitchPlayerState(EPlayerState.FUSION);
+            // change the graphic position of PlayerNephew
+            // change the controller
         }
     }
 }
