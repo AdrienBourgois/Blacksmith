@@ -19,7 +19,9 @@ namespace Game.Scripts.Entity
         private bool isInCooldown;
         private bool isAttacking;
 
-        private int CooldownTimerId;
+        private int cooldownTimerId;
+        private int recoveryTimerId;
+
         protected bool inRecovery;
 
         private Color sColor;
@@ -81,7 +83,7 @@ namespace Game.Scripts.Entity
         public void StartCooldown(float _cooldown)
         {
             isInCooldown = true;
-            CooldownTimerId = TimerManager.Instance.AddTimer("Cooldown", _cooldown, true, false, () => isInCooldown = false);
+            cooldownTimerId = TimerManager.Instance.AddTimer("Cooldown", _cooldown, true, false, () => isInCooldown = false);
         }
 
         public virtual void DamageEntity(BaseEntity _entity, float _damages)
@@ -102,16 +104,23 @@ namespace Game.Scripts.Entity
                 Die();
             else
             {
-                StartRecovery();
+                velocity.x = -0.1f;
+                velocity.y = 0.1f;
+
+                inRecovery = true;
+                GetComponent<SpriteRenderer>().color = recoveryColor;
+
+                recoveryTimerId = TimerManager.Instance.AddTimer("Recovery Timer", recoveryTime, true, false, () =>
+                {
+                    GetComponent<SpriteRenderer>().color = sColor;
+                    inRecovery = false;
+                });
+
+                //StartRecovery();
             }
         }
 
-        public void StartRecovery()
-        {
-            recoveryCor = StartCoroutine(RecoveryCoroutine());
-        }
-
-        IEnumerator RecoveryCoroutine()
+        /*IEnumerator RecoveryCoroutine()
         {
             inRecovery = true;
             float time = recoveryTime;
@@ -127,7 +136,7 @@ namespace Game.Scripts.Entity
 
             inRecovery = false;
             GetComponent<SpriteRenderer>().color = sColor;
-        }
+        }*/
 
         public virtual void Die()
         {

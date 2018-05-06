@@ -8,6 +8,7 @@ TagManager:
   - FuryUI
   - P2_healthSlider
   - P1_healthSlider
+  - DestroyOnGameOver
   layers:
   - Default
   - TransparentFX

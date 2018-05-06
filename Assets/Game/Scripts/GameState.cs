@@ -49,8 +49,8 @@ namespace Game.Scripts
 
         private void Start()
         {
-            DontDestroyOnLoad(this);
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            //DontDestroyOnLoad(this);
+            //SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         #endregion
@@ -79,7 +79,7 @@ namespace Game.Scripts
         }
         #endregion
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        /*void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name == "3CLevel")
             {
@@ -89,6 +89,16 @@ namespace Game.Scripts
 
                 SwitchGameState(EGameState.IN_GAME);
             }
+        }*/
+
+        public void StartGame()
+        {
+            ZoneTrigger[] triggers = FindObjectsOfType<ZoneTrigger>();
+            foreach (ZoneTrigger zone_trigger in triggers)
+                zone_trigger.SubscribeToonStayZoneCallback(ListenToCallback);
+
+            SwitchGameState(EGameState.IN_GAME);
+            SwitchGamePlayState(EGamePlayState.EXPLORATION);
         }
 
         private void ListenToCallback(Collider2D _other, ZoneTrigger _trigger)
@@ -105,7 +115,7 @@ namespace Game.Scripts
             if (_trigger.Type == EZoneTriggerType.GAME_OVER)
             {
                 if (_other.gameObject.name == "Camera")
-                    GameInstance.Instance.GameOver();
+                    GameInstance.Instance.InvokeGameOver();
             }
         }
 
@@ -137,7 +147,7 @@ namespace Game.Scripts
         public void IsGameOver(uint _knocked_count)
         {
             if (_knocked_count == 2)
-                GameInstance.Instance.GameOver();
+                GameInstance.Instance.InvokeGameOver();
         }
     }
 }

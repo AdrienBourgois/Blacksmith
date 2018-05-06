@@ -18,7 +18,7 @@ namespace Game.Scripts.ScriptableObjects
         {
             base.Attack(_entity);
 
-            GameObject bullet_pref = Instantiate(bulletPrefab);
+            GameObject bullet_pref = Instantiate(bulletPrefab, _entity.transform.root);
             Destroy(bullet_pref, bulletLifeTime);
 
             BulletBehavior bullet = bullet_pref.GetComponent<BulletBehavior>();

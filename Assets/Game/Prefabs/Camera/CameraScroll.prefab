@@ -78,4 +78,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   side: 0
-  percent_size: 35
+  percentSize: 0

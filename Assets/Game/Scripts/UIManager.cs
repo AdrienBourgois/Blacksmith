@@ -39,6 +39,16 @@ namespace Game.Scripts
             furySlider.value = fury;
         }
 
+        public void ShowGameObject(GameObject _game_object)
+        {
+            _game_object.SetActive(true);
+        }
+
+        public void HideGameObject(GameObject _game_object)
+        {
+            _game_object.SetActive(false);
+        }
+
         public void EnableMenu(Transform _menu)
         {
             _menu.gameObject.SetActive(true);

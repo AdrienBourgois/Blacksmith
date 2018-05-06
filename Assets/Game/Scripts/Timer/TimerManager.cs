@@ -79,6 +79,16 @@ namespace Game.Scripts.Timer
             Assert.IsNotNull(_expired_listener_function, error_prefix + "the given _expired_listener_function must be different than NULL");
         }
 
+        public void DestroyAllTimers()
+        {
+            foreach (Timer timer in timerList)
+            {
+                timer.Stop();
+            }
+
+            timerList.Clear();
+        }
+
         public int AddTimer(string _timer_name, float _expire_at, bool _start_on_creation, bool _loop_at_expired, TimerDelegate _expired_listener_function)
         {
             SecurityAsserts(_timer_name, _expire_at, _expired_listener_function);

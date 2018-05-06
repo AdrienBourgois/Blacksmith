@@ -90,9 +90,6 @@ namespace Game.Scripts.Entity
         {
             base.ReceiveDamages(_damages);
 
-            velocity.x = -0.1f;
-            velocity.y = 0.1f;
-
             healthSlider.value = health;
         }
 
