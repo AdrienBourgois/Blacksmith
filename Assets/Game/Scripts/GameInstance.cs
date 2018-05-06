@@ -46,84 +46,66 @@ namespace Game.Scripts
 
 		private void Start ()
 		{
-			DontDestroyOnLoad(gameObject);
-			DontDestroyOnLoad(GameObject.Find("EventSystem"));
-			DontDestroyOnLoad(FindObjectOfType<UIManager>());
+            startGame.AddListener(LoadLevel);
+            gameOver.AddListener(() =>
+            {
+                foreach (GameObject game_object in GameObject.FindGameObjectsWithTag("DestroyOnGameOver"))
+                {
+                    Destroy(game_object);
+                }
+            });
+
+            quitGame.AddListener(() => { Application.Quit(); });
 		}
-		#endregion
+
+	    private void Update()
+	    {
+	        if (Input.GetKeyDown(KeyCode.G))
+                InvokeGameOver();
+	    }
+
+	    #endregion
 
 		#region public Methods
 		public void SetLevelToLoad(string _level_to_load)
 		{
-			levelToLoad = _level_to_load;
+		    levelToLoad = _level_to_load;
 		}
-
-	    public void StartGame()
-	    {
-	        LoadLevel();
-	    }
-
-	    public void RestartGame()
-	    {
-            SetLevelToLoad("3CMainMenu");
-            StartGame();
-	    }
-
-	    public void PauseGame()
-	    {
-
-	    }
-
-	    public void GameOver()
-	    {
-            InvokeGameOver();
-	        Destroy(gameObject);
-	        Destroy(GameObject.Find("EventSystem"));
-	        Destroy(FindObjectOfType<GameState>().gameObject);
-	        Destroy(FindObjectOfType<EntityManager>().gameObject);
-	        Destroy(FindObjectOfType<UIManager>().gameObject);
-	        print("Game Over");
-            RestartGame();
-        }
-
-	    public void QuitGame()
-	    {
-            InvokeQuitGame();
-	        Application.Quit();
-	    }
         #endregion
 
         private void LoadLevel()
-		{
-			SceneManager.LoadScene(levelToLoad);
-		}
+        {
+            Object prefab = Resources.Load(levelToLoad);
+            if (prefab != null)
+                Instantiate(prefab);
+        }
 
 		#region Invokes
-		private void InvokeStartGame()
+		public void InvokeStartGame()
 		{
 			if (startGame != null)
 				startGame.Invoke();
 		}
 
-		private void InvokeRestartGame()
+	    public void InvokeRestartGame()
 		{
 			if (restartGame != null)
 				restartGame.Invoke();
 		}
 
-		private void InvokePauseGame(bool _pause)
+	    public void InvokePauseGame(bool _pause)
 		{
 			if (pauseGame != null)
 				pauseGame.Invoke(_pause);
 		}
 
-		private void InvokeGameOver()
+	    public void InvokeGameOver()
 		{
 			if (gameOver != null)
 				gameOver.Invoke();
 		}
 
-		private void InvokeQuitGame()
+	    public void InvokeQuitGame()
 		{
 			if (quitGame != null)
 				quitGame.Invoke();
