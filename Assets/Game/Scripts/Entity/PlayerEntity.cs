@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Game.Scripts.ScriptableObjects;
+using Game.Scripts.Timer;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,21 +12,23 @@ namespace Game.Scripts.Entity
         private enum EPlayerState
         {
             NORMAL,
+            READY_TO_FUSION,
+            ASK_TO_FUSION,
+            FUSION,
             KNOCKED_OUT
         }
 
         [SerializeField] private float reviveTimeTeammate;
-
         [SerializeField] private float reviveTime;
-
         [SerializeField] private float maxFury;
 
         private float fury;
 
-        private delegate void PlayerState();
+        public delegate void PlayerStateDelegate();
 
-        private event PlayerState KnockedOut;
-        private event PlayerState Revived;
+        private event PlayerStateDelegate askToFusion;
+        private event PlayerStateDelegate KnockedOut;
+        private event PlayerStateDelegate Revived;
 
         private Slider healthSlider;
         private Slider furySlider;
@@ -33,6 +36,22 @@ namespace Game.Scripts.Entity
         private EPlayerState currentState = EPlayerState.NORMAL;
 
         private Coroutine inReviveCoroutine;
+
+        public bool IsAskingFusion { get { return currentState == EPlayerState.ASK_TO_FUSION; } }
+
+        #region CallBackSubscription
+        public void SubscribeToAskToFusionCallback(PlayerStateDelegate _listener_function)
+        {
+            askToFusion += _listener_function;
+        }
+        #endregion
+
+        #region CallBackUnsubscription
+        public void UnsubscribeToAskToFusionCallback(PlayerStateDelegate _listener_function)
+        {
+            askToFusion -= _listener_function;
+        }
+        #endregion
 
         #region Unity Methods
 
@@ -81,6 +100,7 @@ namespace Game.Scripts.Entity
 
             KnockedOut += () => { inReviveCoroutine = StartCoroutine(ToReviveState()); };
             KnockedOut += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
+
         }
 
         #endregion
@@ -178,6 +198,11 @@ namespace Game.Scripts.Entity
         protected void Fusion(float axe_value)
         {
             print("Fusion = " + axe_value);
+            if (currentState == EPlayerState.READY_TO_FUSION)
+            {
+                currentState = EPlayerState.ASK_TO_FUSION;
+
+            }
         }
 
         public void Revive()
@@ -189,6 +214,40 @@ namespace Game.Scripts.Entity
                 health = maxHealth;
                 healthSlider.value = health;
             }
+        }
+
+        private void SwitchPlayerState(EPlayerState _new_state)
+        {
+            switch (_new_state)
+            {
+                case EPlayerState.NORMAL: 
+                    break;
+                case EPlayerState.READY_TO_FUSION:
+                    break;
+                case EPlayerState.ASK_TO_FUSION:
+                {
+                    if (askToFusion != null)
+                        askToFusion();
+
+                    break;
+                }
+                    
+                case EPlayerState.FUSION:
+                    break;
+                case EPlayerState.KNOCKED_OUT:
+                    break;
+            }
+        }
+
+        public void FusionAskRefused()
+        {
+            if (IsAskingFusion)
+                SwitchPlayerState(EPlayerState.READY_TO_FUSION);
+        }
+
+        public void FusionAskAccepted()
+        {
+            SwitchPlayerState(EPlayerState.FUSION);
         }
     }
 }
