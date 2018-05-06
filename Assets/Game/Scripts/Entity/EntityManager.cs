@@ -83,6 +83,7 @@ namespace Game.Scripts.Entity
 
         private void OnFusionAsking()
         {
+            Timer.TimerManager.Instance.StartTimer(fusionInputTimeOutId);
             if (AreBothPlayerAskToFusion() == true)
                 AcceptPlayerFusion();
         }
@@ -104,6 +105,8 @@ namespace Game.Scripts.Entity
             {
                 player_entity.FusionAskAccepted();
             }
+
+            Timer.TimerManager.Instance.StopTimer(fusionInputTimeOutId);
         }
 
         private void OnFusionTimerExpired()

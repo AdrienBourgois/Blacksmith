@@ -201,7 +201,6 @@ namespace Game.Scripts.Entity
             if (currentState == EPlayerState.READY_TO_FUSION)
             {
                 currentState = EPlayerState.ASK_TO_FUSION;
-
             }
         }
 
