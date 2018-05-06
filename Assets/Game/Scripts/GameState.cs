@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.Triggers.ZoneTrigger;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
@@ -81,47 +82,40 @@ namespace Game.Scripts
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (scene.name == "3CLevel")
+            {
+                ZoneTrigger[] triggers = FindObjectsOfType<ZoneTrigger>();
+                foreach (ZoneTrigger zone_trigger in triggers)
+                    zone_trigger.SubscribeToonStayZoneCallback(ListenToCallback);
+
                 SwitchGameState(EGameState.IN_GAME);
+            }
         }
 
-        private void ListenToCallback(Collider2D _other, GameObject trigger)
+        private void ListenToCallback(Collider2D _other, ZoneTrigger _trigger)
         {
-            if (trigger.layer == LayerMask.NameToLayer("CombatZone"))
+            if (_trigger.Type == EZoneTriggerType.COMBAT)
             {
                 if (_other.gameObject.name == "Camera")
                 {
-                    trigger.SetActive(false);
+                    _trigger.gameObject.SetActive(false);
                     SwitchGamePlayState(EGamePlayState.COMBAT);
                 }
             }
 
-            if (trigger.layer == LayerMask.NameToLayer("GameOverZone"))
+            if (_trigger.Type == EZoneTriggerType.GAME_OVER)
             {
                 if (_other.gameObject.name == "Camera")
-                    GameInstance.Instance.InvokeGameOver();
+                    GameInstance.Instance.GameOver();
             }
         }
 
         private void ListenToCallback()
         {
-
         }
 
         private void SwitchGameState(EGameState _new_e_game_state)
         {
             eGameState = _new_e_game_state;
-
-            switch (_new_e_game_state)
-            {
-                case EGameState.IN_GAME:
-                    ZoneTrigger[] triggers = FindObjectsOfType<ZoneTrigger>();
-                    foreach (ZoneTrigger zone_trigger in triggers)
-                    {
-                    //
-                        zone_trigger.SubscribeToonStayZoneCallback(ListenToCallback);
-                    }
-                    break;
-            }
 
             if (gameStateCallback != null)
                 gameStateCallback(eGameState);
@@ -143,7 +137,7 @@ namespace Game.Scripts
         public void IsGameOver(uint _knocked_count)
         {
             if (_knocked_count == 2)
-                GameInstance.Instance.InvokeGameOver();
+                GameInstance.Instance.GameOver();
         }
     }
 }
