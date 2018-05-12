@@ -18,6 +18,9 @@ namespace Game.Scripts.Entity
         private enum EPlayerState
         {
             NORMAL,
+            READY_TO_FUSION,
+            ASK_TO_FUSION,
+            FUSION,
             KNOCKED_OUT
         }
 
@@ -25,8 +28,9 @@ namespace Game.Scripts.Entity
         [SerializeField] private float reviveTime;
         [SerializeField] private float maxFury;
 
-        private delegate void PlayerStateHanlder();
+        public delegate void PlayerStateHanlder();
 
+        private event PlayerStateHanlder askToFusion;
         private event PlayerStateHanlder KnockedOutEvent;
         private event PlayerStateHanlder RevivedEvent;
 
@@ -36,6 +40,22 @@ namespace Game.Scripts.Entity
         [SerializeField] private EPlayerType playerType;
 
         private int reviveTimerId;
+
+        public bool IsAskingFusion { get { return currentState == EPlayerState.ASK_TO_FUSION; } }
+
+        #region CallBackSubscription
+        public void SubscribeToAskToFusionCallback(PlayerStateHanlder _listener_function)
+        {
+            askToFusion += _listener_function;
+        }
+        #endregion
+
+        #region CallBackUnsubscription
+        public void UnsubscribeToAskToFusionCallback(PlayerStateHanlder _listener_function)
+        {
+            askToFusion -= _listener_function;
+        }
+        #endregion
 
         #region Unity Methods
 
@@ -174,6 +194,10 @@ namespace Game.Scripts.Entity
         protected void Fusion(float axe_value)
         {
             print("Fusion = " + axe_value);
+            if (currentState == EPlayerState.READY_TO_FUSION)
+            {
+                currentState = EPlayerState.ASK_TO_FUSION;
+            }
         }
 
         public void Revive()
@@ -185,6 +209,42 @@ namespace Game.Scripts.Entity
                 health = maxHealth;
                 healthSlider.value = health;
             }
+        }
+
+        private void SwitchPlayerState(EPlayerState _new_state)
+        {
+            switch (_new_state)
+            {
+                case EPlayerState.NORMAL: 
+                    break;
+                case EPlayerState.READY_TO_FUSION:
+                    break;
+                case EPlayerState.ASK_TO_FUSION:
+                {
+                    if (askToFusion != null)
+                        askToFusion();
+
+                    break;
+                }
+                    
+                case EPlayerState.FUSION:
+                    break;
+                case EPlayerState.KNOCKED_OUT:
+                    break;
+            }
+        }
+
+        public void FusionAskRefused()
+        {
+            if (IsAskingFusion)
+                SwitchPlayerState(EPlayerState.READY_TO_FUSION);
+        }
+
+        public void FusionAskAccepted()
+        {
+            SwitchPlayerState(EPlayerState.FUSION);
+            // change the graphic position of PlayerNephew
+            // change the controller
         }
     }
 }
