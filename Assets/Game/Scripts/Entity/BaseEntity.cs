@@ -104,9 +104,6 @@ namespace Game.Scripts.Entity
                 Die();
             else
             {
-                velocity.x = -0.1f;
-                velocity.y = 0.1f;
-
                 inRecovery = true;
                 GetComponent<SpriteRenderer>().color = recoveryColor;
 
