@@ -19,7 +19,7 @@
             base.Die();
 
             EntityManager.Instance.EnemyNum -= 1;
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
             // notify entity manager
         }
     }

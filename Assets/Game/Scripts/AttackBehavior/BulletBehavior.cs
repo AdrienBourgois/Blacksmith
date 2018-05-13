@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Entity;
-using Game.Scripts.Interfaces;
+﻿using Game.Scripts.Entity;
 using Game.Scripts.SceneObjects;
 using UnityEngine;
 

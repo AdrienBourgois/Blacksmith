@@ -1,6 +1,5 @@
 ﻿using Game.Scripts.Triggers.ZoneTrigger;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
 {

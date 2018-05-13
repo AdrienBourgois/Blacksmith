@@ -1,5 +1,4 @@
 ﻿using Game.Scripts.Entity;
-using Game.Scripts.ScriptableObjects;
 
 namespace Game.Scripts.Interfaces
 {

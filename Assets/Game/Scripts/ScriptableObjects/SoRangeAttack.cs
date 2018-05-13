@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Game.Scripts.AttackBehavior;
+﻿using Game.Scripts.AttackBehavior;
 using Game.Scripts.Entity;
 using Game.Scripts.SceneObjects;
 using UnityEngine;

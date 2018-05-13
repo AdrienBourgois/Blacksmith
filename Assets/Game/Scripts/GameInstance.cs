@@ -1,7 +1,7 @@
-﻿using Game.Scripts.Entity;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 namespace Game.Scripts
 {
@@ -23,7 +23,7 @@ namespace Game.Scripts
 		[SerializeField]
 		private UnityEvent restartGame;
 
-		[System.Serializable]
+		[Serializable]
 		private class PauseEvent : UnityEvent<bool> { } // bool _pause
 
 		[SerializeField] private PauseEvent pauseGame;

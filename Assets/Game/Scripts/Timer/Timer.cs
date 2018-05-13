@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using UnityEditor.PackageManager.Requests;
 
 namespace Game.Scripts.Timer
 {
@@ -12,7 +10,7 @@ namespace Game.Scripts.Timer
         private float timeOut;
         private float currentTime;
         private bool loopAtExpired;
-        private E_TIMER_STATE status;
+        private ETimerState status;
 
         private TimerManager.TimerDelegate expiredCallback;
         private TimerManager.TimerDelegate startCallback;
@@ -28,7 +26,7 @@ namespace Game.Scripts.Timer
             set { loopAtExpired = value; }
         }
         public float CurrentTime { get { return currentTime; } }
-        public E_TIMER_STATE Status { get { return status; } }
+        public ETimerState Status { get { return status; } }
 
         public Timer(int _timer_id, string _timer_name, float _expire_at, bool _start_on_creation, bool _loop_at_elapsed, TimerManager.TimerDelegate _elapsed_listener_function, TimerManager.TimerDelegate _start_listener_function, TimerManager.TimerDelegate _pause_listener_function, TimerManager.TimerDelegate _stop_listener_function, TimerManager.TimerDelegate _reset_listener_function)
         {
@@ -44,10 +42,10 @@ namespace Game.Scripts.Timer
             stopCallback += _stop_listener_function;
             resetCallback += _reset_listener_function;
 
-            if (_start_on_creation == true)
+            if (_start_on_creation)
                 Start();
             else
-                status = E_TIMER_STATE.STOP;
+                status = ETimerState.STOP;
             
             //status = _start_on_creation ?  E_TIMER_STATE.RUNNING : E_TIMER_STATE.STOP;
 
@@ -55,7 +53,7 @@ namespace Game.Scripts.Timer
 
         public void Start()
         {
-            status = E_TIMER_STATE.RUNNING;
+            status = ETimerState.RUNNING;
 
             if (startCallback != null)
                 startCallback();
@@ -63,7 +61,7 @@ namespace Game.Scripts.Timer
 
         public void Pause()
         {
-            status = E_TIMER_STATE.PAUSE;
+            status = ETimerState.PAUSE;
 
             if (pauseCallback != null)
                 pauseCallback();
@@ -71,7 +69,7 @@ namespace Game.Scripts.Timer
 
         public void Stop()
         {
-            status = E_TIMER_STATE.STOP;
+            status = ETimerState.STOP;
             currentTime = timeOut;
 
             if (stopCallback != null)
@@ -90,7 +88,7 @@ namespace Game.Scripts.Timer
 
         public void Update(float _delta_time)
         {
-            if (status == E_TIMER_STATE.RUNNING)
+            if (status == ETimerState.RUNNING)
             {
                 currentTime -= _delta_time;
 
@@ -99,7 +97,7 @@ namespace Game.Scripts.Timer
                     if (expiredCallback != null)
                         expiredCallback();
 
-                    if (loopAtExpired == true)
+                    if (loopAtExpired)
                         Reset();
                     else
                         Stop();

@@ -1,11 +1,12 @@
 ﻿using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 namespace Game.Scenes.Tests.SoundSpatialization
 {
     public class SoundCube : MonoBehaviour
     {
-        [FMODUnity.EventRef]
+        [EventRef]
         [SerializeField]
         private string soundEvent;
 
@@ -19,8 +20,8 @@ namespace Game.Scenes.Tests.SoundSpatialization
 
         private void Start()
         {
-            soundInstance = FMODUnity.RuntimeManager.CreateInstance(soundEvent);
-            FMODUnity.RuntimeManager.AttachInstanceToGameObject(soundInstance, transform, (Rigidbody) null);
+            soundInstance = RuntimeManager.CreateInstance(soundEvent);
+            RuntimeManager.AttachInstanceToGameObject(soundInstance, transform, (Rigidbody) null);
         }
 
         private void Update()

@@ -69,10 +69,10 @@ namespace ResonanceAudio.Scripts
         public float reflectivity = 1.0f;
 
         /// Reverb gain modifier in decibels.
-        public float reverbGainDb = 0.0f;
+        public float reverbGainDb;
 
         /// Reverb brightness modifier.
-        public float reverbBrightness = 0.0f;
+        public float reverbBrightness;
 
         /// Reverb time modifier.
         public float reverbTime = 1.0f;

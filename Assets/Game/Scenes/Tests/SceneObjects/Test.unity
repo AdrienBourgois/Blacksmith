@@ -113,48 +113,163 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &546296105
+--- !u!1 &38623585
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 546296107}
-  - component: {fileID: 546296106}
+  - component: {fileID: 38623587}
+  - component: {fileID: 38623586}
   m_Layer: 0
-  m_Name: Musique
+  m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &546296106
+--- !u!114 &38623586
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 546296105}
+  m_GameObject: {fileID: 38623585}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5083a63f24f527b4db3c1e7790600bf5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5209f43778dbddd49be10a9f1faa18cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEvent: event:/Music (2D)/LVL01_Loop
-  volume: 1
-  parameter: 3
---- !u!4 &546296107
+  nodes: []
+  isGridInitialized: 0
+  isConnectionsInitialized: 0
+  gridInterval: 1
+  connectionsPrecision: 1.5
+--- !u!4 &38623587
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 546296105}
+  m_GameObject: {fileID: 38623585}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.39490944, y: -0.28127646, z: -0.0390625}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &441136187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 441136191}
+  - component: {fileID: 441136190}
+  - component: {fileID: 441136189}
+  - component: {fileID: 441136188}
+  m_Layer: 11
+  m_Name: Floor2 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &441136188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 441136187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5209f43778dbddd49be10a9f1faa18cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - location: {x: -2.328542, y: -0.098479986}
+    connectedNodes: 010000000300000004000000
+    id: 0
+  - location: {x: -2.328542, y: 0.90152}
+    connectedNodes: 0000000002000000030000000400000005000000
+    id: 1
+  - location: {x: -2.328542, y: 1.90152}
+    connectedNodes: 010000000400000005000000
+    id: 2
+  - location: {x: -1.328542, y: -0.098479986}
+    connectedNodes: 0000000001000000040000000600000007000000
+    id: 3
+  - location: {x: -1.328542, y: 0.90152}
+    connectedNodes: 0000000001000000020000000300000005000000060000000700000008000000
+    id: 4
+  - location: {x: -1.328542, y: 1.90152}
+    connectedNodes: 0100000002000000040000000700000008000000
+    id: 5
+  - location: {x: -0.328542, y: -0.098479986}
+    connectedNodes: 030000000400000007000000
+    id: 6
+  - location: {x: -0.328542, y: 0.90152}
+    connectedNodes: 0300000004000000050000000600000008000000
+    id: 7
+  - location: {x: -0.328542, y: 1.90152}
+    connectedNodes: 040000000500000007000000
+    id: 8
+  isGridInitialized: 1
+  isConnectionsInitialized: 1
+  gridInterval: 1
+  connectionsPrecision: 1.5
+--- !u!114 &441136189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 441136187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09a7af9255bf4147a3cc9f9cd78d3c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!60 &441136190
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 441136187}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -4.4185996, y: -1.9784801}
+      - {x: -4.5364003, y: 1.3152691}
+      - {x: -7.088542, y: 1.3439435}
+      - {x: -7.0762405, y: -1.8513943}
+--- !u!4 &441136191
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 441136187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.75, y: 0.87, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &895490626
 GameObject:
@@ -164,15 +279,41 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 895490628}
+  - component: {fileID: 895490629}
   - component: {fileID: 895490627}
+  - component: {fileID: 895490630}
   m_Layer: 11
-  m_Name: Floor
+  m_Name: Floor2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!60 &895490627
+--- !u!114 &895490627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 895490626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09a7af9255bf4147a3cc9f9cd78d3c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &895490628
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 895490626}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.12, y: -3.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &895490629
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -196,27 +337,273 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.1025319, y: 1.6711063}
-      - {x: -1.1188335, y: 1.219804}
+    - - {x: 12.354575, y: 1.6340984}
+      - {x: -1.1025319, y: 1.6711063}
+      - {x: -1.1188335, y: 1.2495545}
+      - {x: -1.7868428, y: 1.2377343}
+      - {x: -2.3429656, y: -2.3219337}
+      - {x: -2.6404147, y: 1.2953554}
       - {x: -4.4226775, y: 1.2522373}
       - {x: -4.482058, y: 1.745034}
-      - {x: -6.4975195, y: 1.7270591}
-      - {x: -6.4680233, y: -3.0678768}
-      - {x: 10.007238, y: -3.0859842}
-      - {x: 9.052267, y: 1.6512294}
---- !u!4 &895490628
-Transform:
+      - {x: -6.803465, y: 1.7525544}
+      - {x: -6.7739677, y: -3.1188674}
+      - {x: 12.345815, y: -3.0697918}
+--- !u!114 &895490630
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 895490626}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.12, y: -3.12, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5209f43778dbddd49be10a9f1faa18cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - location: {x: -9.913464, y: -2.228867}
+    connectedNodes: 000000000400000005000000
+    id: 0
+  - location: {x: -8.913464, y: -6.228867}
+    connectedNodes: 01000000020000000600000007000000
+    id: 1
+  - location: {x: -8.913464, y: -5.228867}
+    connectedNodes: 010000000200000003000000060000000700000008000000
+    id: 2
+  - location: {x: -8.913464, y: -4.228867}
+    connectedNodes: 020000000300000004000000070000000800000009000000
+    id: 3
+  - location: {x: -8.913464, y: -3.228867}
+    connectedNodes: 0000000003000000040000000500000008000000090000000a000000
+    id: 4
+  - location: {x: -8.913464, y: -2.228867}
+    connectedNodes: 000000000400000005000000090000000a000000
+    id: 5
+  - location: {x: -7.9134636, y: -6.228867}
+    connectedNodes: 010000000200000006000000070000000b0000000c000000
+    id: 6
+  - location: {x: -7.9134636, y: -5.228867}
+    connectedNodes: 0100000002000000030000000600000007000000080000000b0000000c0000000d000000
+    id: 7
+  - location: {x: -7.9134636, y: -4.228867}
+    connectedNodes: 0200000003000000040000000700000008000000090000000c0000000d0000000e000000
+    id: 8
+  - location: {x: -7.9134636, y: -3.228867}
+    connectedNodes: 03000000040000000500000008000000090000000a0000000d0000000e0000000f000000
+    id: 9
+  - location: {x: -7.9134636, y: -2.228867}
+    connectedNodes: 0400000005000000090000000a0000000e0000000f000000
+    id: 10
+  - location: {x: -6.9134636, y: -6.228867}
+    connectedNodes: 06000000070000000b0000000c00000010000000
+    id: 11
+  - location: {x: -6.9134636, y: -5.228867}
+    connectedNodes: 0600000007000000080000000b0000000c0000000d0000001000000011000000
+    id: 12
+  - location: {x: -6.9134636, y: -4.228867}
+    connectedNodes: 0700000008000000090000000c0000000d0000000e000000100000001100000012000000
+    id: 13
+  - location: {x: -6.9134636, y: -3.228867}
+    connectedNodes: 08000000090000000a0000000d0000000e0000000f000000110000001200000013000000
+    id: 14
+  - location: {x: -6.9134636, y: -2.228867}
+    connectedNodes: 090000000a0000000e0000000f0000001200000013000000
+    id: 15
+  - location: {x: -5.9134636, y: -5.228867}
+    connectedNodes: 0b0000000c0000000d00000010000000110000001400000015000000
+    id: 16
+  - location: {x: -5.9134636, y: -4.228867}
+    connectedNodes: 0c0000000d0000000e000000100000001100000012000000140000001500000016000000
+    id: 17
+  - location: {x: -5.9134636, y: -3.228867}
+    connectedNodes: 0d0000000e0000000f000000110000001200000013000000150000001600000017000000
+    id: 18
+  - location: {x: -5.9134636, y: -2.228867}
+    connectedNodes: 0e0000000f00000012000000130000001600000017000000
+    id: 19
+  - location: {x: -4.9134636, y: -5.228867}
+    connectedNodes: 100000001100000014000000150000001800000019000000
+    id: 20
+  - location: {x: -4.9134636, y: -4.228867}
+    connectedNodes: 10000000110000001200000014000000150000001600000018000000190000001a000000
+    id: 21
+  - location: {x: -4.9134636, y: -3.228867}
+    connectedNodes: 110000001200000013000000150000001600000017000000190000001a0000001b000000
+    id: 22
+  - location: {x: -4.9134636, y: -2.228867}
+    connectedNodes: 120000001300000016000000170000001a0000001b000000
+    id: 23
+  - location: {x: -3.9134636, y: -5.228867}
+    connectedNodes: 140000001500000018000000190000001c0000001d000000
+    id: 24
+  - location: {x: -3.9134636, y: -4.228867}
+    connectedNodes: 14000000150000001600000018000000190000001a0000001c0000001d0000001e000000
+    id: 25
+  - location: {x: -3.9134636, y: -3.228867}
+    connectedNodes: 150000001600000017000000190000001a0000001b0000001d0000001e0000001f000000
+    id: 26
+  - location: {x: -3.9134636, y: -2.228867}
+    connectedNodes: 16000000170000001a0000001b0000001e0000001f000000
+    id: 27
+  - location: {x: -2.9134636, y: -5.228867}
+    connectedNodes: 18000000190000001c0000001d0000002000000021000000
+    id: 28
+  - location: {x: -2.9134636, y: -4.228867}
+    connectedNodes: 18000000190000001a0000001c0000001d0000001e000000200000002100000022000000
+    id: 29
+  - location: {x: -2.9134636, y: -3.228867}
+    connectedNodes: 190000001a0000001b0000001d0000001e0000001f000000210000002200000023000000
+    id: 30
+  - location: {x: -2.9134636, y: -2.228867}
+    connectedNodes: 1a0000001b0000001e0000001f0000002200000023000000
+    id: 31
+  - location: {x: -1.9134636, y: -5.228867}
+    connectedNodes: 1c0000001d00000020000000210000002400000025000000
+    id: 32
+  - location: {x: -1.9134636, y: -4.228867}
+    connectedNodes: 1c0000001d0000001e000000200000002100000022000000240000002500000026000000
+    id: 33
+  - location: {x: -1.9134636, y: -3.228867}
+    connectedNodes: 1d0000001e0000001f000000210000002200000023000000250000002600000027000000
+    id: 34
+  - location: {x: -1.9134636, y: -2.228867}
+    connectedNodes: 1e0000001f00000022000000230000002600000027000000
+    id: 35
+  - location: {x: -0.9134636, y: -5.228867}
+    connectedNodes: 200000002100000024000000250000002800000029000000
+    id: 36
+  - location: {x: -0.9134636, y: -4.228867}
+    connectedNodes: 20000000210000002200000024000000250000002600000028000000290000002a000000
+    id: 37
+  - location: {x: -0.9134636, y: -3.228867}
+    connectedNodes: 210000002200000023000000250000002600000027000000290000002a0000002b000000
+    id: 38
+  - location: {x: -0.9134636, y: -2.228867}
+    connectedNodes: 220000002300000026000000270000002a0000002b000000
+    id: 39
+  - location: {x: 0.08653641, y: -5.228867}
+    connectedNodes: 240000002500000028000000290000002c0000002d000000
+    id: 40
+  - location: {x: 0.08653641, y: -4.228867}
+    connectedNodes: 24000000250000002600000028000000290000002a0000002c0000002d0000002e000000
+    id: 41
+  - location: {x: 0.08653641, y: -3.228867}
+    connectedNodes: 250000002600000027000000290000002a0000002b0000002d0000002e0000002f000000
+    id: 42
+  - location: {x: 0.08653641, y: -2.228867}
+    connectedNodes: 26000000270000002a0000002b0000002e0000002f000000
+    id: 43
+  - location: {x: 1.0865364, y: -5.228867}
+    connectedNodes: 28000000290000002c0000002d0000003000000031000000
+    id: 44
+  - location: {x: 1.0865364, y: -4.228867}
+    connectedNodes: 28000000290000002a0000002c0000002d0000002e000000300000003100000032000000
+    id: 45
+  - location: {x: 1.0865364, y: -3.228867}
+    connectedNodes: 290000002a0000002b0000002d0000002e0000002f000000310000003200000033000000
+    id: 46
+  - location: {x: 1.0865364, y: -2.228867}
+    connectedNodes: 2a0000002b0000002e0000002f0000003200000033000000
+    id: 47
+  - location: {x: 2.0865364, y: -5.228867}
+    connectedNodes: 2c0000002d00000030000000310000003400000035000000
+    id: 48
+  - location: {x: 2.0865364, y: -4.228867}
+    connectedNodes: 2c0000002d0000002e000000300000003100000032000000340000003500000036000000
+    id: 49
+  - location: {x: 2.0865364, y: -3.228867}
+    connectedNodes: 2d0000002e0000002f000000310000003200000033000000350000003600000037000000
+    id: 50
+  - location: {x: 2.0865364, y: -2.228867}
+    connectedNodes: 2e0000002f00000032000000330000003600000037000000
+    id: 51
+  - location: {x: 3.0865364, y: -5.228867}
+    connectedNodes: 300000003100000034000000350000003800000039000000
+    id: 52
+  - location: {x: 3.0865364, y: -4.228867}
+    connectedNodes: 30000000310000003200000034000000350000003600000038000000390000003a000000
+    id: 53
+  - location: {x: 3.0865364, y: -3.228867}
+    connectedNodes: 310000003200000033000000350000003600000037000000390000003a0000003b000000
+    id: 54
+  - location: {x: 3.0865364, y: -2.228867}
+    connectedNodes: 320000003300000036000000370000003a0000003b000000
+    id: 55
+  - location: {x: 4.0865364, y: -5.228867}
+    connectedNodes: 340000003500000038000000390000003c0000003d000000
+    id: 56
+  - location: {x: 4.0865364, y: -4.228867}
+    connectedNodes: 34000000350000003600000038000000390000003a0000003c0000003d0000003e000000
+    id: 57
+  - location: {x: 4.0865364, y: -3.228867}
+    connectedNodes: 350000003600000037000000390000003a0000003b0000003d0000003e0000003f000000
+    id: 58
+  - location: {x: 4.0865364, y: -2.228867}
+    connectedNodes: 36000000370000003a0000003b0000003e0000003f000000
+    id: 59
+  - location: {x: 5.0865364, y: -5.228867}
+    connectedNodes: 38000000390000003c0000003d0000004000000041000000
+    id: 60
+  - location: {x: 5.0865364, y: -4.228867}
+    connectedNodes: 38000000390000003a0000003c0000003d0000003e000000400000004100000042000000
+    id: 61
+  - location: {x: 5.0865364, y: -3.228867}
+    connectedNodes: 390000003a0000003b0000003d0000003e0000003f000000410000004200000043000000
+    id: 62
+  - location: {x: 5.0865364, y: -2.228867}
+    connectedNodes: 3a0000003b0000003e0000003f0000004200000043000000
+    id: 63
+  - location: {x: 6.0865364, y: -5.228867}
+    connectedNodes: 3c0000003d00000040000000410000004400000045000000
+    id: 64
+  - location: {x: 6.0865364, y: -4.228867}
+    connectedNodes: 3c0000003d0000003e000000400000004100000042000000440000004500000046000000
+    id: 65
+  - location: {x: 6.0865364, y: -3.228867}
+    connectedNodes: 3d0000003e0000003f000000410000004200000043000000450000004600000047000000
+    id: 66
+  - location: {x: 6.0865364, y: -2.228867}
+    connectedNodes: 3e0000003f00000042000000430000004600000047000000
+    id: 67
+  - location: {x: 7.0865364, y: -5.228867}
+    connectedNodes: 400000004100000044000000450000004800000049000000
+    id: 68
+  - location: {x: 7.0865364, y: -4.228867}
+    connectedNodes: 40000000410000004200000044000000450000004600000048000000490000004a000000
+    id: 69
+  - location: {x: 7.0865364, y: -3.228867}
+    connectedNodes: 410000004200000043000000450000004600000047000000490000004a0000004b000000
+    id: 70
+  - location: {x: 7.0865364, y: -2.228867}
+    connectedNodes: 420000004300000046000000470000004a0000004b000000
+    id: 71
+  - location: {x: 8.086536, y: -5.228867}
+    connectedNodes: 440000004500000048000000490000004c0000004d000000
+    id: 72
+  - location: {x: 8.086536, y: -4.228867}
+    connectedNodes: 44000000450000004600000048000000490000004a0000004c0000004d0000004e000000
+    id: 73
+  - location: {x: 8.086536, y: -3.228867}
+    connectedNodes: 450000004600000047000000490000004a0000004b0000004d0000004e0000004f000000
+    id: 74
+  - location: {x: 8.086536, y: -2.228867}
+    connectedNodes: 46000000470000004a0000004b0000004e0000004f000000
+    id: 75
+  - location: {x: 9.086536, y: -5.228867}
+    connectedNodes: 48000000490000004c0000004d000000
+    id: 76
+  - location: {x: 9.086536, y: -4.228867}
+    connectedNodes: 48000000490000004a0000004c0000004d0000004e000000
+    id: 77
+  - location: {x: 9.086536, y: -3.228867}
+    connectedNodes: 490000004a0000004b0000004d0000004e0000004f000000
+    id: 78
+  - location: {x: 9.086536, y: -2.228867}
+    connectedNodes: 4a0000004b0000004e0000004f000000
+    id: 79
+  isGridInitialized: 1
+  isConnectionsInitialized: 1
+  gridInterval: 1
+  connectionsPrecision: 1.5
 --- !u!1 &965599853
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,7 +853,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 81f49e3b8d1dc00439824465c0d4f91f, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
+  weight: 0.2
   speed: 3
+  jumpPower: 0.3
   mustBeInCameraSpace: 0
   enableKeyboard: 0
 --- !u!4 &1888679116
@@ -482,45 +871,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1952216455
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1952216456}
-  - component: {fileID: 1952216457}
-  m_Layer: 0
-  m_Name: SeaSounds
-  m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1952216456
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1952216455}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.85, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1952216457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1952216455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c277a3366dab6b4595f81612da81cde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundEvent: event:/Sound Design (3D)/Sea
-  volume: 1

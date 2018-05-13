@@ -15,8 +15,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using FMOD;
+using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace ResonanceAudio.Scripts
 {
@@ -26,9 +29,9 @@ namespace ResonanceAudio.Scripts
     public static class FmodResonanceAudio {
         /// Updates the room effects of the environment with given |room| properties.
         /// @note This should only be called from the main Unity thread.
-        public static void UpdateAudioRoom(FmodResonanceAudioRoom room, bool roomEnabled) {
+        public static void UpdateAudioRoom(FmodResonanceAudioRoom room, bool _room_enabled) {
             // Update the enabled rooms list.
-            if (roomEnabled) {
+            if (_room_enabled) {
                 if (!enabledRooms.Contains(room)) {
                     enabledRooms.Add(room);
                 }
@@ -54,7 +57,7 @@ namespace ResonanceAudio.Scripts
         /// Returns whether the listener is currently inside the given |room| boundaries.
         public static bool IsListenerInsideRoom(FmodResonanceAudioRoom room) {
             // Compute the room position relative to the listener.
-            FMOD.VECTOR unused;
+            VECTOR unused;
             RuntimeManager.LowlevelSystem.get3DListenerAttributes(0, out listenerPositionFmod, out unused,
                 out unused, out unused);
             Vector3 listenerPosition = new Vector3(listenerPositionFmod.x, listenerPositionFmod.y,
@@ -124,10 +127,10 @@ namespace ResonanceAudio.Scripts
             // Controls the slope of a line from the lowest to the highest RT60 values (increases high
             // frequency RT60s when positive, decreases when negative). Has no effect when set to 0.0f.
             public float reverbBrightness;
-        };
+        }
 
         // Returns the FMOD Resonance Audio Listener Plugin.
-        private static FMOD.DSP ListenerPlugin {
+        private static DSP ListenerPlugin {
             get {
                 if (!listenerPlugin.hasHandle()) {
                     listenerPlugin = Initialize();
@@ -143,21 +146,21 @@ namespace ResonanceAudio.Scripts
 
         // Converts given |position| and |rotation| from Unity space to audio space.
         private static void ConvertAudioTransformFromUnity (ref Vector3 position,
-            ref Quaternion rotation) {
+            ref Quaternion _rotation) {
             // Compose the transformation matrix.
-            Matrix4x4 transformMatrix = Matrix4x4.TRS(position, rotation, Vector3.one);
+            Matrix4x4 transformMatrix = Matrix4x4.TRS(position, _rotation, Vector3.one);
             // Convert the transformation matrix from left-handed to right-handed.
             transformMatrix = flipZ * transformMatrix * flipZ;
             // Update |position| and |rotation| respectively.
             position = transformMatrix.GetColumn(3);
-            rotation = Quaternion.LookRotation(transformMatrix.GetColumn(2), transformMatrix.GetColumn(1));
+            _rotation = Quaternion.LookRotation(transformMatrix.GetColumn(2), transformMatrix.GetColumn(1));
         }
 
         // Returns a byte array of |length| created from |ptr|.
-        private static byte[] GetBytes(IntPtr ptr, int length) {
+        private static byte[] GetBytes(IntPtr ptr, int _length) {
             if (ptr != IntPtr.Zero) {
-                byte[] byteArray = new byte[length];
-                Marshal.Copy(ptr, byteArray, 0, length);
+                byte[] byteArray = new byte[_length];
+                Marshal.Copy(ptr, byteArray, 0, _length);
                 return byteArray;
             }
             // Return an empty array if the pointer is null.
@@ -195,16 +198,16 @@ namespace ResonanceAudio.Scripts
         }
 
         // Initializes and returns the FMOD Resonance Audio Listener Plugin.
-        private static FMOD.DSP Initialize() {
+        private static DSP Initialize() {
             // Search through all busses on in banks.
             int numBanks = 0;
-            FMOD.DSP dsp = new FMOD.DSP();
-            FMOD.Studio.Bank[] banks = null;
+            DSP dsp = new DSP();
+            Bank[] banks = null;
             RuntimeManager.StudioSystem.getBankCount(out numBanks);
             RuntimeManager.StudioSystem.getBankList(out banks);
             for (int currentBank = 0; currentBank < numBanks; ++currentBank) {
                 int numBusses = 0;
-                FMOD.Studio.Bus[] busses = null;
+                Bus[] busses = null;
                 banks[currentBank].getBusCount(out numBusses);
                 banks[currentBank].getBusList(out busses);
                 RuntimeManager.StudioSystem.flushCommands();
@@ -214,7 +217,7 @@ namespace ResonanceAudio.Scripts
                     busses[currentBus].getPath(out busPath);
                     RuntimeManager.StudioSystem.getBus(busPath, out busses[currentBus]);
                     RuntimeManager.StudioSystem.flushCommands();
-                    FMOD.ChannelGroup channelGroup;
+                    ChannelGroup channelGroup;
                     busses[currentBus].getChannelGroup(out channelGroup);
                     RuntimeManager.StudioSystem.flushCommands();
                     if (channelGroup.hasHandle()) {
@@ -226,7 +229,7 @@ namespace ResonanceAudio.Scripts
                             int unusedInt = 0;
                             uint unusedUint = 0;
                             dsp.getInfo(out dspNameSb, out unusedUint, out unusedInt, out unusedInt, out unusedInt);
-                            if (dspNameSb.ToString().Equals(listenerPluginName) && dsp.hasHandle()) {
+                            if (dspNameSb.Equals(listenerPluginName) && dsp.hasHandle()) {
                                 return dsp;
                             }
                         }
@@ -256,9 +259,9 @@ namespace ResonanceAudio.Scripts
         private static List<FmodResonanceAudioRoom> enabledRooms = new List<FmodResonanceAudioRoom>();
 
         // Current listener position.
-        private static FMOD.VECTOR listenerPositionFmod = new FMOD.VECTOR();
+        private static VECTOR listenerPositionFmod;
 
         // FMOD Resonance Audio Listener Plugin.
-        private static FMOD.DSP listenerPlugin;
+        private static DSP listenerPlugin;
     }
 }

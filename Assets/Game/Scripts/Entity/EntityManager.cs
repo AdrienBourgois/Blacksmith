@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.Camera;
+using Game.Scripts.Timer;
 using UnityEngine;
 
 namespace Game.Scripts.Entity
@@ -36,7 +37,7 @@ namespace Game.Scripts.Entity
             }
         }
 
-        private uint playerKncokedDown = 0;
+        private uint playerKncokedDown;
         public uint PlayerKncokedDown
         {
             get { return playerKncokedDown; }
@@ -61,7 +62,7 @@ namespace Game.Scripts.Entity
             currentPlayer = GetMeleePlayer();
 
             enemyNum = FindObjectsOfType<TmpEnemyEntity>().Length;
-            fusionInputTimeOutId = Timer.TimerManager.Instance.AddTimer("FuryInput", fusionInputTimeOut, false, false, OnFusionTimerExpired);
+            fusionInputTimeOutId = TimerManager.Instance.AddTimer("FuryInput", fusionInputTimeOut, false, false, OnFusionTimerExpired);
         }
         #endregion
 
@@ -86,15 +87,9 @@ namespace Game.Scripts.Entity
         {
             if (GameState.Instance.IsTwoPlayer)
                 return GetRangePlayer();
-            else
-            {
-                if (currentPlayer.PlayerType == PlayerEntity.EPlayerType.MELEE)
-                    return GetRangePlayer();
-                else
-                {
-                    return GetMeleePlayer();
-                }
-            }
+            if (currentPlayer.PlayerType == PlayerEntity.EPlayerType.MELEE)
+                return GetRangePlayer();
+            return GetMeleePlayer();
         }
         #endregion
 
@@ -129,8 +124,8 @@ namespace Game.Scripts.Entity
 
         private void OnFusionAsking()
         {
-            Timer.TimerManager.Instance.StartTimer(fusionInputTimeOutId);
-            if (AreBothPlayerAskToFusion() == true)
+            TimerManager.Instance.StartTimer(fusionInputTimeOutId);
+            if (AreBothPlayerAskToFusion())
                 AcceptPlayerFusion();
         }
 
@@ -152,7 +147,7 @@ namespace Game.Scripts.Entity
                 player_entity.FusionAskAccepted();
             }
 
-            Timer.TimerManager.Instance.StopTimer(fusionInputTimeOutId);
+            TimerManager.Instance.StopTimer(fusionInputTimeOutId);
         }
 
         private void OnFusionTimerExpired()

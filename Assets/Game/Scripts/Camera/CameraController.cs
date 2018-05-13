@@ -99,7 +99,7 @@ namespace Game.Scripts.Camera
                     UnsubscribeToCameraScrollZoneEvents();
                     break;
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException("_e_game_play_state", _e_game_play_state, null);
             }
         }
 
@@ -128,15 +128,15 @@ namespace Game.Scripts.Camera
             return Mathf.Abs(direction.x);
         }
 
-        private float SignedHorizontalDistance(Vector3 A, Vector3 B)
+        private float SignedHorizontalDistance(Vector3 _a, Vector3 _b)
         {
-            Vector3 direction = A - B;
+            Vector3 direction = _a - _b;
             return direction.x;
         }
 
-        private float UnsignedHorizontalDistance(Vector3 A, Vector3 B)
+        private float UnsignedHorizontalDistance(Vector3 _a, Vector3 _b)
         {
-            Vector3 direction = A - B;
+            Vector3 direction = _a - _b;
             return Mathf.Abs(direction.x);
         }
 
@@ -145,9 +145,9 @@ namespace Game.Scripts.Camera
             float raw_zoom = _distance / attenuationFactor;
             float smooth_zoom = Mathf.Lerp(gameCamera.orthographicSize, raw_zoom, zoomSmoothness);
 
-            if ((UnsignedHorizontalDistance(this.transform.position, player1.transform.position) + 0.3f) >= HalfHorizontalViewingVolume
+            if ((UnsignedHorizontalDistance(transform.position, player1.transform.position) + 0.3f) >= HalfHorizontalViewingVolume
                 ||
-                (UnsignedHorizontalDistance(this.transform.position, player2.transform.position) + 0.3f) >= HalfHorizontalViewingVolume)
+                (UnsignedHorizontalDistance(transform.position, player2.transform.position) + 0.3f) >= HalfHorizontalViewingVolume)
                 return;
 
             if (MaxZoomInReached(smooth_zoom) || MaxZoomOutReached(smooth_zoom))
