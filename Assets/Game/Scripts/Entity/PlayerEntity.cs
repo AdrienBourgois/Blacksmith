@@ -66,7 +66,7 @@ namespace Game.Scripts.Entity
             InputManager.InputManager input_manager = FindObjectOfType<InputManager.InputManager>();
             switch (playerType)
             {
-                case EPlayerType.MELEE:
+                case EPlayerType.RANGE:
                 {
                     input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP1Event(ListenZAxis);
@@ -79,7 +79,7 @@ namespace Game.Scripts.Entity
 
                     break;
                 }
-                case EPlayerType.RANGE:
+                case EPlayerType.MELEE:
                 {
                     input_manager.SubscribeToHorizontalP2Event(ListenXAxis);
                     input_manager.SubscribeToVerticalP2Event(ListenZAxis);
@@ -110,7 +110,12 @@ namespace Game.Scripts.Entity
         {
             base.ReceiveDamages(_damages);
 
-            healthSlider.value = health;
+            if (!inRecovery)
+            {
+                velocity.x = -0.1f;
+                velocity.y = 0.1f;
+                healthSlider.value = health;
+            }
         }
 
         public override void Die()
