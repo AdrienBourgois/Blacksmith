@@ -5,9 +5,9 @@ namespace Game.Scripts.ComboSystem
     [System.Serializable]
     public abstract class ACommand : ScriptableObject
     {
-        public delegate void CommandDelegate();
+        public delegate void CommandDelegate(ACommand command);
 
-        private CommandDelegate commandFunction;
+        protected CommandDelegate commandFunction;
 
         public void SubscribeToCommandFunction(CommandDelegate _function_pointer)
         {
@@ -19,6 +19,8 @@ namespace Game.Scripts.ComboSystem
             if (commandFunction != null)
                 commandFunction -= _function_pointer;
         }
+
+        public abstract void Init();
 
         protected abstract void Execute();
     }

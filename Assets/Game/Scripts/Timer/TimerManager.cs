@@ -113,7 +113,9 @@ namespace Game.Scripts.Timer
 
         public void DestroyTimer(int _id)
         {
-            bool success = timerList.Remove(GetTimer(_id));
+            Timer timer = GetTimer(_id);
+            timer.Stop();
+            bool success = timerList.Remove(timer);
 
             if (success == false)
                 Debug.LogError("Error : the timer with the following id <" + _id + "> can't be successfully destroyed.");
@@ -121,7 +123,9 @@ namespace Game.Scripts.Timer
 
         public void DestroyTimer(string _name)
         {
-            bool success = timerList.Remove(GetTimer(_name));
+            Timer timer = GetTimer(_name);
+            timer.Stop();
+            bool success = timerList.Remove(timer);
 
             if (success == false)
                 Debug.LogError("Error : the timer named " + _name + " can't be successfully destroyed.");
