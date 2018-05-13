@@ -30,6 +30,11 @@ namespace Game.Scripts
             furySlider.value = fury;
         }
 
+        public bool CanAskForFusion()
+        {
+            return fury == maxFury;
+        }
+
         public void IncreaseFury(int _value)
         {
             if (fury >= maxFury)

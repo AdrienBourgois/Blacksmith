@@ -14,6 +14,10 @@ namespace Game.Scripts
         }
         #endregion
 
+        public bool IsTwoPlayer
+        {
+            get { return isTwoPlayer; }
+        }
         private bool isTwoPlayer;
         private int currentLevel;
 
