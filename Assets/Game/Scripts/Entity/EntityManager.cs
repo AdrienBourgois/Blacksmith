@@ -8,6 +8,8 @@ namespace Game.Scripts.Entity
         private PlayerEntity[] players;
         [SerializeField] private float fusionInputTimeOut;
 
+        private PlayerEntity currentPlayer;
+
         private int enemyNum;
         private int fusionInputTimeOutId;
 
@@ -45,6 +47,7 @@ namespace Game.Scripts.Entity
             }
         }
 
+        #region Unity Methods
         private void Awake()
         {
             instance = this;
@@ -55,9 +58,52 @@ namespace Game.Scripts.Entity
             players = FindObjectsOfType<PlayerEntity>();
             ListenToPlayersCallbacks();
 
+            currentPlayer = GetMeleePlayer();
+
             enemyNum = FindObjectsOfType<TmpEnemyEntity>().Length;
             fusionInputTimeOutId = Timer.TimerManager.Instance.AddTimer("FuryInput", fusionInputTimeOut, false, false, OnFusionTimerExpired);
+        }
+        #endregion
 
+        #region Getters
+        public PlayerEntity GetMeleePlayer()
+        {
+            if (players[0].PlayerType == PlayerEntity.EPlayerType.MELEE)
+                return players[0];
+
+            return players[1];
+        }
+
+        public PlayerEntity GetRangePlayer()
+        {
+            if (players[0].PlayerType == PlayerEntity.EPlayerType.RANGE)
+                return players[0];
+
+            return players[1];
+        }
+
+        public PlayerEntity GetP2()
+        {
+            if (GameState.Instance.IsTwoPlayer)
+                return GetRangePlayer();
+            else
+            {
+                if (currentPlayer.PlayerType == PlayerEntity.EPlayerType.MELEE)
+                    return GetRangePlayer();
+                else
+                {
+                    return GetMeleePlayer();
+                }
+            }
+        }
+        #endregion
+
+        public void SwitchPlayer()
+        {
+            currentPlayer.UnsubscribeFromP1();
+
+            currentPlayer = GetP2();
+            currentPlayer.SubscribeToP1();
         }
 
         public void ListenToPlayersCallbacks()

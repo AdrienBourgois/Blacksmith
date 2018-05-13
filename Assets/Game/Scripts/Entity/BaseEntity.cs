@@ -117,35 +117,11 @@ namespace Game.Scripts.Entity
             }
         }
 
-        /*IEnumerator RecoveryCoroutine()
-        {
-            inRecovery = true;
-            float time = recoveryTime;
-
-            GetComponent<SpriteRenderer>().color = recoveryColor;
-
-            while (time >= 0)
-            {
-
-                time -= Time.deltaTime;
-                yield return null;
-            }
-
-            inRecovery = false;
-            GetComponent<SpriteRenderer>().color = sColor;
-        }*/
-
         public virtual void Die()
         {
             if (recoveryCor != null)
                 StopCoroutine(recoveryCor);
         }
-
-        /*private void OnCollisionEnter2D(Collision2D other)
-        {
-            print("Detected");
-        }*/
-
         #endregion
 
     }
