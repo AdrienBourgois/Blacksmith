@@ -13,6 +13,9 @@ namespace Game.Editor
         public static bool displayHeightRay = true;
         public static bool displayFloorColliders = true;
 
+        public static bool displayPathFindingGrid = true;
+        public static bool displayPathFindingConnections = true;
+
         [MenuItem("Level Editor/Debug Window")]
         public static void ToggleWindow()
         {
@@ -24,7 +27,7 @@ namespace Game.Editor
             SceneView.RepaintAll();
         }
 
-        private static void OnScene(SceneView _sceneview)
+        private static void OnScene(SceneView _scene_view)
         {
             Handles.BeginGUI();
             windowRect = GUILayout.Window(0, windowRect, WindowFunction, "Debug Options");
@@ -35,9 +38,16 @@ namespace Game.Editor
         private static void WindowFunction(int _id)
         {
             EditorGUI.BeginChangeCheck();
+
+            EditorGUILayout.PrefixLabel("Scene Object");
             displayFloorPoint = EditorGUILayout.Toggle("Display Floor Point", displayFloorPoint);
             displayHeightRay = EditorGUILayout.Toggle("Display Height Ray", displayHeightRay);
             displayFloorColliders = EditorGUILayout.Toggle("Display Floor Colliders", displayFloorColliders);
+
+            EditorGUILayout.PrefixLabel("PathFinding");
+            displayPathFindingGrid = EditorGUILayout.Toggle("Display Grid", displayPathFindingGrid);
+            displayPathFindingConnections = EditorGUILayout.Toggle("Display Connections", displayPathFindingConnections);
+
             if (EditorGUI.EndChangeCheck())
                 SceneView.RepaintAll();
             GUI.DragWindow();

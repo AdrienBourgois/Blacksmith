@@ -1,69 +1,82 @@
-﻿using System.Collections.Generic;
-using UnityEditor;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Game.Scripts.Navigation
 {
+    [Serializable]
     public class Node
     {
         public Vector2 location;
-        public Node[] connectedNodes;
+        public int[] connectedNodes;
+        public int id;
 
-        public Node(float _x, float _y)
+        public Node(int _id, float _x, float _y)
         {
+            id = _id;
             location = new Vector2(_x, _y);
         }
     }
 
     public class PathFinding : MonoBehaviour
     {
-        private readonly List<Node> nodes = new List<Node>();
-        private bool isConstructed;
+        public List<Node> nodes = new List<Node>();
 
-        public List<Vector2> FindPath(Vector2 _from, Vector2 _to)
+        public bool isGridInitialized;
+        public bool isConnectionsInitialized;
+
+        public float gridInterval = 1f;
+        public float connectionsPrecision = 1.5f;
+
+        public bool FindPath(Vector2 _from, Vector2 _to, out List<Vector2> _path)
         {
-            Node node_from = GetClosestNode(_from);
-            Node node_to = GetClosestNode(_to);
-            Stack<Node> open_list = new Stack<Node>(nodes);
-            List<Node> close_list = new List<Node>();
-            Dictionary<Node, Node> came_from = new Dictionary<Node, Node>();
+            int node_from = GetClosestNode(_from);
+            int node_to = GetClosestNode(_to);
+            Stack<int> open_list = new Stack<int>();
+            open_list.Push(node_from);
+            List<int> close_list = new List<int>();
+            Dictionary<int, int> came_from = new Dictionary<int, int>();
 
             while (open_list.Count != 0)
             {
-                Node current = open_list.Pop();
+                int current = open_list.Pop();
                 if (!close_list.Contains(current))
                 {
                     if (current == node_to)
                     {
-                        came_from[node_to] = current;
-                        return Reconstruct(came_from, node_from, node_to, _from, _to);
+                        _path = Reconstruct(came_from, node_from, node_to, _from, _to);
+                        return true;
                     }
 
-                    foreach (Node connected_node in current.connectedNodes)
+                    foreach (int connected_node_id in nodes[current].connectedNodes)
                     {
-                        if (!open_list.Contains(connected_node) && !close_list.Contains(connected_node))
+                        if (!open_list.Contains(connected_node_id) && !close_list.Contains(connected_node_id))
                         {
-                            open_list.Push(connected_node);
-                            came_from[connected_node] = current;
+                            open_list.Push(connected_node_id);
+                            came_from[connected_node_id] = current;
                         }
+
                     }
+
                     close_list.Add(current);
                 }
             }
 
-            return null;
+            _path = null;
+            return false;
         }
 
-        private List<Vector2> Reconstruct(IDictionary<Node, Node> _nodes, Node _node_from, Node _node_to, Vector2 _from, Vector2 _to)
+        private List<Vector2> Reconstruct(IDictionary<int, int> _nodes, int _node_from, int _node_to, Vector2 _from, Vector2 _to)
         {
             List<Vector2> path = new List<Vector2> {_to};
 
-            Node previous = _node_to;
+            int previous = _node_to;
 
             while (previous != _node_from)
             {
                 previous = _nodes[previous];
-                path.Add(previous.location);
+                path.Add(nodes[previous].location);
             }
 
             path.Add(_from);
@@ -73,26 +86,34 @@ namespace Game.Scripts.Navigation
 
         public void CreateGrid()
         {
+            isConnectionsInitialized = false;
             nodes.Clear();
 
-            for (int i = 0; i < 10f; i++)
+            int current_id = 0;
+
+            PolygonCollider2D polygon = GetComponent<PolygonCollider2D>();
+            Bounds bounds = polygon.bounds;
+
+            for (float x = bounds.min.x + 0.01f; x < bounds.max.x; x += gridInterval)
             {
-                for (int j = 0; j < 10f; j++)
+                for (float y = bounds.min.y + 0.01f; y < bounds.max.y; y += gridInterval)
                 {
-                    nodes.Add(new Node(i + (j%2 == 0 ? 0.5f : 0f), j));
+                    if(polygon.OverlapPoint(new Vector2(x, y)))
+                    {
+                        nodes.Add(new Node(current_id++, x, y));
+                    }
                 }
             }
 
-            CreateConnections(1.5f);
-            isConstructed = true;
+            isGridInitialized = true;
         }
 
-        private void CreateConnections(float _precision)
+        public void CreateConnections()
         {
             foreach (Node node in nodes)
-            {
-                node.connectedNodes = GetNodesInRadius(node, _precision).ToArray();
-            }
+                node.connectedNodes = GetNodesInRadius(node, connectionsPrecision).Select(_node => _node.id).ToArray();
+
+            isConnectionsInitialized = true;
         }
 
         private List<Node> GetNodesInRadius(Node _node, float _radius)
@@ -100,10 +121,8 @@ namespace Game.Scripts.Navigation
             List<Node> result_nodes = new List<Node>();
 
             foreach (Node node in nodes)
-            {
-                if((node.location - _node.location).magnitude < _radius)
+                if(node.id != _node.id && (node.location - _node.location).magnitude < _radius)
                     result_nodes.Add(node);
-            }
 
             return result_nodes;
         }
@@ -129,7 +148,7 @@ namespace Game.Scripts.Navigation
             return closest_node;
         }
 
-        private Node GetClosestNode(Vector2 _location)
+        private int GetClosestNode(Vector2 _location)
         {
             Node closest_node = nodes[0];
             float closest_distance = float.MaxValue;
@@ -147,47 +166,7 @@ namespace Game.Scripts.Navigation
                 closest_node = node;
             }
 
-            return closest_node;
-        }
-
-        public Vector2 point1;
-        public Vector2 point2;
-
-        private void OnDrawGizmos()
-        {
-            ContactFilter2D filter = new ContactFilter2D();
-            int layer_mask = LayerMask.GetMask("Floor");
-            filter.SetLayerMask(layer_mask);
-            RaycastHit2D[] results = new RaycastHit2D[10];
-            RaycastHit2D hit = Physics2D.Linecast(point1, point2, layer_mask);
-            if (hit)
-            {
-                Debug.DrawLine(point1, point2, Color.green);
-                Handles.color = Color.blue;
-                Handles.DrawSolidDisc(hit.point, Vector3.back, 0.1f);
-            }
-            else
-                Debug.DrawLine(point1, point2, Color.red);
-
-            if (!isConstructed)
-                return;
-
-            foreach (Node node in nodes)
-            {
-                Handles.color = Color.green;
-                foreach (Node connected_node in node.connectedNodes)
-                    Handles.DrawLine(node.location, connected_node.location);
-
-                Handles.color = Color.blue;
-                Handles.DrawSolidDisc(node.location, Vector3.back, 0.1f);
-            }
-            List<Vector2> result = FindPath(nodes[0].location, nodes[1].location);
-
-            for (int i = 0; i < result.Count - 1; i++)
-            {
-                Handles.color = Color.red;
-                Handles.DrawLine(result[i],  result[i+1]);
-            }
+            return closest_node.id;
         }
     }
 }

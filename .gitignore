@@ -39,3 +39,6 @@ sysinfo.txt
 
 # Perforce ignore file
 .p4ignore
+
+# FMOD Temp files
+FMODStudioCache.asset
