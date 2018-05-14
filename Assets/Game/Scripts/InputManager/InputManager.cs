@@ -131,6 +131,25 @@ namespace Game.Scripts.InputManager
         #endregion
 
         #region UnsubscribeFromEvents
+
+        public void UnsubscribeFromMoveAndAttackControls()
+        {
+            HorizontalP1Event = null;
+            HorizontalP2Event = null;
+
+            VerticalP1Event = null;
+            VerticalP2Event = null;
+
+            WeakAttackP1Event = null;
+            WeakAttackP2Event = null;
+
+            StrongAttackP1Event = null;
+            StrongAttackP2Event = null;
+
+            JumpP1Event = null;
+            JumpP2Event = null;
+        }
+
         public void UnsubscribeFromHorizontalP1Event(AxisCallback _function_to_unbind)
         {
             HorizontalP1Event -= _function_to_unbind;

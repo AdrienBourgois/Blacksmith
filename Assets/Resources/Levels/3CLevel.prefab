@@ -1385,7 +1385,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e9eb6d57b11e8234ebf6d2b0a1507414, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
-  gravityScale: 8
+  weight: 0.2
   speed: 3
   jumpPower: 8
   mustBeInCameraSpace: 0
@@ -1418,7 +1418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2056d4572d506d4aa8ccc8a6053d3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fusionInputTimeOut: 0
+  fusionInputTimeOut: 1
+  fusionDuration: 5
 --- !u!114 &114082855999465228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1470,7 +1471,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: d6349df1e3a2c4142a43159de7aa714a, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
-  gravityScale: 12
+  weight: 0.2
   speed: 4
   jumpPower: 0.3
   mustBeInCameraSpace: 1
@@ -1482,7 +1483,7 @@ MonoBehaviour:
   recoveryColor: {r: 0.5058824, g: 0.23921569, b: 0.23921569, a: 1}
   maxRotationAngle: 0
   rotateSpeed: 0
-  fusionAttack: {fileID: 0}
+  fusionAttack: {fileID: 11400000, guid: 6353327dc9be0a645ab471ff2ad83ffd, type: 2}
   reviveTimeTeammate: 4
   reviveTime: 3
   maxFury: 10
@@ -1634,7 +1635,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: 40541fa9cc19c5c42ab257f055604881, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
-  gravityScale: 12
+  weight: 0.2
   speed: 4
   jumpPower: 0.31
   mustBeInCameraSpace: 1
@@ -1666,7 +1667,7 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e9eb6d57b11e8234ebf6d2b0a1507414, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
-  gravityScale: 8
+  weight: 0.2
   speed: 3
   jumpPower: 8
   mustBeInCameraSpace: 0
@@ -1745,6 +1746,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1789,6 +1791,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1833,6 +1836,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1877,6 +1881,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1921,6 +1926,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -1965,6 +1971,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2009,6 +2016,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2053,6 +2061,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
@@ -2097,6 +2106,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

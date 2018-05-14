@@ -8,7 +8,12 @@ namespace Game.Scripts.Entity
     {
         private PlayerEntity[] players;
         [SerializeField] private float fusionInputTimeOut;
+        [SerializeField] private float fusionDuration;
 
+        public PlayerEntity CurrentPlayer
+        {
+            get { return currentPlayer; }
+        }
         private PlayerEntity currentPlayer;
 
         private int enemyNum;
@@ -64,6 +69,13 @@ namespace Game.Scripts.Entity
             enemyNum = FindObjectsOfType<TmpEnemyEntity>().Length;
             fusionInputTimeOutId = TimerManager.Instance.AddTimer("FuryInput", fusionInputTimeOut, false, false, OnFusionTimerExpired);
         }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+                AcceptPlayerFusion();
+        }
+
         #endregion
 
         #region Getters
@@ -95,10 +107,10 @@ namespace Game.Scripts.Entity
 
         public void SwitchPlayer()
         {
-            currentPlayer.UnsubscribeFromP1();
+            InputManager.InputManager.Instance.UnsubscribeFromMoveAndAttackControls();
 
             currentPlayer = GetP2();
-            currentPlayer.SubscribeToP1();
+            currentPlayer.SubscribeToP1(false);
         }
 
         public void ListenToPlayersCallbacks()
@@ -142,12 +154,18 @@ namespace Game.Scripts.Entity
 
         private void AcceptPlayerFusion()
         {
+            InputManager.InputManager.Instance.UnsubscribeFromMoveAndAttackControls();
+
             foreach (PlayerEntity player_entity in players)
             {
                 player_entity.FusionAskAccepted();
             }
 
+            int timer_id = TimerManager.Instance.AddTimer("Fusion Timer", fusionDuration, true, false, OnFusionExpired);
+            UiManager.Instance.StartFusionUi(timer_id, fusionDuration);
+
             TimerManager.Instance.StopTimer(fusionInputTimeOutId);
+            //UiManager.Instance.StartFusionUi(fusionDuration);
         }
 
         private void OnFusionTimerExpired()
@@ -156,6 +174,19 @@ namespace Game.Scripts.Entity
             {
                 player_entity.FusionAskRefused();
             }
+        }
+
+        private void OnFusionExpired()
+        {
+            InputManager.InputManager.Instance.UnsubscribeFromMoveAndAttackControls();
+
+            foreach (PlayerEntity player_entity in players)
+            {
+                player_entity.FusionEnded();
+            }
+
+            // stop timer ? 
+            UiManager.Instance.EndFusionUi();
         }
     }
 }
