@@ -37,10 +37,3 @@ sysinfo.txt
 
 # Perforce ignore file
 .p4ignore
-
-# FMOD Temp files
-FMODStudioCache.asset
-Assets/StreamingAssets/Master Bank.bank
-Assets/StreamingAssets/Master Bank.bank.meta
-Assets/StreamingAssets/Master Bank.strings.bank
-Assets/StreamingAssets/Master Bank.strings.bank.meta
