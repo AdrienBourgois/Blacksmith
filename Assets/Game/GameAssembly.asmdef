@@ -1,0 +1,10 @@
+{
+    "name": "GameAssembly",
+    "references": [
+        "ProjectAssembly"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}
