@@ -251,22 +251,22 @@ namespace Game.Scripts.InputManager
             float vertical_p1_axe = Input.GetAxis("Vertical_P1");
             float horizontal_p2_axe = Input.GetAxis("Horizontal_P2");
             float vertical_p2_axe = Input.GetAxis("Vertical_P2");
-            float temp_LT_p1_axe = Input.GetAxis("FusionLT_P1");
-            float temp_RT_p1_axe = Input.GetAxis("FusionRT_P1");
-            float temp_LT_p2_axe = Input.GetAxis("FusionLT_P2");
-            float temp_RT_p2_axe = Input.GetAxis("FusionRT_P2");
+            float temp_lt_p1_axe = Input.GetAxis("FusionLT_P1");
+            float temp_rt_p1_axe = Input.GetAxis("FusionRT_P1");
+            float temp_lt_p2_axe = Input.GetAxis("FusionLT_P2");
+            float temp_rt_p2_axe = Input.GetAxis("FusionRT_P2");
             float fusion_p1_axe = 0f;
             float fusion_p2_axe = 0f;
 
-            if (temp_LT_p1_axe != 0f)
-                fusion_p1_axe = temp_LT_p1_axe;
-            else if (temp_RT_p1_axe != 0f)
-                fusion_p1_axe = temp_RT_p1_axe;
+            if (temp_lt_p1_axe != 0f)
+                fusion_p1_axe = temp_lt_p1_axe;
+            else if (temp_rt_p1_axe != 0f)
+                fusion_p1_axe = temp_rt_p1_axe;
 
-            if (temp_LT_p2_axe != 0f)
-                fusion_p2_axe = temp_LT_p2_axe;
-            else if (temp_RT_p2_axe != 0f)
-                fusion_p2_axe = temp_RT_p2_axe;
+            if (temp_lt_p2_axe != 0f)
+                fusion_p2_axe = temp_lt_p2_axe;
+            else if (temp_rt_p2_axe != 0f)
+                fusion_p2_axe = temp_rt_p2_axe;
 
             if (horizontal_p1_axe != 0f)
                 if(HorizontalP1Event != null)

@@ -1,6 +1,5 @@
 ﻿using Game.Scripts.Triggers.ZoneTrigger;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Game.Scripts
 {
@@ -14,6 +13,10 @@ namespace Game.Scripts
         }
         #endregion
 
+        public bool IsTwoPlayer
+        {
+            get { return isTwoPlayer; }
+        }
         private bool isTwoPlayer;
         private int currentLevel;
 

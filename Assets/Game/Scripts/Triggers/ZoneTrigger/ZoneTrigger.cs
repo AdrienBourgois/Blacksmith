@@ -4,7 +4,7 @@ namespace Game.Scripts.Triggers.ZoneTrigger
 {
     public class ZoneTrigger : MonoBehaviour
     {
-        public delegate void ZoneTriggerDelegate(Collider2D _collider, ZoneTrigger trigger);
+        public delegate void ZoneTriggerDelegate(Collider2D _collider, ZoneTrigger _trigger);
 
         [SerializeField] private EZoneTriggerType type;
         private ZoneTriggerDelegate onStayZoneCallback;

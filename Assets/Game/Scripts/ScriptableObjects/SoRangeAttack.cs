@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Game.Scripts.AttackBehavior;
+﻿using Game.Scripts.AttackBehavior;
 using Game.Scripts.Entity;
 using Game.Scripts.SceneObjects;
 using UnityEngine;
@@ -23,11 +22,12 @@ namespace Game.Scripts.ScriptableObjects
 
             BulletBehavior bullet = bullet_pref.GetComponent<BulletBehavior>();
 
+
             bullet.location = _entity.transform.GetChild(0).GetComponent<SceneObject>().transform.position.ToGameSpace();
             bullet.tag = _entity.tag;
             bullet.damages = damages;
             bullet.speed = bulletSpeed;
-            bullet.direction = new Vector3(1 * Mathf.Sign(_entity.transform.localScale.x), 0, 0);
+            bullet.direction = _entity.transform.rotation * new Vector3(1 * Mathf.Sign(_entity.transform.localScale.x), 0, 0);
             bullet.onEntityHit += _entity.DamageEntity;
         }
     }

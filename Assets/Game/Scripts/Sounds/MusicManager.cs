@@ -1,11 +1,12 @@
 ﻿using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 
 namespace Game.Scripts.Sounds
 {
     public class MusicManager : MonoBehaviour
     {
-        [FMODUnity.EventRef]
+        [EventRef]
         [SerializeField]
         private string musicEvent;
 
@@ -21,7 +22,7 @@ namespace Game.Scripts.Sounds
 
         private void Start()
         {
-            musicInstance = FMODUnity.RuntimeManager.CreateInstance(musicEvent);
+            musicInstance = RuntimeManager.CreateInstance(musicEvent);
             musicInstance.start();
 
             musicInstance.setParameterValue("DynamicMusic", parameter);

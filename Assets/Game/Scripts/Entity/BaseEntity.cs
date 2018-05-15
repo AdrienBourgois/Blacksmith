@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using Game.Scripts.Interfaces;
+﻿using Game.Scripts.Interfaces;
+using Game.Scripts.SceneObjects;
 using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Timer;
 using UnityEngine;
 
 namespace Game.Scripts.Entity
 {
-    public class BaseEntity : SceneObjects.MovablePhysicSceneObject, IDamagable, IAttack
+    public class BaseEntity : MovablePhysicSceneObject, IDamagable, IAttack
     {
         [SerializeField] protected SoBaseAttack lightAttack;
         [SerializeField] protected SoBaseAttack heavyAttack;
@@ -17,7 +17,7 @@ namespace Game.Scripts.Entity
         [SerializeField] private Color recoveryColor;
 
         private bool isInCooldown;
-        private bool isAttacking;
+        protected bool isAttacking;
 
         private int cooldownTimerId;
         private int recoveryTimerId;
@@ -35,25 +35,6 @@ namespace Game.Scripts.Entity
         {
             sColor = GetComponent<SpriteRenderer>().color;
             health = maxHealth;
-        }
-
-        // Update is called once per frame
-        protected override void Update()
-        {
-            base.Update();
-        }
-
-        protected override void ListenXAxis(float _value)
-        {
-            if (!isAttacking)
-                base.ListenXAxis(_value);
-
-        }
-
-        protected override void ListenZAxis(float _value)
-        {
-            if (!isAttacking)
-                base.ListenZAxis(_value);
         }
 
         protected override void Jump()
@@ -104,9 +85,6 @@ namespace Game.Scripts.Entity
                 Die();
             else
             {
-                velocity.x = -0.1f;
-                velocity.y = 0.1f;
-
                 inRecovery = true;
                 GetComponent<SpriteRenderer>().color = recoveryColor;
 
@@ -120,35 +98,11 @@ namespace Game.Scripts.Entity
             }
         }
 
-        /*IEnumerator RecoveryCoroutine()
-        {
-            inRecovery = true;
-            float time = recoveryTime;
-
-            GetComponent<SpriteRenderer>().color = recoveryColor;
-
-            while (time >= 0)
-            {
-
-                time -= Time.deltaTime;
-                yield return null;
-            }
-
-            inRecovery = false;
-            GetComponent<SpriteRenderer>().color = sColor;
-        }*/
-
         public virtual void Die()
         {
             if (recoveryCor != null)
                 StopCoroutine(recoveryCor);
         }
-
-        /*private void OnCollisionEnter2D(Collision2D other)
-        {
-            print("Detected");
-        }*/
-
         #endregion
 
     }

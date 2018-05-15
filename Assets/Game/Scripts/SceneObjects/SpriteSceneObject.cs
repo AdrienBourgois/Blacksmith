@@ -6,11 +6,17 @@ namespace Game.Scripts.SceneObjects
     public class SpriteSceneObject : SceneObject
     {
         [Header("Sprite Scene Object")]
-        [SerializeField] protected Sprite sprite;
+        [SerializeField]
+        private Sprite sprite;
 
-        protected virtual void Start()
+        public Sprite Sprite
         {
-            SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
+            get { return sprite; }
+            set
+            {
+                sprite = value;
+                GetComponent<SpriteRenderer>().sprite = sprite;
+            }
         }
 
         protected virtual void OnValidate()
@@ -22,7 +28,7 @@ namespace Game.Scripts.SceneObjects
         {
             SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
 
-            sprite_renderer.sprite = sprite;
+            sprite_renderer.sprite = Sprite;
             sprite_renderer.sortingLayerName = "Default";
         }
     }

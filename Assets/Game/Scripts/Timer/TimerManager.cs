@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Random = UnityEngine.Random;
 
 namespace Game.Scripts.Timer
 {
@@ -54,10 +55,10 @@ namespace Game.Scripts.Timer
 
         private int CreateUniqueId()
         {
-            int id =  Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+            int id =  Guid.NewGuid().GetHashCode() + Random.Range(1, 1000);
 
             while(IsIdUnique(id) == false)
-                id = Guid.NewGuid().GetHashCode() + UnityEngine.Random.Range(1, 1000);
+                id = Guid.NewGuid().GetHashCode() + Random.Range(1, 1000);
 
             return id;
         }
@@ -191,12 +192,12 @@ namespace Game.Scripts.Timer
             GetTimer(_name).LoopAtExpired = _value;
         }
 
-        public E_TIMER_STATE GetStatus(int _id)
+        public ETimerState GetStatus(int _id)
         {
             return GetTimer(_id).Status;
         }
 
-        public E_TIMER_STATE GetStatus(string _name)
+        public ETimerState GetStatus(string _name)
         {
             return GetTimer(_name).Status;
         }
@@ -223,12 +224,12 @@ namespace Game.Scripts.Timer
 
         public bool IsRunning(int _id)
         {
-            return GetStatus(_id) == E_TIMER_STATE.RUNNING;
+            return GetStatus(_id) == ETimerState.RUNNING;
         }
 
         public bool IsRunning(string _name)
         {
-            return GetStatus(_name) == E_TIMER_STATE.RUNNING;
+            return GetStatus(_name) == ETimerState.RUNNING;
         }
 
         public void Display(int _id)

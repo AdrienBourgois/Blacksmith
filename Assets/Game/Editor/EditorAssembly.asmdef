@@ -1,0 +1,11 @@
+{
+    "name": "EditorAssembly",
+    "references": [
+        "GameAssembly",
+        "ProjectAssembly"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

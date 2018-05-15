@@ -1,5 +1,4 @@
 ﻿using Game.Scripts.Entity;
-using Game.Scripts.Interfaces;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects

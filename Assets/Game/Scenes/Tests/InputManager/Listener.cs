@@ -67,9 +67,9 @@ namespace Game.Scenes.Tests.InputManager
         {
             print(playerId + " SpecialMove");
         }
-        private void Fusion(float value)
+        private void Fusion(float _value)
         {
-            print(playerId + " Fusion = " + value);
+            print(playerId + " Fusion = " + _value);
         }
         private void Pause()
         {
