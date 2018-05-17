@@ -31,7 +31,7 @@ namespace Game.Scripts.Timer
                 timer.Update(delta_time);
         }
 
-        private Timer GetTimer(int _id)
+        public Timer GetTimer(int _id)
         {
             foreach (Timer timer in timerList)
                 if (timer.Id == _id)

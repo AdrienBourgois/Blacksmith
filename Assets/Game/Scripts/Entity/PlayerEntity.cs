@@ -25,8 +25,7 @@ namespace Game.Scripts.Entity
 
         [SerializeField] [Range(0, 90)] private float maxRotationAngle;
         [SerializeField] private float rotateSpeed;
-
-        private Vector3 inputDir;
+        [SerializeField] private bool inverseAim;
 
         [SerializeField] private SoBaseAttack fusionAttack;
 
@@ -159,9 +158,13 @@ namespace Game.Scripts.Entity
                 {
                     inputManager.SubscribeToWeakAttackP2Event(FusionAttack);
                     inputManager.SubscribeToStrongAttackP2Event(FusionAttack);
+                    inputManager.SubscribeToVerticalAimP2Event(AimV);
                 }
                 else
+                {
                     inputManager.SubscribeToStrongAttackP1Event(FusionAttack);
+                    inputManager.SubscribeToVerticalAimP1Event(AimV);
+                }
             }
             else
             {
@@ -178,21 +181,23 @@ namespace Game.Scripts.Entity
         #region Rotate
         public void AimV(float _value)
         {
-            inputDir.y = _value;
-            Rotate();
+            Rotate(Mathf.Sign(-_value) * (inverseAim == true ? -1 : 1));
         }
 
-        void Rotate()
+        void Rotate(float _dir_f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, Mathf.Sign(inputDir.y) * maxRotationAngle), rotateSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, _dir_f * maxRotationAngle), rotateSpeed * Time.deltaTime);
         }
         #endregion
 
         #region IDamagable
         public override void ReceiveDamages(float _damages)
         {
-            if (currentState == EPlayerState.FUSION)
+            if (currentState == EPlayerState.FUSION && !inRecovery)
+            {
+                UiManager.Instance.FusionHit();
                 return;
+            }
 
             base.ReceiveDamages(_damages);
 
@@ -323,12 +328,14 @@ namespace Game.Scripts.Entity
         public void FusionAskAccepted()
         {
             SwitchPlayerState(EPlayerState.FUSION);
+            currentState = EPlayerState.FUSION;
 
             SubscribeByType(true);
 
             if (playerType == EPlayerType.RANGE)
             {
                 PlayerEntity melee = EntityManager.Instance.GetMeleePlayer();
+                transform.localScale = melee.transform.localScale;
                 transform.parent = melee.transform;
                 location = Vector3.zero;
             }
@@ -346,6 +353,8 @@ namespace Game.Scripts.Entity
                 transform.parent = transform.parent.parent;
 
             SwitchPlayerState(EPlayerState.NORMAL);
+            currentState = EPlayerState.NORMAL;
+
             SubscribeByType(false);
         }
 

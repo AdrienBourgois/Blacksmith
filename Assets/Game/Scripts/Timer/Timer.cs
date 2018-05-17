@@ -25,7 +25,7 @@ namespace Game.Scripts.Timer
             get { return loopAtExpired; }
             set { loopAtExpired = value; }
         }
-        public float CurrentTime { get { return currentTime; } }
+        public float CurrentTime { get { return currentTime; } set { currentTime = value; } }
         public ETimerState Status { get { return status; } }
 
         public Timer(int _timer_id, string _timer_name, float _expire_at, bool _start_on_creation, bool _loop_at_elapsed, TimerManager.TimerDelegate _elapsed_listener_function, TimerManager.TimerDelegate _start_listener_function, TimerManager.TimerDelegate _pause_listener_function, TimerManager.TimerDelegate _stop_listener_function, TimerManager.TimerDelegate _reset_listener_function)

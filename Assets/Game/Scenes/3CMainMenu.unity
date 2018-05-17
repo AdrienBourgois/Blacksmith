@@ -2898,6 +2898,7 @@ MonoBehaviour:
   healthUi: {fileID: 1117870034}
   furySlider: {fileID: 391279286}
   fusionSlider: {fileID: 1169353630}
+  percentageLostWhenIt: 25
 --- !u!4 &1640735763
 Transform:
   m_ObjectHideFlags: 0

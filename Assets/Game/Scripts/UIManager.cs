@@ -24,7 +24,10 @@ namespace Game.Scripts
         [SerializeField] private Slider furySlider;
         [SerializeField] private Slider fusionSlider;
 
+        [SerializeField] [Range(0, 100)] private int percentageLostWhenIt;
+
         private Coroutine fusionCoroutine;
+        private int fusionTimerId;
 
         private void Awake()
         {
@@ -52,8 +55,15 @@ namespace Game.Scripts
             furySlider.transform.parent.gameObject.SetActive(true);
         }
 
+        public void FusionHit()
+        {
+            Timer.Timer timer = TimerManager.Instance.GetTimer(fusionTimerId);
+            timer.CurrentTime *= (1f - (float)percentageLostWhenIt / 100f);
+        }
+
         private IEnumerator FusionCoroutine(int _timer_id, float _max_fusion)
         {
+            fusionTimerId = _timer_id;
             fusionSlider.transform.parent.gameObject.SetActive(true);
 
             healthUi.gameObject.SetActive(false);
@@ -66,7 +76,7 @@ namespace Game.Scripts
 
             while (true)
             {
-                fusionSlider.value = TimerManager.Instance.GetCurrentTime(_timer_id);
+                fusionSlider.value = TimerManager.Instance.GetCurrentTime(fusionTimerId);
                 yield return null;
             }
         }

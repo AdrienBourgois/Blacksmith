@@ -173,6 +173,9 @@ namespace Game.Scripts.InputManager
 
             JumpP1Event = null;
             JumpP2Event = null;
+
+            VerticalAimP1Event = null;
+            VerticalAimP2Event = null;
         }
 
         public void UnsubscribeFromHorizontalP1Event(AxisCallback _function_to_unbind)
