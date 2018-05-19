@@ -28,9 +28,9 @@ TagManager:
   - GameOverZone
   - 
   - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - TopObstacle
+  - GroundObstacle
   - 
   - 
   - 

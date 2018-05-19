@@ -3,7 +3,7 @@ using Game.Scripts.SceneObjects;
 using UnityEditor;
 using UnityEngine;
 
-namespace Game.Editor
+namespace Game.Editor.SceneObjects
 {
     [CustomEditor(typeof(SceneObject), true)]
     public class SceneObjectEditor : UnityEditor.Editor
@@ -67,6 +67,12 @@ namespace Game.Editor
             {
                 Handles.color = Color.red;
                 Handles.DrawWireDisc(location.ToFloor().ToUnitySpace(), Vector3.forward, 0.15f);
+            }
+
+            if (DebugOptionsWindow.displayLocationPoint)
+            {
+                Handles.color = Color.red;
+                Handles.DrawSolidDisc(location.ToUnitySpace(), Vector3.forward, 0.1f);
             }
         }
 

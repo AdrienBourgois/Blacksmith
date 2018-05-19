@@ -21,15 +21,13 @@ namespace Game.Editor
         private void OnEnable()
         {
             selection = (PathFinding)target;
+            testPoint1 = selection.GetComponent<PolygonCollider2D>().points[0] + new Vector2(selection.transform.position.x, selection.transform.position.y);
+            testPoint2 = testPoint1;
         }
 
         private void OnDisable()
         {
             selection = null;
-        }
-        public override void OnInspectorGUI()
-        {
-            base.OnInspectorGUI();
         }
 
         protected void OnSceneGUI()
@@ -45,7 +43,7 @@ namespace Game.Editor
                 {
                     for (int i = 0; i < testPath.Count - 1; i++)
                     {
-                        Handles.color = Color.yellow;
+                        Handles.color = Color.blue;
                         Handles.DrawLine(testPath[i], testPath[i + 1]);
                     }
                 }
@@ -66,25 +64,31 @@ namespace Game.Editor
             EditorGUI.BeginChangeCheck();
 
             GUILayout.BeginHorizontal();
+            selection.gridInterval = EditorGUILayout.FloatField("Interval", selection.gridInterval);
             if (GUILayout.Button("Create Grid"))
                 selection.CreateGrid();
-            selection.gridInterval = EditorGUILayout.FloatField("Interval", selection.gridInterval);
             GUILayout.EndHorizontal();
 
-            GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Create Connections"))
-                selection.CreateConnections();
-            selection.connectionsPrecision = EditorGUILayout.FloatField("Precision", selection.connectionsPrecision);
-            GUILayout.EndHorizontal();
+            if (selection.isGridInitialized)
+            {
+                GUILayout.BeginHorizontal();
+                selection.connectionsPrecision = EditorGUILayout.FloatField("Precision", selection.connectionsPrecision);
+                if (GUILayout.Button("Create Connections"))
+                    selection.CreateConnections();
+                GUILayout.EndHorizontal();
+            }
 
-            isTestingPathFinding = EditorGUILayout.BeginToggleGroup("Test Path", isTestingPathFinding);
-            GUILayout.BeginHorizontal();
-            testPoint1 = EditorGUILayout.Vector2Field("X :", testPoint1);
-            testPoint2 = EditorGUILayout.Vector2Field("X :", testPoint2);
-            if (GUILayout.Button("Create"))
-                isPathCorrect = selection.FindPath(testPoint1, testPoint2, out testPath);
-            GUILayout.EndHorizontal();
-            EditorGUILayout.EndToggleGroup();
+            if (selection.isGridInitialized && selection.isConnectionsInitialized)
+            {
+                isTestingPathFinding = EditorGUILayout.BeginToggleGroup("Test Path", isTestingPathFinding);
+                GUILayout.BeginHorizontal();
+                testPoint1 = EditorGUILayout.Vector2Field("From :", testPoint1);
+                testPoint2 = EditorGUILayout.Vector2Field("To :", testPoint2);
+                if (GUILayout.Button("Create"))
+                    isPathCorrect = selection.WeightedFindPath(testPoint1, testPoint2, out testPath);
+                GUILayout.EndHorizontal();
+                EditorGUILayout.EndToggleGroup();
+            }
 
             GUI.DragWindow();
         }
@@ -112,9 +116,8 @@ namespace Game.Editor
                     foreach (Node node in _path_finding.nodes)
                     {
                         Handles.color = Color.red;
-                        foreach (int connected_node_id in node.connectedNodes)
+                        foreach (Node connected_node in node.connectedNodes)
                         {
-                            Node connected_node = _path_finding.nodes[connected_node_id];
                             Handles.DrawLine(node.location, connected_node.location);
                         }
                     }

@@ -1,5 +1,7 @@
 ﻿using Game.Scripts;
+using Game.Scripts.Interfaces;
 using Game.Scripts.SceneObjects;
+using Game.Scripts.Triggers;
 using UnityEditor;
 using UnityEngine;
 
@@ -33,17 +35,27 @@ namespace Game.Editor
         private static void WindowFunction(int _id)
         {
             GUILayout.Label("Create :");
+
+            GUILayout.Label("Scene Objects");
+
             if(GUILayout.Button("SceneObject"))
-                CreateObject<SceneObject>();
+                CreateSceneObject<SceneObject>();
             if (GUILayout.Button("SpriteSceneObject"))
-                CreateObject<SpriteSceneObject>();
+                CreateSceneObject<SpriteSceneObject>();
             if (GUILayout.Button("PhysicSceneObject"))
-                CreateObject<PhysicSceneObject>();
+                CreateSceneObject<PhysicSceneObject>();
+            if (GUILayout.Button("ObstacleSceneObject"))
+                CreateObstacle();
+
+            GUILayout.Label("Triggers");
+
+            if (GUILayout.Button("BubbleSpeechTrigger"))
+                CreateTrigger<BubbleSpeechTrigger>();
 
             GUI.DragWindow();
         }
 
-        private static void CreateObject<T>() where T : SceneObject
+        private static void CreateSceneObject<T>() where T : SceneObject
         {
             GameObject go = new GameObject(typeof(T).Name);
             T component = go.AddComponent<T>();
@@ -51,7 +63,40 @@ namespace Game.Editor
             Vector3 game_space = SceneView.lastActiveSceneView.camera.ScreenToWorldPoint(center_camera).ToGameSpace();
             game_space.y = 0;
             component.location = game_space;
+            component.SetUnityPosition();
             Selection.objects = new Object[] {go};
+        }
+
+        private static void CreateTrigger<T>() where T : MonoBehaviour, ITriggerAction
+        {
+            GameObject go = new GameObject("Trigger " + typeof(T).Name);
+            go.AddComponent<LevelTrigger>();
+            T component = go.AddComponent<T>();
+            Vector3 center_camera = new Vector3(Screen.width / 2f, Screen.height / 2f, SceneView.lastActiveSceneView.camera.nearClipPlane);
+            Vector3 game_space = SceneView.lastActiveSceneView.camera.ScreenToWorldPoint(center_camera);
+            game_space.z = 0;
+            component.transform.position = game_space;
+            Selection.objects = new Object[] { go };
+        }
+
+        private static void CreateObstacle()
+        {
+            GameObject obstacle_go = new GameObject("Obstacle");
+            ObstacleSceneObject obstacle = obstacle_go.AddComponent<ObstacleSceneObject>();
+            obstacle_go.AddComponent<PolygonCollider2D>();
+            obstacle_go.layer = LayerMask.NameToLayer("Obstacle");
+
+            GameObject ground = new GameObject("Ground");
+            ground.transform.parent = obstacle_go.transform;
+            ground.AddComponent<PolygonCollider2D>();
+            ground.layer = LayerMask.NameToLayer("GroundObstacle");
+
+            GameObject top = new GameObject("Top");
+            top.transform.parent = obstacle_go.transform;
+            top.AddComponent<PolygonCollider2D>();
+            top.layer = LayerMask.NameToLayer("TopObstacle");
+
+            obstacle.BakeColliders();
         }
     }
 }

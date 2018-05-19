@@ -2,26 +2,26 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Game.Editor
+namespace Game.Editor.SceneObjects
 {
-    [CustomEditor(typeof(SpriteSceneObject), true)]
-    public class SpriteSceneObjectEditor : SceneObjectEditor
+    [CustomEditor(typeof(PhysicSceneObject), true)]
+    public class PhysicSceneObjectEditor : SpriteSceneObjectEditor
     {
-        private SpriteSceneObject spriteSelection;
+        private PhysicSceneObject physicSelection;
 
-        private static Rect spriteWindowRect = new Rect(290, 20, 250, 50);
+        private static Rect physicWindowRect = new Rect(560, 20, 250, 50);
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            spriteSelection = (SpriteSceneObject) target;
+            physicSelection = (PhysicSceneObject)target;
             Tools.hidden = true;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            spriteSelection = null;
+            physicSelection = null;
             Tools.hidden = false;
         }
 
@@ -35,14 +35,15 @@ namespace Game.Editor
         {
             Handles.BeginGUI();
 
-            spriteWindowRect = GUILayout.Window(11, spriteWindowRect, WindowFunction, "SpriteSceneObject");
+            physicWindowRect = GUILayout.Window(12, physicWindowRect, WindowFunction, "PhysicSceneObject");
 
             Handles.EndGUI();
         }
 
         private void WindowFunction(int _id)
         {
-            spriteSelection.Sprite = (Sprite)EditorGUILayout.ObjectField(spriteSelection.Sprite, typeof(Sprite), false);
+            physicSelection.weight = EditorGUILayout.FloatField("Weight : ", physicSelection.weight);
+            physicSelection.friction = EditorGUILayout.FloatField("Friction : ", physicSelection.friction);
             GUI.DragWindow();
         }
 
