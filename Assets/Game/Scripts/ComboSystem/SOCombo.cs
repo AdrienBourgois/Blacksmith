@@ -31,11 +31,6 @@ public class SOCombo : MonoBehaviour
 	    ListenToCallback(comboArray[0].command); 
     }
 	
-	private void Update ()
-	{
-		
-	}
-
     private void OnCommandFired(ACommand command)
     {
         print("OnCommandFired : " + command.CommandName);
@@ -65,15 +60,6 @@ public class SOCombo : MonoBehaviour
             ListenToCallback(comboArray[comboIdx].command);
         }
 
-
-        //TimerManager.Instance.StopTimer(timerIdArray[comboIdx]);
-        //StopListenToCallback(command);
-
-        //++comboIdx;
-
-        ////Start new timer. Listen to next command callback.
-        //TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
-        //ListenToCallback(comboArray[comboIdx].command);
     }
 
     private void ComboExecuted()
