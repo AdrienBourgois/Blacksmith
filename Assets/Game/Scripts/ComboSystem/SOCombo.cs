@@ -22,11 +22,14 @@ public class SOCombo : MonoBehaviour
         timerIdArray = new int[comboArray.Length];
 	    comboIdx = 0;
 
-	    for (int i = 0; i < comboArray.Length /* - 1 for the last timer? */; ++i)
+	    for (int i = 0; i < comboArray.Length  - 1 /*for the last timer? */; ++i)
 	    {
 	        timerIdArray[i] = TimerManager.Instance.AddTimer("Combo", comboArray[i].timeOut, false, false, OnTimeExpired);
+	        comboArray[i].command.Init();
         }
-	}
+
+	    ListenToCallback(comboArray[0].command); 
+    }
 	
 	private void Update ()
 	{

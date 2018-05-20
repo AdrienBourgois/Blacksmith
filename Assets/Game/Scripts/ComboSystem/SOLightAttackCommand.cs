@@ -21,6 +21,7 @@ namespace Game.Scripts.ComboSystem
 
         public override void Init()
         {
+            Debug.Log("Command.Init()");
             InputManager.InputManager.Instance.SubscribeToWeakAttackP1Event(Execute);
         }
 
