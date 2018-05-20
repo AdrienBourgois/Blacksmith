@@ -75,6 +75,11 @@ namespace Game.Scripts.Entity
         {
             _entity.ReceiveDamages(_damages);
         }
+
+        public virtual float GetXScale()
+        {
+            return transform.localScale.x;
+        }
         #endregion
 
         #region IDamagable

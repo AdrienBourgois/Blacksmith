@@ -2,6 +2,7 @@
 using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Timer;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 using UnityEngine.UI;
 
 namespace Game.Scripts.Entity
@@ -244,6 +245,18 @@ namespace Game.Scripts.Entity
             }
         }
 
+        public override void DamageEntity(BaseEntity _entity, float _damages)
+        {
+            base.DamageEntity(_entity, _damages);
+
+            OnEntityHit(_entity, _damages);
+        }
+
+        private void OnEntityHit(BaseEntity _entity, float _useless)
+        {
+            // if _entity is Enemy
+            UiManager.Instance.IncreaseFury(1);
+        }
         #endregion
 
         #region Revive
@@ -260,20 +273,17 @@ namespace Game.Scripts.Entity
 
         }
 
+        public void Revive()
+        {
+            if (currentState == EPlayerState.KNOCKED_OUT)
+            {
+                gameObject.SetActive(true);
+                currentState = EPlayerState.NORMAL;
+                health = maxHealth;
+                healthSlider.value = health;
+            }
+        }
         #endregion
-
-        public override void DamageEntity(BaseEntity _entity, float _damages)
-        {
-            base.DamageEntity(_entity, _damages);
-
-            OnEntityHit(_entity, _damages);
-        }
-
-        private void OnEntityHit(BaseEntity _entity, float _useless)
-        {
-            // if _entity is Enemy
-            UiManager.Instance.IncreaseFury(1);
-        }
 
         #region Movement
 
@@ -295,17 +305,6 @@ namespace Game.Scripts.Entity
                 base.Jump();
         }
         #endregion
-
-        public void Revive()
-        {
-            if (currentState == EPlayerState.KNOCKED_OUT)
-            {
-                gameObject.SetActive(true);
-                currentState = EPlayerState.NORMAL;
-                health = maxHealth;
-                healthSlider.value = health;
-            }
-        }
 
         private void SwitchPlayerState(EPlayerState _new_state)
         {
@@ -330,6 +329,13 @@ namespace Game.Scripts.Entity
             }
         }
 
+        public override float GetXScale()
+        {
+            if (currentState == EPlayerState.FUSION)
+                return transform.parent.localScale.x;
+
+            return base.GetXScale();
+        }
         #region Fusion
         public void FusionAttack()
         {
