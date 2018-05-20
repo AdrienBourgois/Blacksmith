@@ -7,6 +7,7 @@ namespace Game.Scripts.InputManager
     public class InputManager : MonoBehaviour
     {
         /// START TEST ZONE ///
+
         [SerializeField] private ACommand weakCommand;
         [SerializeField] private ACommand heavyCommand;
 
@@ -236,8 +237,8 @@ namespace Game.Scripts.InputManager
 
         private void Start()
         {
-            weakCommand.Init();
-            heavyCommand.Init();
+            //weakCommand.Init();
+            //heavyCommand.Init();
         }
 
         private void Update ()

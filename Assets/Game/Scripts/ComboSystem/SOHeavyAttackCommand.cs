@@ -19,12 +19,12 @@ namespace Game.Scripts.ComboSystem
         public override void Init()
         {
             InputManager.InputManager.Instance.SubscribeToStrongAttackP1Event(Execute);
-
+            commandName = "HeavyAttackCommand";
         }
 
         protected override void Execute()
         {
-            Debug.Log("SOHeavyAttackCommand.Execute()");
+            //Debug.Log("SOHeavyAttackCommand.Execute()");
             if (commandFunction != null)
                 commandFunction(this);
         }

@@ -38,8 +38,34 @@ public class SOCombo : MonoBehaviour
 
     private void OnCommandFired(ACommand command)
     {
-        print("OnCommandFired");
-        ////stop the current timer. Stop listen to current command callback.
+        print("OnCommandFired : " + command.CommandName);
+
+        if (comboIdx == comboArray.Length - 1)
+        {
+            ComboExecuted();
+            return;
+        }
+
+        //stop the current timer. Stop listen to current command callback.
+        if (IsFirstHit())
+        {
+            TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
+            StopListenToCallback(command);
+            ++comboIdx;
+            ListenToCallback(comboArray[comboIdx].command);
+        }
+        else
+        {
+            TimerManager.Instance.StopTimer(timerIdArray[comboIdx - 1]);
+            TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
+
+            ++comboIdx;
+
+            StopListenToCallback(command);
+            ListenToCallback(comboArray[comboIdx].command);
+        }
+
+
         //TimerManager.Instance.StopTimer(timerIdArray[comboIdx]);
         //StopListenToCallback(command);
 
@@ -48,6 +74,18 @@ public class SOCombo : MonoBehaviour
         ////Start new timer. Listen to next command callback.
         //TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
         //ListenToCallback(comboArray[comboIdx].command);
+    }
+
+    private void ComboExecuted()
+    {
+        print("ComboExecuted");
+        TimerManager.Instance.StopTimer(timerIdArray[comboIdx - 1]);
+        StopCombo();
+    }
+
+    private bool IsFirstHit()
+    {
+        return comboIdx == 0;
     }
 
     private void OnTimeExpired()

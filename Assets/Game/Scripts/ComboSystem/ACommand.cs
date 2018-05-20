@@ -8,6 +8,12 @@ namespace Game.Scripts.ComboSystem
         public delegate void CommandDelegate(ACommand command);
 
         protected CommandDelegate commandFunction;
+        protected string commandName;
+
+        public string CommandName
+        {
+            get { return commandName; }
+        }
 
         public void SubscribeToCommandFunction(CommandDelegate _function_pointer)
         {

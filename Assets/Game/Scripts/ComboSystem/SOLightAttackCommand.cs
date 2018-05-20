@@ -21,13 +21,14 @@ namespace Game.Scripts.ComboSystem
 
         public override void Init()
         {
-            Debug.Log("Command.Init()");
+            //Debug.Log("Command.Init()");
             InputManager.InputManager.Instance.SubscribeToWeakAttackP1Event(Execute);
+            commandName = "LightAttackCommand";
         }
 
         protected override void Execute()
         {
-            Debug.Log("SOLightAttackCommand.Execute()");
+            //Debug.Log("SOLightAttackCommand.Execute()");
             if (commandFunction != null)
                 commandFunction(this);
         }
