@@ -15,6 +15,5 @@ namespace Game.Editor.Triggers
                 Gizmos.DrawIcon(_trigger.transform.position, "Game/Bubble.png", true);
             }
         }
-
     }
 }
