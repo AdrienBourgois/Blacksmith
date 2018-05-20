@@ -7,18 +7,6 @@ namespace Game.Scripts.ComboSystem
     [CreateAssetMenu(fileName = "LightAttackCommand", menuName = "Combo/AttackType/LightAttack", order = 1)]
     public class SOLightAttackCommand : ACommand
     {
-        //private void OnEnable()
-        //{
-        //    if (Application.isPlaying)
-        //        Debug.Log("SOLightAttackCommand.OnEnable()");
-        //    InputManager.InputManager.Instance.SubscribeToWeakAttackP1Event(Execute);
-        //}
-
-        //private void OnDisable()
-        //{
-        //    InputManager.InputManager.Instance.UnsubscribeFromWeakAttackP1Event(Execute);
-        //}
-
         public override void Init()
         {
             //Debug.Log("Command.Init()");

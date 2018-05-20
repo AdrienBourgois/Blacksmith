@@ -41,7 +41,6 @@ public class SOCombo : MonoBehaviour
             return;
         }
 
-        //stop the current timer. Stop listen to current command callback.
         if (IsFirstHit())
         {
             TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
