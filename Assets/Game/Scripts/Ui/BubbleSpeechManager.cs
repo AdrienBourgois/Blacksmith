@@ -22,7 +22,8 @@ namespace Game.Scripts.Ui
         [SerializeField]
         private GUISkin guiSkin;
 
-        [SerializeField] private GameObject go;
+        [SerializeField]
+        private GameObject go;
 
         private readonly Queue<SpeechParameters> nextSpeeches = new Queue<SpeechParameters>();
         private BubbleSpeech currentBubble;

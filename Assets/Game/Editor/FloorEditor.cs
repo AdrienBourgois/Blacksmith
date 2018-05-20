@@ -58,10 +58,11 @@ namespace Game.Editor
                     EditorUtilities.DrawCollider(polygon, Color.red);
         }
 
-
-
         private void MergeColliders()
         {
+            if (selection.gameObject.GetComponents<PolygonCollider2D>().Length <= 1)
+                return;
+
             Undo.RegisterCompleteObjectUndo(selection.gameObject, "Merge Colliders");
 
             CompositeCollider2D composite = Undo.AddComponent<CompositeCollider2D>(selection.gameObject);

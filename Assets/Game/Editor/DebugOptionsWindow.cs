@@ -57,28 +57,33 @@ namespace Game.Editor
         {
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PrefixLabel("Scene Object");
-            displayFloorPoint = EditorGUILayout.Toggle("Display Floor Point", displayFloorPoint);
-            displayHeightRay = EditorGUILayout.Toggle("Display Height Ray", displayHeightRay);
-            displayLocationPoint = EditorGUILayout.Toggle("Display Location Point", displayLocationPoint);
+            EditorGUILayout.LabelField("Scene Object", EditorUtilities.boldCenteredStyle);
+            displayFloorPoint = EditorGUILayout.Toggle("Floor Point", displayFloorPoint);
+            displayHeightRay = EditorGUILayout.Toggle("Height Ray", displayHeightRay);
+            displayLocationPoint = EditorGUILayout.Toggle("Location Point", displayLocationPoint);
+            EditorGUILayout.Space();
 
-            EditorGUILayout.PrefixLabel("Obstacle Scene Object");
-            displayObstacleHeight = EditorGUILayout.Toggle("Display Obstacle Height", displayObstacleHeight);
-            displayLowObstaclePoint = EditorGUILayout.Toggle("Display Low Obstacle Point", displayLowObstaclePoint);
-            displayObstacleCollider = EditorGUILayout.Toggle("Display Obstacle Collider", displayObstacleCollider);
-            displayObstacleTopCollider = EditorGUILayout.Toggle("Display Obstacle Top Collider", displayObstacleTopCollider);
-            displayObstacleGroundCollider = EditorGUILayout.Toggle("Display Obstacle Ground Collider", displayObstacleGroundCollider);
+            EditorGUILayout.LabelField("Obstacle Scene Object", EditorUtilities.boldCenteredStyle);
+            displayObstacleHeight = EditorGUILayout.Toggle("Obstacle Height", displayObstacleHeight);
+            displayLowObstaclePoint = EditorGUILayout.Toggle("Low Obstacle Point", displayLowObstaclePoint);
+            displayObstacleCollider = EditorGUILayout.Toggle("Obstacle Collider", displayObstacleCollider);
+            displayObstacleTopCollider = EditorGUILayout.Toggle("Obstacle Top Collider", displayObstacleTopCollider);
+            displayObstacleGroundCollider = EditorGUILayout.Toggle("Obstacle Ground Collider", displayObstacleGroundCollider);
+            EditorGUILayout.Space();
 
-            EditorGUILayout.PrefixLabel("Floor");
-            displayFloorColliders = EditorGUILayout.Toggle("Display Floor Colliders", displayFloorColliders);
+            EditorGUILayout.LabelField("Floor", EditorUtilities.boldCenteredStyle);
+            displayFloorColliders = EditorGUILayout.Toggle("Floor Colliders", displayFloorColliders);
+            EditorGUILayout.Space();
 
-            EditorGUILayout.PrefixLabel("PathFinding");
-            displayPathFindingGrid = EditorGUILayout.Toggle("Display Grid", displayPathFindingGrid);
-            displayPathFindingConnections = EditorGUILayout.Toggle("Display Connections", displayPathFindingConnections);
+            EditorGUILayout.LabelField("PathFinding", EditorUtilities.boldCenteredStyle);
+            displayPathFindingGrid = EditorGUILayout.Toggle("Grid", displayPathFindingGrid);
+            displayPathFindingConnections = EditorGUILayout.Toggle("Connections", displayPathFindingConnections);
+            EditorGUILayout.Space();
 
-            EditorGUILayout.PrefixLabel("Triggers");
-            displayTriggerZones = EditorGUILayout.Toggle("Display Triggers Zones", displayTriggerZones);
-            displaySpeechTriggers = EditorGUILayout.Toggle("Display Speech Triggers", displaySpeechTriggers);
+            EditorGUILayout.LabelField("Triggers", EditorUtilities.boldCenteredStyle);
+            displayTriggerZones = EditorGUILayout.Toggle("Triggers Zones", displayTriggerZones);
+            displaySpeechTriggers = EditorGUILayout.Toggle("Speech Triggers", displaySpeechTriggers);
+            EditorGUILayout.Space();
 
             if (EditorGUI.EndChangeCheck())
             {

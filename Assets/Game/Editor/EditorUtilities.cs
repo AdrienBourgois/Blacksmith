@@ -19,5 +19,15 @@ namespace Game.Editor
         public static Color orange = new Color(255f, 153f, 51f);
         public static Color blueMiku = new Color(0f, 255f, 255f);
         public static Color darkGreen = new Color(0f, 102f, 0f);
+
+        public static readonly GUIStyle boldCenteredStyle = new GUIStyle
+        {
+            fontStyle = FontStyle.Bold,
+            alignment = TextAnchor.MiddleCenter,
+            normal = new GUIStyleState
+            {
+                textColor = Color.white
+            }
+        };
     }
 }
