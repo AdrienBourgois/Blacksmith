@@ -14,7 +14,7 @@ namespace Game.Scripts.Entity
             RANGE
         }
 
-        private enum EPlayerState
+        public enum EPlayerState
         {
             NORMAL,
             READY_TO_FUSION,
@@ -43,6 +43,10 @@ namespace Game.Scripts.Entity
         private Slider healthSlider;
 
         private EPlayerState currentState = EPlayerState.NORMAL;
+        public EPlayerState CurrentState
+        {
+            get { return currentState; }
+        }
         [SerializeField] private EPlayerType playerType;
         public EPlayerType PlayerType
         {
@@ -67,14 +71,16 @@ namespace Game.Scripts.Entity
             AskToFusion -= _listener_function;
         }
         #endregion
-
+        
         #region Unity Methods
+        private void Awake()
+        {
+            inputManager = FindObjectOfType<InputManager.InputManager>();
+        }
+
         protected override void Start()
         {
             base.Start();
-            inputManager = FindObjectOfType<InputManager.InputManager>();
-
-            SubscribeByType(false);
 
             healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild((int)playerType).GetComponent<Slider>();
 
@@ -83,11 +89,16 @@ namespace Game.Scripts.Entity
 
             KnockedOutEvent += KnockedOut;
             KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
+            if (!GameState.Instance.IsTwoPlayer) KnockedOutEvent += () => { EntityManager.Instance.SwitchPlayer(); };
+
         }
 
         protected override void Update()
         {
             base.Update();
+
+            if (Input.GetKeyDown(KeyCode.F))
+                Fusion(1f);
         }
         #endregion
 
@@ -181,19 +192,23 @@ namespace Game.Scripts.Entity
         #region Rotate
         public void AimV(float _value)
         {
-            Rotate(Mathf.Sign(-_value) * (inverseAim == true ? -1 : 1));
+            Rotate(Mathf.Sign(-_value));
         }
 
         void Rotate(float _dir_f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, _dir_f * maxRotationAngle), rotateSpeed * Time.deltaTime);
+            float pDir = transform.parent.localScale.x;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, (_dir_f * pDir) * maxRotationAngle), rotateSpeed * Time.deltaTime);
         }
         #endregion
 
         #region IDamagable
         public override void ReceiveDamages(float _damages)
         {
-            if (currentState == EPlayerState.FUSION && !inRecovery)
+            if (inRecovery)
+                return;
+
+            if (currentState == EPlayerState.FUSION)
             {
                 UiManager.Instance.FusionHit();
                 return;
@@ -201,12 +216,9 @@ namespace Game.Scripts.Entity
 
             base.ReceiveDamages(_damages);
 
-            if (!inRecovery)
-            {
-                velocity.x = -0.1f;
-                velocity.y = 0.1f;
-                healthSlider.value = health;
-            }
+            velocity.x = -0.1f;
+            velocity.y = 0.1f;
+            healthSlider.value = health;
         }
 
         public override void Die()
@@ -308,7 +320,7 @@ namespace Game.Scripts.Entity
                     if (AskToFusion != null)
                         AskToFusion();
 
-                    break;
+                   break;
                 }
 
                 case EPlayerState.FUSION:
@@ -327,6 +339,8 @@ namespace Game.Scripts.Entity
 
         public void FusionAskAccepted()
         {
+            gameObject.SetActive(true);
+
             SwitchPlayerState(EPlayerState.FUSION);
             currentState = EPlayerState.FUSION;
 
@@ -349,8 +363,13 @@ namespace Game.Scripts.Entity
 
         public void FusionEnded()
         {
+            if (!GameState.Instance.IsTwoPlayer)
+                EntityManager.Instance.GetP2().gameObject.SetActive(false);
             if (playerType == EPlayerType.RANGE)
+            {
                 transform.parent = transform.parent.parent;
+                transform.rotation = Quaternion.identity;
+            }
 
             SwitchPlayerState(EPlayerState.NORMAL);
             currentState = EPlayerState.NORMAL;
@@ -361,9 +380,10 @@ namespace Game.Scripts.Entity
         protected void Fusion(float _axe_value)
         {
             print("Fusion = " + _axe_value);
-            if (currentState == EPlayerState.READY_TO_FUSION)
+            if (UiManager.Instance.CanAskForFusion() && !inRecovery && currentState != EPlayerState.KNOCKED_OUT)
             {
                 currentState = EPlayerState.ASK_TO_FUSION;
+                SwitchPlayerState(EPlayerState.ASK_TO_FUSION);
             }
         }
         #endregion

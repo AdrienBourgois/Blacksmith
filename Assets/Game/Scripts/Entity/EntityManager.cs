@@ -6,6 +6,9 @@ namespace Game.Scripts.Entity
 {
     public class EntityManager : MonoBehaviour
     {
+        [SerializeField] private GameObject meleePlayerPrefab;
+        [SerializeField] private GameObject rangePlayerPrefab;
+
         private PlayerEntity[] players;
         [SerializeField] private float fusionInputTimeOut;
         [SerializeField] private float fusionDuration;
@@ -57,14 +60,37 @@ namespace Game.Scripts.Entity
         private void Awake()
         {
             instance = this;
+
+            Transform spawn = GameObject.FindGameObjectWithTag("StartSpawn").transform;
+            currentPlayer = Instantiate(meleePlayerPrefab, spawn.position,
+                    Quaternion.identity,
+                    GameObject.Find("3CLevel(Clone)").transform)
+                .GetComponent<PlayerEntity>();
+
+            currentPlayer.SubscribeByType(false);
+
+            PlayerEntity range = Instantiate(rangePlayerPrefab, spawn.position,
+                    Quaternion.identity,
+                    GameObject.Find("3CLevel(Clone)").transform)
+                .GetComponent<PlayerEntity>();
+
+            players = FindObjectsOfType<PlayerEntity>();
+            ListenToPlayersCallbacks();
+
+            if (!GameState.Instance.IsTwoPlayer)
+            {
+                range.gameObject.SetActive(false);
+            }
+            else
+            {
+                range.SubscribeByType(false);
+            }
         }
 
         private void Start()
         {
-            players = FindObjectsOfType<PlayerEntity>();
-            ListenToPlayersCallbacks();
-
-            currentPlayer = GetMeleePlayer();
+            if (!GameState.Instance.IsTwoPlayer)
+                InputManager.InputManager.Instance.SubscribeToSwapP1Event(SwitchPlayer);
 
             enemyNum = FindObjectsOfType<TmpEnemyEntity>().Length;
             fusionInputTimeOutId = TimerManager.Instance.AddTimer("FuryInput", fusionInputTimeOut, false, false, OnFusionTimerExpired);
@@ -72,8 +98,8 @@ namespace Game.Scripts.Entity
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
-                AcceptPlayerFusion();
+           // if (Input.GetKeyDown(KeyCode.F))
+             //   AcceptPlayerFusion();
         }
 
         #endregion
@@ -99,18 +125,33 @@ namespace Game.Scripts.Entity
         {
             if (GameState.Instance.IsTwoPlayer)
                 return GetRangePlayer();
-            if (currentPlayer.PlayerType == PlayerEntity.EPlayerType.MELEE)
-                return GetRangePlayer();
-            return GetMeleePlayer();
+
+            if (players[0] == currentPlayer)
+                return players[1];
+
+            return players[0];
         }
         #endregion
 
         public void SwitchPlayer()
         {
+            if (currentPlayer.CurrentState != PlayerEntity.EPlayerState.KNOCKED_OUT)
+            {
+                if (currentPlayer.CurrentState != PlayerEntity.EPlayerState.NORMAL || currentPlayer.IsInRecovery)
+                    return; 
+            }
+
             InputManager.InputManager.Instance.UnsubscribeFromMoveAndAttackControls();
 
-            currentPlayer = GetP2();
+            PlayerEntity p2 = GetP2();
+            p2.transform.localScale = currentPlayer.transform.localScale;
+            p2.location = currentPlayer.location;
+
+            currentPlayer.gameObject.SetActive(false);
+
+            currentPlayer = p2;
             currentPlayer.SubscribeToP1(false);
+            currentPlayer.gameObject.SetActive(true);
         }
 
         public void ListenToPlayersCallbacks()
@@ -129,15 +170,17 @@ namespace Game.Scripts.Entity
             }
         }
 
-        public void SpawnEntity(GameObject _entity)
+        public GameObject SpawnEntity(GameObject _entity)
         {
-            Instantiate(_entity);
+            return Instantiate(_entity);
         }
 
         private void OnFusionAsking()
         {
             TimerManager.Instance.StartTimer(fusionInputTimeOutId);
-            if (AreBothPlayerAskToFusion())
+            if (GameState.Instance.IsTwoPlayer && AreBothPlayerAskToFusion())
+                AcceptPlayerFusion();
+            else if (!GameState.Instance.IsTwoPlayer)
                 AcceptPlayerFusion();
         }
 
@@ -165,7 +208,6 @@ namespace Game.Scripts.Entity
             UiManager.Instance.StartFusionUi(timer_id, fusionDuration);
 
             TimerManager.Instance.StopTimer(fusionInputTimeOutId);
-            //UiManager.Instance.StartFusionUi(fusionDuration);
         }
 
         private void OnFusionTimerExpired()

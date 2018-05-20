@@ -26,6 +26,7 @@ namespace Game.Scripts.ScriptableObjects
             bullet.tag = _entity.tag;
             bullet.damages = damages;
             bullet.speed = bulletSpeed;
+
             bullet.direction = _entity.transform.rotation * new Vector3(1 * Mathf.Sign(_entity.transform.parent.localScale.x), 0, 0);
             bullet.onEntityHit += _entity.DamageEntity;
         }

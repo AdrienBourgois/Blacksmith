@@ -14,20 +14,21 @@ namespace Game.Scripts
             get { return instance; }
         }
 
-        [SerializeField]
-        private EventSystem eventSystem;
+        [SerializeField] private EventSystem eventSystem;
+        [SerializeField] private Transform healthUi;
+        [SerializeField] private Slider furySlider;
+        [SerializeField] private Slider fusionSlider;
 
         [SerializeField] private float maxFury;
         private float fury;
 
-        [SerializeField] Transform healthUi;
-        [SerializeField] private Slider furySlider;
-        [SerializeField] private Slider fusionSlider;
-
         [SerializeField] [Range(0, 100)] private int percentageLostWhenIt;
+        [SerializeField] private float recoveryTimeFusionHit;
 
         private Coroutine fusionCoroutine;
         private int fusionTimerId;
+
+        private bool inFusionRecoveryHit;
 
         private void Awake()
         {
@@ -37,7 +38,14 @@ namespace Game.Scripts
         private void Start()
         {
             furySlider.maxValue = maxFury;
-            furySlider.value = fury;
+            furySlider.value = fury = maxFury;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+                furySlider.value = fury = furySlider.maxValue;
+
         }
 
         public void StartFusionUi(int _timer_id, float _max_fusion)
@@ -57,8 +65,16 @@ namespace Game.Scripts
 
         public void FusionHit()
         {
+            if (inFusionRecoveryHit)
+                return;
+
+            float duration = fusionSlider.maxValue;
             Timer.Timer timer = TimerManager.Instance.GetTimer(fusionTimerId);
-            timer.CurrentTime *= (1f - (float)percentageLostWhenIt / 100f);
+            duration -= duration * ((1f - (float)percentageLostWhenIt / 100f));
+            timer.CurrentTime -= duration;
+
+            TimerManager.Instance.AddTimer("Fusion hit recovery", recoveryTimeFusionHit, true, false, () => inFusionRecoveryHit = false);
+            inFusionRecoveryHit = true;
         }
 
         private IEnumerator FusionCoroutine(int _timer_id, float _max_fusion)

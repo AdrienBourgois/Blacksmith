@@ -23,6 +23,10 @@ namespace Game.Scripts.Entity
         private int recoveryTimerId;
 
         protected bool inRecovery;
+        public bool IsInRecovery
+        {
+            get { return inRecovery; }
+        }
 
         private Color sColor;
 
