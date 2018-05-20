@@ -20,6 +20,7 @@ namespace Game.Editor
         {
             selection = null;
         }
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -50,26 +51,18 @@ namespace Game.Editor
         }
 
         [DrawGizmo((GizmoType) 34, typeof(Floor))]
-        private static void DrawColliders(Floor _floor, GizmoType _type)
+        private static void DrawGizmo(Floor _floor, GizmoType _type)
         {
             if(DebugOptionsWindow.displayFloorColliders)
                 foreach (PolygonCollider2D polygon in _floor.GetComponents<PolygonCollider2D>())
-                    DrawCollider(polygon);
-        }
-
-        private static void DrawCollider(PolygonCollider2D _collider)
-        {
-            Vector2 offset = _collider.offset + new Vector2(_collider.gameObject.transform.position.x, _collider.gameObject.transform.position.y);
-            for (int i = 0; i < _collider.points.Length - 1; i++)
-            {
-                Handles.color = Color.red;
-                Handles.DrawLine(_collider.points[i] + offset, _collider.points[i + 1] + offset);
-            }
-            Handles.DrawLine(_collider.points[0] + offset, _collider.points[_collider.points.Length-1] + offset);
+                    EditorUtilities.DrawCollider(polygon, Color.red);
         }
 
         private void MergeColliders()
         {
+            if (selection.gameObject.GetComponents<PolygonCollider2D>().Length <= 1)
+                return;
+
             Undo.RegisterCompleteObjectUndo(selection.gameObject, "Merge Colliders");
 
             CompositeCollider2D composite = Undo.AddComponent<CompositeCollider2D>(selection.gameObject);
