@@ -3295,7 +3295,7 @@ MonoBehaviour:
   furySlider: {fileID: 391279286}
   fusionSlider: {fileID: 1169353630}
   maxFury: 10
-  percentageLostWhenIt: 25
+  percentageLostWhenIt: 20
   recoveryTimeFusionHit: 0.5
 --- !u!4 &1640735763
 Transform:

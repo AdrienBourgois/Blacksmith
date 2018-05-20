@@ -94,6 +94,18 @@ namespace Game.Scripts.Entity
 
             enemyNum = FindObjectsOfType<TmpEnemyEntity>().Length;
             fusionInputTimeOutId = TimerManager.Instance.AddTimer("FuryInput", fusionInputTimeOut, false, false, OnFusionTimerExpired);
+
+            if (GameState.Instance.IsTwoPlayer == false)
+            {
+                PlayerEntity p2 = GetP2();
+                print("Start");
+                print("currentPlayer : " + currentPlayer.name);
+                print("currentPlayer.position : " + currentPlayer.transform.position);
+                print("p2 : " + p2.name);
+                print("p2.position : " + p2.transform.position);
+                //p2.transform.position = currentPlayer.transform.position;
+                //ReparentPlayers(currentPlayer, p2);
+            }
         }
 
         private void Update()
@@ -149,9 +161,24 @@ namespace Game.Scripts.Entity
 
             currentPlayer.gameObject.SetActive(false);
 
+            PlayerEntity old_player = currentPlayer;
+
             currentPlayer = p2;
+            DetachPlayerParent(currentPlayer);
+            ReparentPlayers(currentPlayer, old_player);
+            old_player.transform.SetParent(currentPlayer.transform);
             currentPlayer.SubscribeToP1(false);
             currentPlayer.gameObject.SetActive(true);
+        }
+
+        public void ReparentPlayers(PlayerEntity parent, PlayerEntity child)
+        {
+            child.transform.SetParent(parent.transform);
+        }
+
+        public void DetachPlayerParent(PlayerEntity child)
+        {
+            child.transform.parent = null;
         }
 
         public void ListenToPlayersCallbacks()
