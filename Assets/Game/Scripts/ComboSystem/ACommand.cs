@@ -3,8 +3,8 @@ using Game.Scripts.Entity;
 
 namespace Game.Scripts.ComboSystem
 {
-    [System.Serializable]
-    public abstract class ACommand : ScriptableObject
+    //[System.Serializable]
+    public abstract class ACommand
     {
         public delegate void CommandDelegate(ACommand command);
 

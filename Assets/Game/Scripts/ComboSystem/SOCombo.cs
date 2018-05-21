@@ -4,10 +4,17 @@ using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Timer;
 using UnityEngine;
 
+public enum ECommandType
+{
+    LIGHT_ATTACK_COMMAND,
+    HEAVY_ATTACK_COMMAND
+}
+
 [System.Serializable]
 public class ComboData
 {
-    public ACommand command;
+    public ECommandType commandType;
+    [HideInInspector] public ACommand command;
     public float timeOut;
 }
 
@@ -55,6 +62,11 @@ public class SOCombo : ScriptableObject
     {
         for (int i = 0; i < commandArray.Length; ++i)
         {
+            if (commandArray[i].commandType == ECommandType.LIGHT_ATTACK_COMMAND)
+                commandArray[i].command = new SOLightAttackCommand();
+            else if (commandArray[i].commandType == ECommandType.HEAVY_ATTACK_COMMAND)
+                commandArray[i].command = new SOHeavyAttackCommand();
+
             commandArray[i].command.Init(_player_type);
         }
     }

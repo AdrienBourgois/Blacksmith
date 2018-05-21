@@ -5,12 +5,12 @@ using Game.Scripts.InputManager;
 
 namespace Game.Scripts.ComboSystem
 {
-    [CreateAssetMenu(fileName = "LightAttackCommand", menuName = "Combo/AttackType/LightAttack", order = 1)]
+    //[CreateAssetMenu(fileName = "LightAttackCommand", menuName = "Combo/AttackType/LightAttack", order = 1)]
     public class SOLightAttackCommand : ACommand
     {
         public override void Init(PlayerEntity.EPlayerType _player_type)
         {
-            //Debug.Log("Command.Init()");
+            //Debug.Log("SOLightAttackCommand");
 
             if (_player_type == PlayerEntity.EPlayerType.MELEE)
                 InputManager.InputManager.Instance.SubscribeToWeakAttackP1Event(Execute);
