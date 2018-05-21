@@ -234,6 +234,9 @@ MonoBehaviour:
   reviveTimeTeammate: 4
   reviveTime: 3
   maxFury: 10
+  comboArray:
+  - {fileID: 11400000, guid: 1d1c3c7efaeaa2d4b8462f1f30e9bca6, type: 2}
+  - {fileID: 11400000, guid: 82d6ef2065af8aa43aae745e03be166c, type: 2}
   playerType: 0
 --- !u!114 &114420869392366002
 MonoBehaviour:

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e69d52efb12a43448217295c6476219, type: 3}
+  m_Name: CSequence
+  m_EditorClassIdentifier: 
+  commandArray:
+  - commandType: 0
+    timeOut: 1.5
+  - commandType: 1
+    timeOut: 2
+  - commandType: 0
+    timeOut: 3
+  - commandType: 0
+    timeOut: 0
+  baseAttack: {fileID: 0}

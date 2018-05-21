@@ -114,7 +114,9 @@ namespace Game.Scripts.Timer
 
         public void DestroyTimer(int _id)
         {
-            bool success = timerList.Remove(GetTimer(_id));
+            Timer timer = GetTimer(_id);
+            timer.Stop();
+            bool success = timerList.Remove(timer);
 
             if (success == false)
                 Debug.LogError("Error : the timer with the following id <" + _id + "> can't be successfully destroyed.");
@@ -122,7 +124,9 @@ namespace Game.Scripts.Timer
 
         public void DestroyTimer(string _name)
         {
-            bool success = timerList.Remove(GetTimer(_name));
+            Timer timer = GetTimer(_name);
+            timer.Stop();
+            bool success = timerList.Remove(timer);
 
             if (success == false)
                 Debug.LogError("Error : the timer named " + _name + " can't be successfully destroyed.");
@@ -226,6 +230,26 @@ namespace Game.Scripts.Timer
         public bool IsRunning(string _name)
         {
             return GetStatus(_name) == ETimerState.RUNNING;
+        }
+
+        public bool IsPaused(int _id)
+        {
+            return GetStatus(_id) == ETimerState.PAUSE;
+        }
+
+        public bool IsPaused(string _name)
+        {
+            return GetStatus(_name) == ETimerState.PAUSE;
+        }
+
+        public bool IsStopped(int _id)
+        {
+            return GetStatus(_id) == ETimerState.STOP;
+        }
+
+        public bool IsStopped(string _name)
+        {
+            return GetStatus(_name) == ETimerState.STOP;
         }
 
         public void Display(int _id)

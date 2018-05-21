@@ -33,6 +33,7 @@ namespace Game.Scripts.Entity
         [SerializeField] private float reviveTimeTeammate;
         [SerializeField] private float reviveTime;
         [SerializeField] private float maxFury;
+        [SerializeField] private SOCombo[] comboArray;
 
         public delegate void PlayerStateHanlder();
 
@@ -92,6 +93,20 @@ namespace Game.Scripts.Entity
             KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
             if (!GameState.Instance.IsTwoPlayer) KnockedOutEvent += () => { EntityManager.Instance.SwitchPlayer(); };
 
+            InitComboArray();
+        }
+
+        private void InitComboArray()
+        {
+            foreach (SOCombo so_combo in comboArray)
+            {
+                so_combo.Init(playerType, OnComboExecuted);
+            }
+        }
+
+        private void OnComboExecuted(SoBaseAttack _base_attack)
+        {
+            _base_attack.Attack(this);
         }
 
         protected override void Update()
@@ -282,6 +297,7 @@ namespace Game.Scripts.Entity
                 Health = maxHealth;
                 healthSlider.value = Health;
             }
+            // if _entity is Enemy
         }
         #endregion
 

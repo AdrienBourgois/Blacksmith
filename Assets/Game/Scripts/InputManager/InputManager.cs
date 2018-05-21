@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using Game.Scripts.ComboSystem;
+using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace Game.Scripts.InputManager
 {
     public class InputManager : MonoBehaviour
     {
+        /// START TEST ZONE ///
+
+        [SerializeField] private ACommand weakCommand;
+        [SerializeField] private ACommand heavyCommand;
+
+        /// END TEST ZONE ///
+
         public delegate void AxisCallback(float _axe);
         public delegate void GamePadButtonEvent();
 
@@ -292,6 +300,12 @@ namespace Game.Scripts.InputManager
         private void Awake()
         {
             instance = this;
+        }
+
+        private void Start()
+        {
+            //weakCommand.Init();
+            //heavyCommand.Init();
         }
 
         private void Update ()
