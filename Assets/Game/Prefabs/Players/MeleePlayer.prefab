@@ -250,6 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damages: 0
+  comboEffect: 0
+  horizontalVelocity: 0
+  verticalVelocity: 0
 --- !u!114 &114567324061335204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -262,6 +265,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damages: 0
+  comboEffect: 0
+  horizontalVelocity: 0
+  verticalVelocity: 0
 --- !u!212 &212223765669742514
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -7,13 +7,26 @@ namespace Game.Scripts.ScriptableObjects
     {
         [SerializeField] protected float damages;
         [SerializeField] protected float coolDown;
-        [SerializeField] private luch lunchAntiono;
+        [SerializeField] protected EComboEffect comboEffect = EComboEffect.NONE;
+        [SerializeField] protected float horizontalVelocity;
+        [SerializeField] protected float verticalVelocity;
 
         [System.Serializable]
-        public enum luch
+        public enum EComboEffect
         {
-            Antiono_pd,
-            Antiono_gay
+            NONE,
+            VERTICAL_LAUNCH,
+            HORIZONTAL_LAUNCH
+        }
+
+        public struct HitData
+        {
+            public EComboEffect comboEffect;
+
+            public float damages;
+            public float xDir;
+            public float xVelocity;
+            public float yVelocity;
         }
 
         public virtual void Attack(BaseEntity _entity)

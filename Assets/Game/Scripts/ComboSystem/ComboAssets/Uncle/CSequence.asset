@@ -18,6 +18,6 @@ MonoBehaviour:
     timeOut: 2
   - commandType: 0
     timeOut: 3
-  - commandType: 0
+  - commandType: 1
     timeOut: 0
-  baseAttack: {fileID: 0}
+  baseAttack: {fileID: 11400000, guid: dc1b882e67334e04a8f06579d887b377, type: 2}

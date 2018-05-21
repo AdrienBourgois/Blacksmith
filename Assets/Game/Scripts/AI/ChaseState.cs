@@ -60,17 +60,17 @@ namespace Game.Scripts.AI
                 updatePathTimerId = TimerManager.Instance.AddTimer("Update Path", 2f, true, true, UpdatePath, UpdatePath, null, null, null);
             }
 
-            //Move();
+            Move();
         }
 
         private void Move()
         {
             myBehavior.myEntity.TryMove(destination.normalized);//(Vector3.MoveTowards(position, destination, speed * Time.deltaTime));
-            /*if (IsArrived())
+            if (IsArrived())
             {
                 Debug.Log("IsArrived");
-                //UpdateDestination();
-            }*/
+                UpdateDestination();
+            }
         }
 
         private bool IsArrived()
@@ -83,7 +83,7 @@ namespace Game.Scripts.AI
             if (path == null)
                 return;
 
-            Debug.Log("UpdateDestination");
+            //Debug.Log("UpdateDestination");
 
             ++pathId;
 
@@ -93,7 +93,6 @@ namespace Game.Scripts.AI
 
         private void UpdatePath()
         {
-            //Debug.Log("UpdatePath");
 
             Collider2D floor = Physics2D.OverlapPoint(position, LayerMask.GetMask("Floor"));
             if (floor != null)
@@ -111,11 +110,11 @@ namespace Game.Scripts.AI
                     pathId = -1;
                     UpdateDestination();
                 }
-                else
-                    Debug.Log("Path is null");
+                //else
+                  //  Debug.Log("Path is null");
             }
-            else
-                Debug.Log("Floor not found");
+           // else
+               // Debug.Log("Floor not found");
         }
     }
 }
