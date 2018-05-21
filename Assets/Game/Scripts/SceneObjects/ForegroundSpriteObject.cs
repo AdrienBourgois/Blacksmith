@@ -19,13 +19,18 @@ namespace Game.Scripts.SceneObjects
             {
                 sprite = value;
                 GetComponent<SpriteRenderer>().sprite = sprite;
+                SetProperties();
             }
         }
 
         public int OrderInLayer
         {
             get { return orderInLayer; }
-            set { orderInLayer = value; }
+            set
+            {
+                orderInLayer = value;
+                SetProperties();
+            }
         }
 
         private void Awake()
@@ -38,7 +43,7 @@ namespace Game.Scripts.SceneObjects
             SetProperties();
         }
 
-        private void SetProperties()
+        public void SetProperties()
         {
             SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
 
@@ -50,6 +55,22 @@ namespace Game.Scripts.SceneObjects
             Vector3 position = gameObject.transform.position;
             position.z = -10;
             gameObject.transform.position = position;
+
+            if (transform.localScale != Vector3.one)
+                Rescale();
+        }
+
+        private void Rescale()
+        {
+            SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
+            Vector3 scale = transform.localScale;
+
+            Vector2 size = sprite_renderer.size;
+            size.x = size.x * scale.x;
+            size.y = size.y * scale.y;
+            sprite_renderer.size = size;
+
+            transform.localScale = Vector3.one;
         }
     }
 }
