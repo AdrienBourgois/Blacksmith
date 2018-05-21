@@ -22,18 +22,23 @@ public class SOCombo : ScriptableObject
 
     private int[] timerIdArray;
     private int comboIdx;
+    private TimerManager timerManager;
 
     private System.Action<SoBaseAttack> ComboExecutedCallback;
 
 	public void Init (PlayerEntity.EPlayerType _player_type, System.Action<SoBaseAttack> _function_pointer)
 	{
-        timerIdArray = new int[commandArray.Length];
+        //Debug.Log("SOCombo.Init() : " + this.name);
+
+        timerManager = TimerManager.Instance;
+        timerIdArray = new int[commandArray.Length - 1];
 	    comboIdx = 0;
 
 	    InitTimers();
         InitCommands(_player_type);
 
-	    ListenToCallback(commandArray[0].command);
+	    //Debug.Log("comboIdx : " + comboIdx);
+        ListenToCallback(commandArray[comboIdx].command);
 
 	    ComboExecutedCallback = _function_pointer;
 	}
@@ -42,7 +47,7 @@ public class SOCombo : ScriptableObject
     {
         for (int i = 0; i < commandArray.Length - 1 /* for the last timer? */; ++i)
         {
-            timerIdArray[i] = TimerManager.Instance.AddTimer("Combo", commandArray[i].timeOut, false, false, OnTimeExpired);
+            timerIdArray[i] = timerManager.AddTimer("Sequence : " + i, commandArray[i].timeOut, false, false, OnTimeExpired);
         }
     }
 
@@ -66,33 +71,46 @@ public class SOCombo : ScriptableObject
 
         if (IsFirstHit())
         {
-            TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
-            StopListenToCallback(command);
+            timerManager.StartTimer(timerIdArray[comboIdx]);
+
             ++comboIdx;
+
+            StopListenToCallback(command);
             ListenToCallback(commandArray[comboIdx].command);
         }
         else
         {
-            TimerManager.Instance.StopTimer(timerIdArray[comboIdx - 1]);
-            TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
+            timerManager.StopTimer(timerIdArray[comboIdx - 1]);
+            timerManager.StartTimer(timerIdArray[comboIdx]);
 
             ++comboIdx;
 
             StopListenToCallback(command);
             ListenToCallback(commandArray[comboIdx].command);
         }
-
     }
 
     private void ComboExecuted()
     {
         Debug.Log("ComboExecuted");
 
+
         if (ComboExecutedCallback != null)
             ComboExecutedCallback(baseAttack);
 
-        TimerManager.Instance.StopTimer(timerIdArray[comboIdx - 1]);
+        timerManager.StopTimer(timerIdArray[comboIdx - 1]);
         StopCombo();
+
+        //PrintAllRunningTimers();
+    }
+
+    private void PrintAllRunningTimers()
+    {
+        for (int i = 0; i < timerIdArray.Length; ++i)
+        {
+            if (timerManager.IsRunning(timerIdArray[i]))
+                Debug.Log("Timer at index : " + i + " is still running : " + timerIdArray[i]);
+        }
     }
 
     private bool IsFirstHit()
@@ -103,6 +121,12 @@ public class SOCombo : ScriptableObject
     private void OnTimeExpired()
     {
         Debug.Log("Combo Failed");
+
+        //foreach (int i in timerIdArray)
+        //{
+        //    Debug.Log("timerIdArray : " + i);
+        //}
+
         StopCombo();
     }
 

@@ -232,6 +232,26 @@ namespace Game.Scripts.Timer
             return GetStatus(_name) == ETimerState.RUNNING;
         }
 
+        public bool IsPaused(int _id)
+        {
+            return GetStatus(_id) == ETimerState.PAUSE;
+        }
+
+        public bool IsPaused(string _name)
+        {
+            return GetStatus(_name) == ETimerState.PAUSE;
+        }
+
+        public bool IsStopped(int _id)
+        {
+            return GetStatus(_id) == ETimerState.STOP;
+        }
+
+        public bool IsStopped(string _name)
+        {
+            return GetStatus(_name) == ETimerState.STOP;
+        }
+
         public void Display(int _id)
         {
             print("Timer id <" +_id + "> : " + GetCurrentTime(_id));

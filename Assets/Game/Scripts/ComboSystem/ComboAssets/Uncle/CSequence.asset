@@ -15,5 +15,7 @@ MonoBehaviour:
   - command: {fileID: 11400000, guid: c2f5bad33dbe21e4e9f9357fbd2490a8, type: 2}
     timeOut: 1.5
   - command: {fileID: 11400000, guid: 51bccddce827f6742bcfdfe8f34d1291, type: 2}
+    timeOut: 20
+  - command: {fileID: 11400000, guid: adef79040ad583f45af9ce11954977f9, type: 2}
     timeOut: 0
   baseAttack: {fileID: 0}
