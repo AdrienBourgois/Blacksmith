@@ -60,17 +60,17 @@ namespace Game.Scripts.AI
                 updatePathTimerId = TimerManager.Instance.AddTimer("Update Path", 2f, true, true, UpdatePath, UpdatePath, null, null, null);
             }
 
-            //Move();
+            Move();
         }
 
         private void Move()
         {
             myBehavior.myEntity.TryMove(destination.normalized);//(Vector3.MoveTowards(position, destination, speed * Time.deltaTime));
-            /*if (IsArrived())
+            if (IsArrived())
             {
                 Debug.Log("IsArrived");
-                //UpdateDestination();
-            }*/
+                UpdateDestination();
+            }
         }
 
         private bool IsArrived()
