@@ -33,6 +33,7 @@ namespace Game.Scripts.Entity
         [SerializeField] private float reviveTimeTeammate;
         [SerializeField] private float reviveTime;
         [SerializeField] private float maxFury;
+        [SerializeField] private SOCombo comboArray;
 
         public delegate void PlayerStateHanlder();
 

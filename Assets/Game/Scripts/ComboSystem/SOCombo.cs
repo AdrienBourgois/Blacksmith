@@ -10,32 +10,32 @@ public class ComboData
 }
 
 
-public class SOCombo : MonoBehaviour
+public class SOCombo : ScriptableObject
 {
-    [SerializeField] private ComboData[] comboArray;
+    [SerializeField] private ComboData[] commandArray;
 
     private int[] timerIdArray;
     private int comboIdx;
 
-	private void Start ()
+	private void Init ()
 	{
-        timerIdArray = new int[comboArray.Length];
+        timerIdArray = new int[commandArray.Length];
 	    comboIdx = 0;
 
-	    for (int i = 0; i < comboArray.Length  - 1 /*for the last timer? */; ++i)
+	    for (int i = 0; i < commandArray.Length  - 1 /*for the last timer? */; ++i)
 	    {
-	        timerIdArray[i] = TimerManager.Instance.AddTimer("Combo", comboArray[i].timeOut, false, false, OnTimeExpired);
-	        comboArray[i].command.Init();
+	        timerIdArray[i] = TimerManager.Instance.AddTimer("Combo", commandArray[i].timeOut, false, false, OnTimeExpired);
+	        commandArray[i].command.Init();
         }
 
-	    ListenToCallback(comboArray[0].command); 
+	    ListenToCallback(commandArray[0].command); 
     }
 	
     private void OnCommandFired(ACommand command)
     {
-        print("OnCommandFired : " + command.CommandName);
+        Debug.Log("OnCommandFired : " + command.CommandName);
 
-        if (comboIdx == comboArray.Length - 1)
+        if (comboIdx == commandArray.Length - 1)
         {
             ComboExecuted();
             return;
@@ -46,7 +46,7 @@ public class SOCombo : MonoBehaviour
             TimerManager.Instance.StartTimer(timerIdArray[comboIdx]);
             StopListenToCallback(command);
             ++comboIdx;
-            ListenToCallback(comboArray[comboIdx].command);
+            ListenToCallback(commandArray[comboIdx].command);
         }
         else
         {
@@ -56,14 +56,14 @@ public class SOCombo : MonoBehaviour
             ++comboIdx;
 
             StopListenToCallback(command);
-            ListenToCallback(comboArray[comboIdx].command);
+            ListenToCallback(commandArray[comboIdx].command);
         }
 
     }
 
     private void ComboExecuted()
     {
-        print("ComboExecuted");
+        Debug.Log("ComboExecuted");
         TimerManager.Instance.StopTimer(timerIdArray[comboIdx - 1]);
         StopCombo();
     }
@@ -75,17 +75,17 @@ public class SOCombo : MonoBehaviour
 
     private void OnTimeExpired()
     {
-        print("Combo Failed");
+        Debug.Log("Combo Failed");
         StopCombo();
     }
 
     private void StopCombo()
     {
-        StopListenToCallback(comboArray[comboIdx].command);
+        StopListenToCallback(commandArray[comboIdx].command);
 
         comboIdx = 0;
 
-        ListenToCallback(comboArray[comboIdx].command);
+        ListenToCallback(commandArray[comboIdx].command);
     }
 
     private void ListenToCallback(ACommand command)
