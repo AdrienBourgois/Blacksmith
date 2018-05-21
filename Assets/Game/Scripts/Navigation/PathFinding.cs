@@ -62,6 +62,11 @@ namespace Game.Scripts.Navigation
                 if (current == node_to)
                 {
                     _path = WeightedReconstruct(current, _from, _to);
+                    foreach (Node node in nodes)
+                    {
+                        node.Info.cameFrom = null;
+                        node.Info.distance = 0f;
+                    }
                     return true;
                 }
 
