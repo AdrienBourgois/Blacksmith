@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Game.Scripts.Entity;
 using UnityEngine;
 
 namespace Game.Scripts.AI
@@ -16,12 +17,13 @@ namespace Game.Scripts.AI
 
         public void ToSelectTargetState()
         {
-
+            // this
         }
 
         public void ToChaseState()
         {
-
+            BaseEntity target = EntityManager.Instance.CurrentPlayer;
+            myBehavior.ToChaseState(target);
         }
 
         public void ToAttackState()
@@ -30,7 +32,7 @@ namespace Game.Scripts.AI
 
         public void Update()
         {
-
+            ToChaseState();
         }
     }
 }

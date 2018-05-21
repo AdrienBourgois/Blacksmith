@@ -24,18 +24,21 @@ namespace Game.Scripts.AI
 
             idleState = new IdleState(this);
             selectTargetState = new SelectTargetState(this);
+            chaseState = new ChaseState(this);
             attackState = new AttackState(this);
 
             currentState = idleState;
         }
 
+        public void ToChaseState(BaseEntity _target)
+        {
+            Debug.Log("ToChaseState: " + _target);
+            chaseState.target = _target;
+            currentState = chaseState;
+        }
+
         public void Update()
         {
-            currentState.ToIdleState();
-            currentState.ToSelectTargetState();
-            currentState.ToChaseState();
-            currentState.ToAttackState();
-
             currentState.Update();
         }
     }

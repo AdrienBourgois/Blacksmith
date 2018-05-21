@@ -99,11 +99,6 @@ namespace Game.Scripts.Entity
             if (GameState.Instance.IsTwoPlayer == false)
             {
                 PlayerEntity p2 = GetP2();
-                print("Start");
-                print("currentPlayer : " + currentPlayer.name);
-                print("currentPlayer.position : " + currentPlayer.transform.position);
-                print("p2 : " + p2.name);
-                print("p2.position : " + p2.transform.position);
                 //p2.transform.position = currentPlayer.transform.position;
                 //ReparentPlayers(currentPlayer, p2);
             }
@@ -149,9 +144,9 @@ namespace Game.Scripts.Entity
             PlayerEntity old_player = currentPlayer;
 
             currentPlayer = p2;
-            DetachPlayerParent(currentPlayer);
-            ReparentPlayers(currentPlayer, old_player);
-            old_player.transform.SetParent(currentPlayer.transform);
+            //DetachPlayerParent(currentPlayer);
+            //ReparentPlayers(currentPlayer, old_player);
+            //old_player.transform.SetParent(currentPlayer.transform);
             currentPlayer.SubscribeToP1(false);
             currentPlayer.gameObject.SetActive(true);
         }

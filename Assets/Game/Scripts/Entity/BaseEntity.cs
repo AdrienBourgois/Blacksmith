@@ -8,9 +8,11 @@ namespace Game.Scripts.Entity
 {
     public class BaseEntity : MovablePhysicSceneObject, IDamagable, IAttack
     {
+        [Header("Attacks")]
         [SerializeField] protected SoBaseAttack lightAttack;
         [SerializeField] protected SoBaseAttack heavyAttack;
 
+        [Header("Stats")]
         [SerializeField] protected float recoveryTime;
         [SerializeField] protected float maxHealth;
 

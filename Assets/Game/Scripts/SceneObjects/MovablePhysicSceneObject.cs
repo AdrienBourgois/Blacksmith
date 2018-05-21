@@ -13,7 +13,7 @@ namespace Game.Scripts.SceneObjects
         [Header("Debug")]
         public bool enableKeyboard;
 
-        protected void TryMove(Vector3 _move)
+        public void TryMove(Vector3 _move)
         {
             Vector3 new_scale = transform.localScale;
 

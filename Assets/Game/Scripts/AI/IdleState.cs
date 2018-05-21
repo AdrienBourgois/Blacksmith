@@ -12,11 +12,13 @@ namespace Game.Scripts.AI
 
         public void ToIdleState()
         {
+            // this
         }
 
         public void ToSelectTargetState()
         {
-
+            if (true)
+                myBehavior.currentState = myBehavior.selectTargetState;
         }
 
         public void ToChaseState()
@@ -29,7 +31,7 @@ namespace Game.Scripts.AI
 
         public void Update()
         {
-
+            ToSelectTargetState();
         }
     }
 }
