@@ -3294,8 +3294,8 @@ MonoBehaviour:
   eventSystem: {fileID: 1028375949}
   standAloneInputModule: {fileID: 0}
   healthUi: {fileID: 1117870034}
-  furySlider: {fileID: 1169353630}
-  fusionSlider: {fileID: 391279286}
+  furySlider: {fileID: 391279286}
+  fusionSlider: {fileID: 1169353630}
   maxFury: 10
   percentageLostWhenIt: 15
   recoveryTimeFusionHit: 3
