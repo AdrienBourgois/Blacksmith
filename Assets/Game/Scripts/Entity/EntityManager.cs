@@ -218,7 +218,8 @@ namespace Game.Scripts.Entity
 
         private void OnFusionTimerExpired()
         {
-            MeleePlayer.FusionAskAccepted();
+            /// WTF ????? MeleePlayer.FusionAskAccepted();
+            MeleePlayer.FusionAskRefused();
             RangePlayer.FusionAskRefused();
         }
 
