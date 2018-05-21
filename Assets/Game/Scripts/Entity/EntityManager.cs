@@ -1,4 +1,5 @@
 ﻿using Game.Scripts.Camera;
+using Game.Scripts.SceneObjects;
 using Game.Scripts.Timer;
 using UnityEngine;
 
@@ -9,7 +10,9 @@ namespace Game.Scripts.Entity
         [SerializeField] private GameObject meleePlayerPrefab;
         [SerializeField] private GameObject rangePlayerPrefab;
 
-        private PlayerEntity[] players;
+        public PlayerEntity MeleePlayer { get; private set; }
+        public PlayerEntity RangePlayer { get; private set; }
+
         [SerializeField] private float fusionInputTimeOut;
         [SerializeField] private float fusionDuration;
 
@@ -37,10 +40,8 @@ namespace Game.Scripts.Entity
                 if (enemyNum == 0)
                 {
                     FindObjectOfType<CameraController>().SubscribeToCameraScrollZoneEvents();
-                    foreach (PlayerEntity player_entity in players)
-                    {
-                        player_entity.Revive();
-                    }
+                    MeleePlayer.Revive();
+                    RangePlayer.Revive();
                 }
             }
         }
@@ -61,29 +62,29 @@ namespace Game.Scripts.Entity
         {
             instance = this;
 
-            Transform spawn = GameObject.FindGameObjectWithTag("StartSpawn").transform;
-            currentPlayer = Instantiate(meleePlayerPrefab, spawn.position,
+            SceneObject spawn = GameObject.FindGameObjectWithTag("StartSpawn").GetComponent<SceneObject>();
+            MeleePlayer = Instantiate(meleePlayerPrefab, spawn.location,
                     Quaternion.identity,
                     GameObject.Find("3CLevel(Clone)").transform)
                 .GetComponent<PlayerEntity>();
 
+            currentPlayer = MeleePlayer;
             currentPlayer.SubscribeByType(false);
 
-            PlayerEntity range = Instantiate(rangePlayerPrefab, spawn.position,
+            RangePlayer = Instantiate(rangePlayerPrefab, spawn.location,
                     Quaternion.identity,
                     GameObject.Find("3CLevel(Clone)").transform)
                 .GetComponent<PlayerEntity>();
 
-            players = FindObjectsOfType<PlayerEntity>();
             ListenToPlayersCallbacks();
 
             if (!GameState.Instance.IsTwoPlayer)
             {
-                range.gameObject.SetActive(false);
+                RangePlayer.gameObject.SetActive(false);
             }
             else
             {
-                range.SubscribeByType(false);
+                RangePlayer.SubscribeByType(false);
             }
         }
 
@@ -105,31 +106,15 @@ namespace Game.Scripts.Entity
         #endregion
 
         #region Getters
-        public PlayerEntity GetMeleePlayer()
-        {
-            if (players[0].PlayerType == PlayerEntity.EPlayerType.MELEE)
-                return players[0];
-
-            return players[1];
-        }
-
-        public PlayerEntity GetRangePlayer()
-        {
-            if (players[0].PlayerType == PlayerEntity.EPlayerType.RANGE)
-                return players[0];
-
-            return players[1];
-        }
-
         public PlayerEntity GetP2()
         {
             if (GameState.Instance.IsTwoPlayer)
-                return GetRangePlayer();
+                return RangePlayer;
 
-            if (players[0] == currentPlayer)
-                return players[1];
+            if (MeleePlayer == currentPlayer)
+                return RangePlayer;
 
-            return players[0];
+            return MeleePlayer;
         }
         #endregion
 
@@ -156,18 +141,14 @@ namespace Game.Scripts.Entity
 
         public void ListenToPlayersCallbacks()
         {
-            foreach (PlayerEntity player_entity in players)
-            {
-                player_entity.SubscribeToAskToFusionCallback(OnFusionAsking);
-            }
+            MeleePlayer.SubscribeToAskToFusionCallback(OnFusionAsking);
+            RangePlayer.SubscribeToAskToFusionCallback(OnFusionAsking);
         }
 
         public void StopListenToPlayersCallbacks()
         {
-            foreach (PlayerEntity player_entity in players)
-            {
-                player_entity.UnsubscribeToAskToFusionCallback(OnFusionAsking);
-            }
+            MeleePlayer.UnsubscribeToAskToFusionCallback(OnFusionAsking);
+            RangePlayer.UnsubscribeToAskToFusionCallback(OnFusionAsking);
         }
 
         public GameObject SpawnEntity(GameObject _entity)
@@ -186,11 +167,8 @@ namespace Game.Scripts.Entity
 
         private bool AreBothPlayerAskToFusion()
         {
-            foreach (PlayerEntity player_entity in players)
-            {
-                if (player_entity.IsAskingFusion == false)
-                    return false;
-            }
+            if (RangePlayer.IsAskingFusion == false || MeleePlayer.IsAskingFusion == false)
+                return false;
 
             return true;
         }
@@ -199,10 +177,8 @@ namespace Game.Scripts.Entity
         {
             InputManager.InputManager.Instance.UnsubscribeFromMoveAndAttackControls();
 
-            foreach (PlayerEntity player_entity in players)
-            {
-                player_entity.FusionAskAccepted();
-            }
+            MeleePlayer.FusionAskAccepted();
+            RangePlayer.FusionAskAccepted();
 
             int timer_id = TimerManager.Instance.AddTimer("Fusion Timer", fusionDuration, true, false, OnFusionExpired);
             UiManager.Instance.StartFusionUi(timer_id, fusionDuration);
@@ -212,20 +188,16 @@ namespace Game.Scripts.Entity
 
         private void OnFusionTimerExpired()
         {
-            foreach (PlayerEntity player_entity in players)
-            {
-                player_entity.FusionAskRefused();
-            }
+            MeleePlayer.FusionAskAccepted();
+            RangePlayer.FusionAskRefused();
         }
 
         private void OnFusionExpired()
         {
             InputManager.InputManager.Instance.UnsubscribeFromMoveAndAttackControls();
 
-            foreach (PlayerEntity player_entity in players)
-            {
-                player_entity.FusionEnded();
-            }
+            MeleePlayer.FusionEnded();
+            RangePlayer.FusionEnded();
 
             // stop timer ? 
             UiManager.Instance.EndFusionUi();

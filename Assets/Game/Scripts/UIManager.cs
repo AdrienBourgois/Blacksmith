@@ -14,14 +14,26 @@ namespace Game.Scripts
             get { return instance; }
         }
 
+        [Header("Event System")]
         [SerializeField] private EventSystem eventSystem;
+        [SerializeField] private StandaloneInputModule standAloneInputModule;
+
+        [Header("HUD")]
         [SerializeField] private Transform healthUi;
         [SerializeField] private Slider furySlider;
         [SerializeField] private Slider fusionSlider;
 
-        [SerializeField] private float maxFury;
-        private float fury;
 
+        [Header("Menu")]
+        [SerializeField] private GameObject StartMenu;
+        [SerializeField] private GameObject LevelSelection;
+        [SerializeField] private GameObject SelectPlayer;
+        [SerializeField] private GameObject Option;
+        [SerializeField] private GameObject QuitConfirmation;
+
+
+        [Header("Stats")]
+        [SerializeField] private float maxFury;
         [SerializeField] [Range(0, 100)] private int percentageLostWhenIt;
         [SerializeField] private float recoveryTimeFusionHit;
 
@@ -29,6 +41,7 @@ namespace Game.Scripts
         private int fusionTimerId;
 
         private bool inFusionRecoveryHit;
+        private GameObject currentMenu;
 
         private void Awake()
         {
@@ -38,13 +51,13 @@ namespace Game.Scripts
         private void Start()
         {
             furySlider.maxValue = maxFury;
-            furySlider.value = fury = maxFury;
+            furySlider.value  = maxFury;
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Q))
-                furySlider.value = fury = furySlider.maxValue;
+                furySlider.value = furySlider.maxValue;
 
         }
 
@@ -85,7 +98,7 @@ namespace Game.Scripts
             healthUi.gameObject.SetActive(false);
             furySlider.transform.parent.gameObject.SetActive(false);
 
-            furySlider.value = fury = 0;
+            furySlider.value = 0;
 
             fusionSlider.maxValue = _max_fusion;
             fusionSlider.value = _max_fusion;
@@ -99,16 +112,15 @@ namespace Game.Scripts
 
         public bool CanAskForFusion()
         {
-            return fury == maxFury;
+            return furySlider.value == maxFury;
         }
 
         public void IncreaseFury(int _value)
         {
-            if (fury >= maxFury)
+            if (furySlider.value >= maxFury)
                 return;
 
-            ++fury;
-            furySlider.value = fury;
+            ++furySlider.value;
         }
 
         public void ShowGameObject(GameObject _game_object)
@@ -123,6 +135,7 @@ namespace Game.Scripts
 
         public void EnableMenu(Transform _menu)
         {
+            currentMenu = _menu.gameObject;
             _menu.gameObject.SetActive(true);
 
             eventSystem.SetSelectedGameObject(_menu.GetChild(0).gameObject);
@@ -131,6 +144,15 @@ namespace Game.Scripts
         public void DisableMenu(Transform _menu)
         {
             _menu.gameObject.SetActive(false);
+        }
+
+        private void ToPreviousMenu()
+        {
+            if (currentMenu == QuitConfirmation)
+                EnableMenu(StartMenu.transform);
+            else if (currentMenu == SelectPlayer)
+                EnableMenu(StartMenu.transform);
+            DisableMenu(currentMenu.transform);
         }
     }
 }

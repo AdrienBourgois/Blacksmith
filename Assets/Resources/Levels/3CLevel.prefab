@@ -56,6 +56,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4627826899946444}
+  - component: {fileID: 114889423948510450}
   m_Layer: 0
   m_Name: StartSpawn
   m_TagString: StartSpawn
@@ -1148,6 +1149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2056d4572d506d4aa8ccc8a6053d3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawn: {fileID: 0}
   meleePlayerPrefab: {fileID: 1033532169364774, guid: edcd5f744b4561f469f7f1b9939b4c60,
     type: 2}
   rangePlayerPrefab: {fileID: 1937365699754038, guid: 2a0d58ef1bb89d44685268313384c5cb,
@@ -1215,8 +1217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3c7bf835a00094b8126f3dfb1cd8c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
   maxZoomInDistance: 4
   maxZoomOutDistance: 6
   attenuationFactor: 1
@@ -1249,266 +1249,266 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - location: {x: -19.131392, y: 0.27872443}
-    connectedNodes: 
     id: 0
+    connectedNodesId: 
   - location: {x: -19.131392, y: 1.2787244}
-    connectedNodes: 
     id: 1
+    connectedNodesId: 
   - location: {x: -18.131392, y: 0.27872443}
-    connectedNodes: 
     id: 2
+    connectedNodesId: 
   - location: {x: -18.131392, y: 1.2787244}
-    connectedNodes: 
     id: 3
+    connectedNodesId: 
   - location: {x: -18.131392, y: 2.2787244}
-    connectedNodes: 
     id: 4
+    connectedNodesId: 
   - location: {x: -18.131392, y: 3.2787244}
-    connectedNodes: 
     id: 5
+    connectedNodesId: 
   - location: {x: -18.131392, y: 4.2787247}
-    connectedNodes: 
     id: 6
+    connectedNodesId: 
   - location: {x: -17.131392, y: 0.27872443}
-    connectedNodes: 
     id: 7
+    connectedNodesId: 
   - location: {x: -17.131392, y: 1.2787244}
-    connectedNodes: 
     id: 8
+    connectedNodesId: 
   - location: {x: -17.131392, y: 2.2787244}
-    connectedNodes: 
     id: 9
+    connectedNodesId: 
   - location: {x: -17.131392, y: 3.2787244}
-    connectedNodes: 
     id: 10
+    connectedNodesId: 
   - location: {x: -17.131392, y: 4.2787247}
-    connectedNodes: 
     id: 11
+    connectedNodesId: 
   - location: {x: -16.131392, y: 0.27872443}
-    connectedNodes: 
     id: 12
+    connectedNodesId: 
   - location: {x: -16.131392, y: 1.2787244}
-    connectedNodes: 
     id: 13
+    connectedNodesId: 
   - location: {x: -16.131392, y: 2.2787244}
-    connectedNodes: 
     id: 14
+    connectedNodesId: 
   - location: {x: -16.131392, y: 3.2787244}
-    connectedNodes: 
     id: 15
+    connectedNodesId: 
   - location: {x: -16.131392, y: 4.2787247}
-    connectedNodes: 
     id: 16
+    connectedNodesId: 
   - location: {x: -15.131392, y: 0.27872443}
-    connectedNodes: 
     id: 17
+    connectedNodesId: 
   - location: {x: -15.131392, y: 1.2787244}
-    connectedNodes: 
     id: 18
+    connectedNodesId: 
   - location: {x: -15.131392, y: 2.2787244}
-    connectedNodes: 
     id: 19
+    connectedNodesId: 
   - location: {x: -15.131392, y: 3.2787244}
-    connectedNodes: 
     id: 20
+    connectedNodesId: 
   - location: {x: -15.131392, y: 4.2787247}
-    connectedNodes: 
     id: 21
+    connectedNodesId: 
   - location: {x: -14.131392, y: 0.27872443}
-    connectedNodes: 
     id: 22
+    connectedNodesId: 
   - location: {x: -14.131392, y: 1.2787244}
-    connectedNodes: 
     id: 23
+    connectedNodesId: 
   - location: {x: -14.131392, y: 2.2787244}
-    connectedNodes: 
     id: 24
+    connectedNodesId: 
   - location: {x: -14.131392, y: 3.2787244}
-    connectedNodes: 
     id: 25
+    connectedNodesId: 
   - location: {x: -14.131392, y: 4.2787247}
-    connectedNodes: 
     id: 26
+    connectedNodesId: 
   - location: {x: -13.131392, y: 1.2787244}
-    connectedNodes: 
     id: 27
+    connectedNodesId: 
   - location: {x: -13.131392, y: 2.2787244}
-    connectedNodes: 
     id: 28
+    connectedNodesId: 
   - location: {x: -13.131392, y: 3.2787244}
-    connectedNodes: 
     id: 29
+    connectedNodesId: 
   - location: {x: -13.131392, y: 4.2787247}
-    connectedNodes: 
     id: 30
+    connectedNodesId: 
   - location: {x: -12.131392, y: 1.2787244}
-    connectedNodes: 
     id: 31
+    connectedNodesId: 
   - location: {x: -12.131392, y: 2.2787244}
-    connectedNodes: 
     id: 32
+    connectedNodesId: 
   - location: {x: -12.131392, y: 3.2787244}
-    connectedNodes: 
     id: 33
+    connectedNodesId: 
   - location: {x: -12.131392, y: 4.2787247}
-    connectedNodes: 
     id: 34
+    connectedNodesId: 
   - location: {x: -11.131392, y: 1.2787244}
-    connectedNodes: 
     id: 35
+    connectedNodesId: 
   - location: {x: -11.131392, y: 2.2787244}
-    connectedNodes: 
     id: 36
+    connectedNodesId: 
   - location: {x: -11.131392, y: 3.2787244}
-    connectedNodes: 
     id: 37
+    connectedNodesId: 
   - location: {x: -11.131392, y: 4.2787247}
-    connectedNodes: 
     id: 38
+    connectedNodesId: 
   - location: {x: -10.131392, y: 1.2787244}
-    connectedNodes: 
     id: 39
+    connectedNodesId: 
   - location: {x: -10.131392, y: 2.2787244}
-    connectedNodes: 
     id: 40
+    connectedNodesId: 
   - location: {x: -10.131392, y: 3.2787244}
-    connectedNodes: 
     id: 41
+    connectedNodesId: 
   - location: {x: -10.131392, y: 4.2787247}
-    connectedNodes: 
     id: 42
+    connectedNodesId: 
   - location: {x: -9.131392, y: 1.2787244}
-    connectedNodes: 
     id: 43
+    connectedNodesId: 
   - location: {x: -9.131392, y: 2.2787244}
-    connectedNodes: 
     id: 44
+    connectedNodesId: 
   - location: {x: -9.131392, y: 3.2787244}
-    connectedNodes: 
     id: 45
+    connectedNodesId: 
   - location: {x: -9.131392, y: 4.2787247}
-    connectedNodes: 
     id: 46
+    connectedNodesId: 
   - location: {x: -8.131392, y: 1.2787244}
-    connectedNodes: 
     id: 47
+    connectedNodesId: 
   - location: {x: -8.131392, y: 2.2787244}
-    connectedNodes: 
     id: 48
+    connectedNodesId: 
   - location: {x: -8.131392, y: 3.2787244}
-    connectedNodes: 
     id: 49
+    connectedNodesId: 
   - location: {x: -8.131392, y: 4.2787247}
-    connectedNodes: 
     id: 50
+    connectedNodesId: 
   - location: {x: -7.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 51
+    connectedNodesId: 
   - location: {x: -7.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 52
+    connectedNodesId: 
   - location: {x: -7.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 53
+    connectedNodesId: 
   - location: {x: -7.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 54
+    connectedNodesId: 
   - location: {x: -6.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 55
+    connectedNodesId: 
   - location: {x: -6.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 56
+    connectedNodesId: 
   - location: {x: -6.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 57
+    connectedNodesId: 
   - location: {x: -6.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 58
+    connectedNodesId: 
   - location: {x: -5.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 59
+    connectedNodesId: 
   - location: {x: -5.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 60
+    connectedNodesId: 
   - location: {x: -5.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 61
+    connectedNodesId: 
   - location: {x: -5.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 62
+    connectedNodesId: 
   - location: {x: -4.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 63
+    connectedNodesId: 
   - location: {x: -4.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 64
+    connectedNodesId: 
   - location: {x: -4.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 65
+    connectedNodesId: 
   - location: {x: -4.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 66
+    connectedNodesId: 
   - location: {x: -3.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 67
+    connectedNodesId: 
   - location: {x: -3.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 68
+    connectedNodesId: 
   - location: {x: -3.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 69
+    connectedNodesId: 
   - location: {x: -3.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 70
+    connectedNodesId: 
   - location: {x: -2.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 71
+    connectedNodesId: 
   - location: {x: -2.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 72
+    connectedNodesId: 
   - location: {x: -2.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 73
+    connectedNodesId: 
   - location: {x: -2.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 74
+    connectedNodesId: 
   - location: {x: -1.1313915, y: 1.2787244}
-    connectedNodes: 
     id: 75
+    connectedNodesId: 
   - location: {x: -1.1313915, y: 2.2787244}
-    connectedNodes: 
     id: 76
+    connectedNodesId: 
   - location: {x: -1.1313915, y: 3.2787244}
-    connectedNodes: 
     id: 77
+    connectedNodesId: 
   - location: {x: -1.1313915, y: 4.2787247}
-    connectedNodes: 
     id: 78
+    connectedNodesId: 
   - location: {x: -0.13139153, y: 1.2787244}
-    connectedNodes: 
     id: 79
+    connectedNodesId: 
   - location: {x: -0.13139153, y: 2.2787244}
-    connectedNodes: 
     id: 80
+    connectedNodesId: 
   - location: {x: -0.13139153, y: 3.2787244}
-    connectedNodes: 
     id: 81
+    connectedNodesId: 
   - location: {x: -0.13139153, y: 4.2787247}
-    connectedNodes: 
     id: 82
+    connectedNodesId: 
   - location: {x: 0.8686085, y: 1.2787244}
-    connectedNodes: 
     id: 83
+    connectedNodesId: 
   - location: {x: 0.8686085, y: 2.2787244}
-    connectedNodes: 
     id: 84
+    connectedNodesId: 
   - location: {x: 0.8686085, y: 3.2787244}
-    connectedNodes: 
     id: 85
+    connectedNodesId: 
   - location: {x: 0.8686085, y: 4.2787247}
-    connectedNodes: 
     id: 86
+    connectedNodesId: 
   isGridInitialized: 1
   isConnectionsInitialized: 0
   gridInterval: 1
@@ -1600,6 +1600,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   side: 0
+--- !u!114 &114889423948510450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1157171118877346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55ad005018b9064190d17bcf89da214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  location: {x: 0, y: 0, z: 0}
 --- !u!114 &114904299078620026
 MonoBehaviour:
   m_ObjectHideFlags: 1

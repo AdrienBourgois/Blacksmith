@@ -28,9 +28,19 @@ namespace Game.Scripts.Entity
             get { return inRecovery; }
         }
 
+        private float health;
+        public float Health
+        {
+            get { return health; }
+            set
+            {
+                if (value <= maxHealth)
+                    health = value;
+            }
+        }
+
         private Color sColor;
 
-        protected float health;
 
         private Coroutine recoveryCor;
 
@@ -38,7 +48,7 @@ namespace Game.Scripts.Entity
         protected override void Start()
         {
             sColor = GetComponent<SpriteRenderer>().color;
-            health = maxHealth;
+            Health = maxHealth;
         }
 
         protected override void Jump()
@@ -88,9 +98,9 @@ namespace Game.Scripts.Entity
             if (inRecovery)
                 return;
 
-            health -= _damages;
+            Health -= _damages;
 
-            if (health <= 0)
+            if (Health <= 0)
                 Die();
             else
             {

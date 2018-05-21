@@ -7,10 +7,6 @@ namespace Game.Scripts.Camera
     public class CameraController : MonoBehaviour
     {
         [SerializeField]
-        private GameObject player1;
-        [SerializeField]
-        private GameObject player2;
-        [SerializeField]
         private float maxZoomInDistance;
         [SerializeField]
         private float maxZoomOutDistance;
@@ -73,14 +69,11 @@ namespace Game.Scripts.Camera
             cameraCollider = gameObject.GetComponent<BoxCollider2D>();
             SubscribeToCameraScrollZoneEvents();
             FindObjectOfType<GameState>().SubscribeToGamePlayStateCallback(ListenToGamePlayState);
-
-            player1 = EntityManager.Instance.GetMeleePlayer().gameObject;
-            player2 = EntityManager.Instance.GetRangePlayer().gameObject;
         }
 
         private void Update ()
         {
-            float distance = UnsignedHorizontalDistance(player1.transform.position, player2.transform.position);
+            float distance = UnsignedHorizontalDistance(EntityManager.Instance.MeleePlayer.transform.position, EntityManager.Instance.RangePlayer.transform.position);
             ComputeZoom(distance);
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
@@ -127,7 +120,7 @@ namespace Game.Scripts.Camera
 
         private float ComputeDistance()
         {
-            Vector3 direction = player1.transform.position - player2.transform.position;
+            Vector3 direction = EntityManager.Instance.MeleePlayer.transform.position - EntityManager.Instance.RangePlayer.transform.position;
             return Mathf.Abs(direction.x);
         }
 
@@ -148,9 +141,9 @@ namespace Game.Scripts.Camera
             float raw_zoom = _distance / attenuationFactor;
             float smooth_zoom = Mathf.Lerp(gameCamera.orthographicSize, raw_zoom, zoomSmoothness);
 
-            if ((UnsignedHorizontalDistance(transform.position, player1.transform.position) + 0.3f) >= HalfHorizontalViewingVolume
+            if ((UnsignedHorizontalDistance(transform.position, EntityManager.Instance.MeleePlayer.transform.position) + 0.3f) >= HalfHorizontalViewingVolume
                 ||
-                (UnsignedHorizontalDistance(transform.position, player2.transform.position) + 0.3f) >= HalfHorizontalViewingVolume)
+                (UnsignedHorizontalDistance(transform.position, EntityManager.Instance.RangePlayer.transform.position) + 0.3f) >= HalfHorizontalViewingVolume)
                 return;
 
             if (MaxZoomInReached(smooth_zoom) || MaxZoomOutReached(smooth_zoom))
@@ -222,7 +215,7 @@ namespace Game.Scripts.Camera
 
         private void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-            if (_entity.gameObject == player1)
+            if (_entity.gameObject == EntityManager.Instance.MeleePlayer)
             {
                 switch (_callback_type)
                 {
@@ -238,7 +231,7 @@ namespace Game.Scripts.Camera
                         throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
                 }
             }
-            else if (_entity.gameObject == player2)
+            else if (_entity.gameObject == EntityManager.Instance.RangePlayer)
             {
                 switch (_callback_type)
                 {
@@ -258,7 +251,7 @@ namespace Game.Scripts.Camera
 
         private void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-            if (_entity.gameObject == player1)
+            if (_entity.gameObject == EntityManager.Instance.MeleePlayer)
             {
                 switch (_callback_type)
                 {
@@ -274,7 +267,7 @@ namespace Game.Scripts.Camera
                         throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
                 }
             }
-            else if (_entity.gameObject == player2)
+            else if (_entity.gameObject == EntityManager.Instance.RangePlayer)
             {
                 switch (_callback_type)
                 {

@@ -7,6 +7,14 @@ namespace Game.Scripts.ScriptableObjects
     {
         [SerializeField] protected float damages;
         [SerializeField] protected float coolDown;
+        [SerializeField] private luch lunchAntiono;
+
+        [System.Serializable]
+        public enum luch
+        {
+            Antiono_pd,
+            Antiono_gay
+        }
 
         public virtual void Attack(BaseEntity _entity)
         {

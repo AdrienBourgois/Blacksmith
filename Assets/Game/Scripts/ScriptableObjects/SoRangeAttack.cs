@@ -28,6 +28,8 @@ namespace Game.Scripts.ScriptableObjects
             bullet.speed = bulletSpeed;
 
             bullet.direction = _entity.transform.rotation * new Vector3(1 * _entity.GetXScale()/*Mathf.Sign(_entity.transform.parent.localScale.x)*/, 0, 0);
+            bullet.direction.z = bullet.direction.y;
+            bullet.direction.y = 0;
             bullet.onEntityHit += _entity.DamageEntity;
         }
     }

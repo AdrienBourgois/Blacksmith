@@ -354,7 +354,7 @@ namespace Game.Scripts.Entity
 
             if (playerType == EPlayerType.RANGE)
             {
-                PlayerEntity melee = EntityManager.Instance.GetMeleePlayer();
+                PlayerEntity melee = EntityManager.Instance.MeleePlayer;
                 transform.localScale = melee.transform.localScale;
                 transform.parent = melee.transform;
                 location = Vector3.zero;
