@@ -16,6 +16,8 @@ namespace Game.Scripts.Entity
         [SerializeField] private float fusionInputTimeOut;
         [SerializeField] private float fusionDuration;
 
+        [SerializeField] private SceneObject spawn;
+
         public PlayerEntity CurrentPlayer
         {
             get { return currentPlayer; }
@@ -61,20 +63,29 @@ namespace Game.Scripts.Entity
         private void Awake()
         {
             instance = this;
+        }
 
-            SceneObject spawn = GameObject.FindGameObjectWithTag("StartSpawn").GetComponent<SceneObject>();
-            MeleePlayer = Instantiate(meleePlayerPrefab, spawn.location,
+        private void Start()
+        {
+
+            MeleePlayer = Instantiate(meleePlayerPrefab, Vector3.zero,
                     Quaternion.identity,
-                    GameObject.Find("3CLevel(Clone)").transform)
+                    GameInstance.Instance.currentLevel)
                 .GetComponent<PlayerEntity>();
 
             currentPlayer = MeleePlayer;
             currentPlayer.SubscribeByType(false);
 
-            RangePlayer = Instantiate(rangePlayerPrefab, spawn.location,
+            RangePlayer = Instantiate(rangePlayerPrefab, Vector3.zero,
                     Quaternion.identity,
-                    GameObject.Find("3CLevel(Clone)").transform)
+                    GameInstance.Instance.currentLevel)
                 .GetComponent<PlayerEntity>();
+
+            MeleePlayer.location = spawn.location;
+            RangePlayer.location = spawn.location;
+
+            MeleePlayer.ToFloor();
+            RangePlayer.ToFloor();
 
             ListenToPlayersCallbacks();
 
@@ -86,10 +97,7 @@ namespace Game.Scripts.Entity
             {
                 RangePlayer.SubscribeByType(false);
             }
-        }
 
-        private void Start()
-        {
             if (!GameState.Instance.IsTwoPlayer)
                 InputManager.InputManager.Instance.SubscribeToSwapP1Event(SwitchPlayer);
 

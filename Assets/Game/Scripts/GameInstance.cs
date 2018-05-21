@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 using Object = UnityEngine.Object;
 
@@ -73,11 +74,18 @@ namespace Game.Scripts
 		}
         #endregion
 
+
+        [HideInInspector] public Transform currentLevel;
         private void LoadLevel()
         {
             Object prefab = Resources.Load(levelToLoad);
             if (prefab != null)
-                Instantiate(prefab);
+            {
+                currentLevel = ((GameObject)Instantiate(prefab)).transform;
+                Debug.Log("is here: " + currentLevel);
+
+                Assert.IsNotNull(currentLevel, "quenelle");
+            }
         }
 
 		#region Invokes
