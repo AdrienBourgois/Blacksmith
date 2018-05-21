@@ -105,7 +105,7 @@ namespace Game.Scripts.Entity
 
         private void OnComboExecuted(SoBaseAttack _base_attack)
         {
-            
+            _base_attack.Attack(this);
         }
 
         protected override void Update()
