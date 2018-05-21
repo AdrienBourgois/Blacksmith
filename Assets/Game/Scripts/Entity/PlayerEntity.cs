@@ -118,6 +118,13 @@ namespace Game.Scripts.Entity
 
             if (Input.GetKeyDown(KeyCode.F))
                 Fusion(1f);
+
+            if (playerType == EPlayerType.RANGE && currentState == EPlayerState.FUSION)
+            {
+                location = EntityManager.Instance.MeleePlayer.location;
+                transform.localScale = EntityManager.Instance.MeleePlayer.transform.localScale;
+            }
+
         }
         #endregion
 
@@ -216,7 +223,7 @@ namespace Game.Scripts.Entity
 
         void Rotate(float _dir_f)
         {
-            float pDir = transform.parent.localScale.x;
+            float pDir = transform.localScale.x;
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, (_dir_f * pDir) * maxRotationAngle), rotateSpeed * Time.deltaTime);
         }
         #endregion
@@ -373,10 +380,12 @@ namespace Game.Scripts.Entity
 
             if (playerType == EPlayerType.RANGE)
             {
-                PlayerEntity melee = EntityManager.Instance.MeleePlayer;
+                /*PlayerEntity melee = EntityManager.Instance.MeleePlayer;
                 transform.localScale = melee.transform.localScale;
                 transform.parent = melee.transform;
                 location = Vector3.zero;
+                location.ToFloor();
+                location = Vector3.zero;*/
             }
         }
 
