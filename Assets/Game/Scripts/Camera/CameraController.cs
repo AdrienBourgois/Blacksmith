@@ -212,8 +212,11 @@ namespace Game.Scripts.Camera
 
         private void SetForwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-            if (_entity.gameObject == EntityManager.Instance.MeleePlayer)
+            
+
+            if (_entity.gameObject == EntityManager.Instance.MeleePlayer.gameObject)
             {
+                //print("SetForwardMask() : " + " MELEE");
                 switch (_callback_type)
                 {
                     case EColliderCallbackType.STAY:
@@ -228,8 +231,9 @@ namespace Game.Scripts.Camera
                         throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
                 }
             }
-            else if (_entity.gameObject == EntityManager.Instance.RangePlayer)
+            else if (_entity.gameObject == EntityManager.Instance.RangePlayer.gameObject)
             {
+                //print("SetForwardMask() : " + " RANGE");
                 switch (_callback_type)
                 {
                     case EColliderCallbackType.STAY:
@@ -248,8 +252,10 @@ namespace Game.Scripts.Camera
 
         private void SetBackwardMask(Collider2D _entity, EColliderCallbackType _callback_type)
         {
-            if (_entity.gameObject == EntityManager.Instance.MeleePlayer)
+            
+            if (_entity.gameObject == EntityManager.Instance.MeleePlayer.gameObject)
             {
+                //print("SetBackwardMask() : " + " MELEE");
                 switch (_callback_type)
                 {
                     case EColliderCallbackType.STAY:
@@ -264,8 +270,9 @@ namespace Game.Scripts.Camera
                         throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
                 }
             }
-            else if (_entity.gameObject == EntityManager.Instance.RangePlayer)
+            else if (_entity.gameObject == EntityManager.Instance.RangePlayer.gameObject)
             {
+                //print("SetBackwardMask() : " + " RANGE");
                 switch (_callback_type)
                 {
                     case EColliderCallbackType.STAY:
@@ -284,12 +291,6 @@ namespace Game.Scripts.Camera
 
         private void ForwardScroll()
         {
-            //Vector3 pos = transform.position;
-            //float incrementation = Mathf.Lerp(pos.x, pos.x + 1, scrollSmoothness);
-            //pos.x = incrementation * Time.deltaTime;
-            //transform.position = pos;
-            //print("pos.x = " + pos.x);
-
             transform.Translate(Vector3.right * Time.deltaTime * scrollSpeed);
         }
 

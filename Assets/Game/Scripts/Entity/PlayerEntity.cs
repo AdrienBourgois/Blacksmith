@@ -118,7 +118,32 @@ namespace Game.Scripts.Entity
 
             if (Input.GetKeyDown(KeyCode.F))
                 Fusion(1f);
+
+            PrintState();
         }
+
+        private void PrintState()
+        {
+            switch (currentState)
+            {
+                case EPlayerState.NORMAL: 
+                    print("currentState : NORMAL");
+                    break;
+                case EPlayerState.READY_TO_FUSION :
+                    print("currentState : READY_TO_FUSION");
+                    break;
+                case EPlayerState.ASK_TO_FUSION:
+                    print("currentState : ASK_TO_FUSION");
+                    break;
+                case EPlayerState.FUSION :
+                    print("currentState : FUSION");
+                    break;
+                case EPlayerState.KNOCKED_OUT:
+                    print("currentState : KNOCKED_OUT");
+                    break;
+            }
+        }
+
         #endregion
 
         #region Subscribe / Unsubscribe
