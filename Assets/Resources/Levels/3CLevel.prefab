@@ -1149,7 +1149,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2056d4572d506d4aa8ccc8a6053d3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawn: {fileID: 0}
   meleePlayerPrefab: {fileID: 1033532169364774, guid: edcd5f744b4561f469f7f1b9939b4c60,
     type: 2}
   rangePlayerPrefab: {fileID: 1937365699754038, guid: 2a0d58ef1bb89d44685268313384c5cb,
@@ -1830,7 +1829,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 2
+  m_DrawMode: 1
   m_Size: {x: 59.6, y: 11.34}
   m_AdaptiveModeThreshold: 0.547
   m_SpriteTileMode: 0
