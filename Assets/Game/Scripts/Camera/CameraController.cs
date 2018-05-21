@@ -15,9 +15,6 @@ namespace Game.Scripts.Camera
         [SerializeField]
         [Range(0f, 0.5f)]
         private float zoomSmoothness;
-        //[SerializeField]
-        //[Range(0f, 1f)]
-        //private float scrollSmoothness;
         [SerializeField]
         private float scrollSpeed;
 

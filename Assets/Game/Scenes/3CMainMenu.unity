@@ -4583,7 +4583,7 @@ MonoBehaviour:
   Option: {fileID: 1702560819}
   QuitConfirmation: {fileID: 0}
   maxFury: 10
-  percentageLostWhenIt: 25
+  percentageLostWhenIt: 20
   recoveryTimeFusionHit: 0.5
 --- !u!4 &1640735763
 Transform:

@@ -42,13 +42,26 @@ namespace Game.Editor
                 CreateSceneObject<SpriteSceneObject>();
             if (GUILayout.Button("PhysicSceneObject"))
                 CreateSceneObject<PhysicSceneObject>();
-            if (GUILayout.Button("ObstacleSceneObject"))
-                CreateObstacle();
+            if (GUILayout.Button("BackgroundSpriteObject"))
+                CreateSimpleObjectWithComponent<BackgroundSpriteObject>();
+            if (GUILayout.Button("ForegroundSpriteObject"))
+                CreateSimpleObjectWithComponent<ForegroundSpriteObject>();
+            //if (GUILayout.Button("ObstacleSceneObject"))
+                //CreateObstacle();
             EditorGUILayout.Space();
 
             GUILayout.Label("Triggers", EditorUtilities.boldCenteredStyle);
+            if (GUILayout.Button("Void"))
+                CreateSimpleObjectWithComponent<LevelTrigger>();
+            if (GUILayout.Button("Fight Trigger"))
+                CreateTrigger<FightTrigger>();
             if (GUILayout.Button("BubbleSpeechTrigger"))
                 CreateTrigger<BubbleSpeechTrigger>();
+            EditorGUILayout.Space();
+
+            GUILayout.Label("Enemies", EditorUtilities.boldCenteredStyle);
+            if (GUILayout.Button("Enemy Spawn"))
+                CreateSimpleObjectWithComponent<EnemySpawn>();
             EditorGUILayout.Space();
 
             GUILayout.Label("Floor", EditorUtilities.boldCenteredStyle);
@@ -63,7 +76,7 @@ namespace Game.Editor
         {
             GameObject go = new GameObject(typeof(T).Name);
             T component = go.AddComponent<T>();
-            Vector3 game_space = GetCameraCenter().ToGameSpace();
+            Vector3 game_space = GetCameraCenter().ToGameSpaceOnFloor();
             game_space.y = 0;
             component.location = game_space;
             component.SetUnityPosition();
@@ -109,9 +122,9 @@ namespace Game.Editor
             floor.AddComponent<PathFinding>();
             floor.layer = LayerMask.NameToLayer("Floor");
 
-            Vector3 game_space = GetCameraCenter();
-            game_space.z = 0;
-            floor.transform.position = game_space;
+            Vector3 camera_center = GetCameraCenter();
+            camera_center.z = 0;
+            floor.transform.position = camera_center;
             Selection.objects = new Object[] { floor };
         }
 
@@ -120,6 +133,16 @@ namespace Game.Editor
             Vector3 center_camera = new Vector3(Screen.width / 2f, Screen.height / 2f, SceneView.lastActiveSceneView.camera.nearClipPlane);
             Vector3 game_space = SceneView.lastActiveSceneView.camera.ScreenToWorldPoint(center_camera);
             return game_space;
+        }
+
+        private static void CreateSimpleObjectWithComponent<T>() where T : MonoBehaviour
+        {
+            GameObject go = new GameObject(typeof(T).Name);
+            Vector3 camera_center = GetCameraCenter();
+            camera_center.z = 0;
+            go.transform.position = camera_center;
+            go.AddComponent<T>();
+            Selection.objects = new Object[] { go };
         }
     }
 }

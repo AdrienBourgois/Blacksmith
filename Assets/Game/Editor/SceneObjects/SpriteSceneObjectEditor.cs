@@ -43,6 +43,5 @@ namespace Game.Editor.SceneObjects
             spriteSelection.Sprite = (Sprite)EditorGUILayout.ObjectField(spriteSelection.Sprite, typeof(Sprite), false);
             GUI.DragWindow();
         }
-
     }
 }

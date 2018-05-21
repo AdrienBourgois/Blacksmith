@@ -30,6 +30,9 @@ namespace Game.Editor
         public static bool displayObstacleTopCollider = true;
         public static bool displayObstacleGroundCollider = true;
 
+        public static bool displayEnemySpawn = true;
+        public static bool displayFightSpawnLinks = true;
+
         [MenuItem("Level Editor/Debug Window")]
         public static void ToggleWindow()
         {
@@ -83,6 +86,11 @@ namespace Game.Editor
             EditorGUILayout.LabelField("Triggers", EditorUtilities.boldCenteredStyle);
             displayTriggerZones = EditorGUILayout.Toggle("Triggers Zones", displayTriggerZones);
             displaySpeechTriggers = EditorGUILayout.Toggle("Speech Triggers", displaySpeechTriggers);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Spawns", EditorUtilities.boldCenteredStyle);
+            displayEnemySpawn = EditorGUILayout.Toggle("Enemy Spawn", displayEnemySpawn);
+            displayFightSpawnLinks = EditorGUILayout.Toggle("Fight Spawn Links", displayFightSpawnLinks);
             EditorGUILayout.Space();
 
             if (EditorGUI.EndChangeCheck())
