@@ -91,7 +91,7 @@ namespace Game.Scripts.Entity
 
             if (!GameState.Instance.IsTwoPlayer)
             {
-                RangePlayer.gameObject.SetActive(false);
+             //   RangePlayer.gameObject.SetActive(false);
             }
             else
             {

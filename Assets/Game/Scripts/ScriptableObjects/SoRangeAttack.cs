@@ -22,7 +22,7 @@ namespace Game.Scripts.ScriptableObjects
 
             BulletBehavior bullet = bullet_pref.GetComponent<BulletBehavior>();
 
-            bullet.location = _entity.transform.GetChild(0).GetComponent<SceneObject>().transform.position.ToGameSpace();
+            bullet.location = _entity.transform.GetChild(0).position.ToGameSpace();
             bullet.tag = _entity.tag;
             bullet.damages = damages;
             bullet.speed = bulletSpeed;

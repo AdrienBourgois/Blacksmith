@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4239124589216860}
-  - component: {fileID: 114229259551354594}
   m_Layer: 0
   m_Name: SpawnPos
   m_TagString: Untagged
@@ -53,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558265263867216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 1.2, z: 0}
+  m_LocalPosition: {x: 1.1111784, y: 1.0341282, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4482150257406936}
@@ -118,18 +117,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2083007, y: 2.2190938}
   m_EdgeRadius: 0
---- !u!114 &114229259551354594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558265263867216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c55ad005018b9064190d17bcf89da214, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  location: {x: 1.5, y: 1.2, z: 0}
 --- !u!114 &114359361617815868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,6 +149,7 @@ MonoBehaviour:
   reviveTimeTeammate: 3
   reviveTime: 3
   maxFury: 10
+  comboArray: []
   playerType: 1
 --- !u!212 &212849944748420646
 SpriteRenderer:

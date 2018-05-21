@@ -94,6 +94,9 @@ namespace Game.Scripts.Entity
             if (!GameState.Instance.IsTwoPlayer) KnockedOutEvent += () => { EntityManager.Instance.SwitchPlayer(); };
 
             InitComboArray();
+
+            if (GameState.Instance.IsTwoPlayer == false && playerType == EPlayerType.RANGE)
+                gameObject.SetActive(false);
         }
 
         private void InitComboArray()
@@ -106,7 +109,7 @@ namespace Game.Scripts.Entity
 
         private void OnComboExecuted(SoBaseAttack _base_attack)
         {
-            _base_attack.Attack(this);
+            //_base_attack.Attack(this);
         }
 
         protected override void Update()
