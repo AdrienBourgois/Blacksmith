@@ -126,7 +126,6 @@ namespace Game.Scripts.Entity
                 location = EntityManager.Instance.MeleePlayer.location;
                 transform.localScale = EntityManager.Instance.MeleePlayer.transform.localScale;
             }
-
         }
 
         private void PrintState()
