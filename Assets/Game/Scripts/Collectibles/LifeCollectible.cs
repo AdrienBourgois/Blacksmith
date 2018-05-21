@@ -1,7 +1,9 @@
 ﻿using Game.Scripts.Entity;
+using UnityEngine;
 
 namespace Game.Scripts.Collectibles
 {
+    [CreateAssetMenu(fileName = "LifeCollectible", menuName = "Collectibles/Life", order = 2)]
     public class LifeCollectible : Collectible
     {
         public float lifeGained;
