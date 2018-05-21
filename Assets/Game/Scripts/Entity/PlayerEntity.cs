@@ -119,7 +119,7 @@ namespace Game.Scripts.Entity
             if (Input.GetKeyDown(KeyCode.F))
                 Fusion(1f);
 
-            PrintState();
+            //PrintState();
 
             if (playerType == EPlayerType.RANGE && currentState == EPlayerState.FUSION)
             {

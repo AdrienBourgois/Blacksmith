@@ -11524,6 +11524,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2056d4572d506d4aa8ccc8a6053d3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeEnemyPrefab: {fileID: 1978078191693854, guid: f34daf890a53cf847b2efcf93a886082,
+    type: 2}
+  rangeEnemyPrefab: {fileID: 1514331178071164, guid: 398377d714fadfe45b5a483c980bf786,
+    type: 2}
   meleePlayerPrefab: {fileID: 1033532169364774, guid: edcd5f744b4561f469f7f1b9939b4c60,
     type: 2}
   rangePlayerPrefab: {fileID: 1937365699754038, guid: 2a0d58ef1bb89d44685268313384c5cb,
