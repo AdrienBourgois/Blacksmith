@@ -24,7 +24,7 @@ namespace Game.Scripts.SceneObjects
         [ContextMenu("Set Unity Position")]
         public void SetUnityPosition()
         {
-            transform.localPosition = location.ToUnitySpace();
+            transform.position = location.ToUnitySpace();
         }
 
         [ContextMenu("Set Game Position")]

@@ -76,7 +76,7 @@ namespace Game.Editor
         {
             GameObject go = new GameObject(typeof(T).Name);
             T component = go.AddComponent<T>();
-            Vector3 game_space = GetCameraCenter().ToGameSpaceOnFloor();
+            Vector3 game_space = GetCameraCenterInGameSpace();
             game_space.y = 0;
             component.location = game_space;
             component.SetUnityPosition();
@@ -133,6 +133,11 @@ namespace Game.Editor
             Vector3 center_camera = new Vector3(Screen.width / 2f, Screen.height / 2f, SceneView.lastActiveSceneView.camera.nearClipPlane);
             Vector3 game_space = SceneView.lastActiveSceneView.camera.ScreenToWorldPoint(center_camera);
             return game_space;
+        }
+
+        private static Vector3 GetCameraCenterInGameSpace()
+        {
+            return GetCameraCenter().ToGameSpaceOnFloor();
         }
 
         private static void CreateSimpleObjectWithComponent<T>() where T : MonoBehaviour

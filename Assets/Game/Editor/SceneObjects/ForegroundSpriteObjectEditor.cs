@@ -48,6 +48,7 @@ namespace Game.Editor.SceneObjects
             Gizmos.color = Color.white;
             Gizmos.DrawRay(Vector3.zero, Vector3.right * 1000f);
             Gizmos.DrawRay(Vector3.zero, Vector3.left * 1000f);
+            _object.SetProperties();
         }
     }
 }
