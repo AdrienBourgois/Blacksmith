@@ -5,8 +5,28 @@ namespace Game.Scripts.SceneObjects
     [RequireComponent(typeof(SpriteRenderer))]
     public class ForegroundSpriteObject : MonoBehaviour
     {
-        [SerializeField] private int orderInLayer;
-        [SerializeField] private Sprite sprite;
+        [Header("Background Scene Object")]
+        [SerializeField]
+        private int orderInLayer;
+
+        [SerializeField]
+        private Sprite sprite;
+
+        public Sprite Sprite
+        {
+            get { return sprite; }
+            set
+            {
+                sprite = value;
+                GetComponent<SpriteRenderer>().sprite = sprite;
+            }
+        }
+
+        public int OrderInLayer
+        {
+            get { return orderInLayer; }
+            set { orderInLayer = value; }
+        }
 
         private void Awake()
         {
@@ -24,7 +44,8 @@ namespace Game.Scripts.SceneObjects
 
             sprite_renderer.sprite = sprite;
             sprite_renderer.sortingLayerName = "Foreground";
-            sprite_renderer.sortingOrder = orderInLayer;
+            sprite_renderer.sortingOrder = OrderInLayer;
+            sprite_renderer.drawMode = SpriteDrawMode.Sliced;
 
             Vector3 position = gameObject.transform.position;
             position.z = -10;

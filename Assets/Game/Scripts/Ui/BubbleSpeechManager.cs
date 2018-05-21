@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Game.Scripts.Entity;
 using UnityEngine;
 
 namespace Game.Scripts.Ui
@@ -7,11 +8,13 @@ namespace Game.Scripts.Ui
     {
         public string text;
         public float duration;
+        public PlayerEntity.EPlayerType player;
 
-        public SpeechParameters(string _text, float _duration)
+        public SpeechParameters(string _text, float _duration, PlayerEntity.EPlayerType _player)
         {
             text = _text;
             duration = _duration;
+            player = _player;
         }
     }
 
@@ -21,9 +24,6 @@ namespace Game.Scripts.Ui
 
         [SerializeField]
         private GUISkin guiSkin;
-
-        [SerializeField]
-        private GameObject go;
 
         private readonly Queue<SpeechParameters> nextSpeeches = new Queue<SpeechParameters>();
         private BubbleSpeech currentBubble;
@@ -60,7 +60,7 @@ namespace Game.Scripts.Ui
                 currentBubble = gameObject.AddComponent<BubbleSpeech>();
                 currentBubble.SetParameters(nextSpeeches.Dequeue());
                 currentBubble.SetGuiStyle(guiSkin.customStyles[0]);
-                currentBubble.SetFollowedGameObject(go, new Vector2(-3f, 6f));
+                //currentBubble.SetFollowedGameObject(go, new Vector2(-3f, 6f));
             }
         }
     }
