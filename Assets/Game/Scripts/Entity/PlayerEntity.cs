@@ -92,6 +92,20 @@ namespace Game.Scripts.Entity
             KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
             if (!GameState.Instance.IsTwoPlayer) KnockedOutEvent += () => { EntityManager.Instance.SwitchPlayer(); };
 
+            InitComboArray();
+        }
+
+        private void InitComboArray()
+        {
+            foreach (SOCombo so_combo in comboArray)
+            {
+                so_combo.Init(playerType, OnComboExecuted);
+            }
+        }
+
+        private void OnComboExecuted(SoBaseAttack _base_attack)
+        {
+            
         }
 
         protected override void Update()
@@ -211,7 +225,7 @@ namespace Game.Scripts.Entity
 
             if (currentState == EPlayerState.FUSION)
             {
-                UiManager.Instance.FusionHit();
+                UIManager.Instance.FusionHit();
                 return;
             }
 
@@ -273,7 +287,7 @@ namespace Game.Scripts.Entity
         private void OnEntityHit(BaseEntity _entity, float _useless)
         {
             // if _entity is Enemy
-            UiManager.Instance.IncreaseFury(1);
+            UIManager.Instance.IncreaseFury(1);
         }
 
         #region Movement
@@ -381,7 +395,7 @@ namespace Game.Scripts.Entity
         protected void Fusion(float _axe_value)
         {
             print("Fusion = " + _axe_value);
-            if (UiManager.Instance.CanAskForFusion() && !inRecovery && currentState != EPlayerState.KNOCKED_OUT)
+            if (UIManager.Instance.CanAskForFusion() && !inRecovery && currentState != EPlayerState.KNOCKED_OUT)
             {
                 currentState = EPlayerState.ASK_TO_FUSION;
                 SwitchPlayerState(EPlayerState.ASK_TO_FUSION);

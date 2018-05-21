@@ -25,22 +25,35 @@ public class SOCombo : ScriptableObject
 
     private System.Action<SoBaseAttack> ComboExecutedCallback;
 
-	private void Init (PlayerEntity.EPlayerType _player_type, System.Action<SoBaseAttack> _function_pointer)
+	public void Init (PlayerEntity.EPlayerType _player_type, System.Action<SoBaseAttack> _function_pointer)
 	{
         timerIdArray = new int[commandArray.Length];
 	    comboIdx = 0;
 
-	    for (int i = 0; i < commandArray.Length  - 1 /* for the last timer? */; ++i)
-	    {
-	        timerIdArray[i] = TimerManager.Instance.AddTimer("Combo", commandArray[i].timeOut, false, false, OnTimeExpired);
-	        commandArray[i].command.Init(_player_type);
-        }
+	    InitTimers();
+        InitCommands(_player_type);
 
 	    ListenToCallback(commandArray[0].command);
 
 	    ComboExecutedCallback = _function_pointer;
 	}
-	
+
+    private void InitTimers()
+    {
+        for (int i = 0; i < commandArray.Length - 1 /* for the last timer? */; ++i)
+        {
+            timerIdArray[i] = TimerManager.Instance.AddTimer("Combo", commandArray[i].timeOut, false, false, OnTimeExpired);
+        }
+    }
+
+    private void InitCommands(PlayerEntity.EPlayerType _player_type)
+    {
+        for (int i = 0; i < commandArray.Length; ++i)
+        {
+            commandArray[i].command.Init(_player_type);
+        }
+    }
+
     private void OnCommandFired(ACommand command)
     {
         Debug.Log("OnCommandFired : " + command.CommandName);

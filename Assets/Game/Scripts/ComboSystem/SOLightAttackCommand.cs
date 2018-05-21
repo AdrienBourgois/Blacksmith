@@ -10,7 +10,7 @@ namespace Game.Scripts.ComboSystem
     {
         public override void Init(PlayerEntity.EPlayerType _player_type)
         {
-            //Debug.Log("Command.Init()");
+            Debug.Log("Command.Init()");
             if (_player_type == PlayerEntity.EPlayerType.MELEE)
                 InputManager.InputManager.Instance.SubscribeToWeakAttackP1Event(Execute);
             else

@@ -3292,11 +3292,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 1028375949}
   healthUi: {fileID: 1117870034}
-  furySlider: {fileID: 391279286}
-  fusionSlider: {fileID: 1169353630}
+  furySlider: {fileID: 1169353630}
+  fusionSlider: {fileID: 391279286}
   maxFury: 10
-  percentageLostWhenIt: 20
-  recoveryTimeFusionHit: 0.5
+  percentageLostWhenIt: 15
+  recoveryTimeFusionHit: 3
 --- !u!4 &1640735763
 Transform:
   m_ObjectHideFlags: 0

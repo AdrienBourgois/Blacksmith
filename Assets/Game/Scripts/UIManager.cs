@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace Game.Scripts
 {
-    public class UiManager : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
-        static private UiManager instance;
-        static public UiManager Instance
+        static private UIManager instance;
+        static public UIManager Instance
         {
             get { return instance; }
         }

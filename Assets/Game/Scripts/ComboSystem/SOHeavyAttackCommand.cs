@@ -9,7 +9,7 @@ namespace Game.Scripts.ComboSystem
     {
         public override void Init(PlayerEntity.EPlayerType _player_type)
         {
-            if (_player_type == PlayerEntity.EPlayerType.RANGE)
+            if (_player_type == PlayerEntity.EPlayerType.MELEE)
                 InputManager.InputManager.Instance.SubscribeToStrongAttackP1Event(Execute);
             else
                 InputManager.InputManager.Instance.SubscribeToStrongAttackP2Event(Execute);
