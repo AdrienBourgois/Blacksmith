@@ -60,7 +60,7 @@ namespace Game.Scripts.AI
                 updatePathTimerId = TimerManager.Instance.AddTimer("Update Path", 2f, true, true, UpdatePath, UpdatePath, null, null, null);
             }
 
-            Move();
+            //Move();
         }
 
         private void Move()
