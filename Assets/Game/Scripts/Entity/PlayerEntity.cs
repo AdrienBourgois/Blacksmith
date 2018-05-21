@@ -109,7 +109,7 @@ namespace Game.Scripts.Entity
 
         private void OnComboExecuted(SoBaseAttack _base_attack)
         {
-            //_base_attack.Attack(this);
+            _base_attack.Attack(this);
         }
 
         protected override void Update()
@@ -270,14 +270,29 @@ namespace Game.Scripts.Entity
             }
         }
 
-        public override void DamageEntity(BaseEntity _entity, float _damages)
+        public override void DamageEntity(BaseEntity _entity, SoBaseAttack.HitData _data)
         {
-            base.DamageEntity(_entity, _damages);
+            base.DamageEntity(_entity, _data);
 
-            OnEntityHit(_entity, _damages);
+            switch (_data.comboEffect)
+            {
+                case SoBaseAttack.EComboEffect.NONE: break;
+                case SoBaseAttack.EComboEffect.HORIZONTAL_LAUNCH:
+                {
+                    _entity.velocity.x = _data.xVelocity * _data.xDir;
+                    break;
+                }
+                case SoBaseAttack.EComboEffect.VERTICAL_LAUNCH:
+                {
+                    _entity.velocity.y = _data.yVelocity;
+                    break;
+                }
+            }
+
+            OnEntityHit(_entity, _data);
         }
 
-        private void OnEntityHit(BaseEntity _entity, float _useless)
+        private void OnEntityHit(BaseEntity _entity, SoBaseAttack.HitData _useless)
         {
             // if _entity is Enemy
             UIManager.Instance.IncreaseFury(1);

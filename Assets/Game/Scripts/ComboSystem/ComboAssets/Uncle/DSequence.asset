@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Name: DSequence
   m_EditorClassIdentifier: 
   commandArray:
-  - command: {fileID: 11400000, guid: c2f5bad33dbe21e4e9f9357fbd2490a8, type: 2}
+  - commandType: 0
     timeOut: 1
-  - command: {fileID: 11400000, guid: c2f5bad33dbe21e4e9f9357fbd2490a8, type: 2}
+  - commandType: 0
     timeOut: 1.5
-  - command: {fileID: 11400000, guid: 51bccddce827f6742bcfdfe8f34d1291, type: 2}
+  - commandType: 0
     timeOut: 0
-  baseAttack: {fileID: 0}
+  baseAttack: {fileID: 11400000, guid: cfd01a2789645424bb4da2383d3e3eff, type: 2}

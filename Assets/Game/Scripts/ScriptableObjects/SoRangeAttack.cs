@@ -33,6 +33,8 @@ namespace Game.Scripts.ScriptableObjects
             bullet.direction.z = bullet.direction.y;
             bullet.direction.y = 0;
             bullet.onEntityHit += _entity.DamageEntity;
+            bullet.horizontalVelocity = horizontalVelocity;
+            bullet.verticalVelocity = verticalVelocity;
         }
     }
 }
