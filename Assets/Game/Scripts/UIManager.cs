@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 namespace Game.Scripts
 {
-    public class UiManager : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
-        static private UiManager instance;
-        static public UiManager Instance
+        static private UIManager instance;
+        static public UIManager Instance
         {
             get { return instance; }
         }
@@ -22,15 +22,6 @@ namespace Game.Scripts
         [SerializeField] private Transform healthUi;
         [SerializeField] private Slider furySlider;
         [SerializeField] private Slider fusionSlider;
-
-
-        [Header("Menu")]
-        [SerializeField] private GameObject StartMenu;
-        [SerializeField] private GameObject LevelSelection;
-        [SerializeField] private GameObject SelectPlayer;
-        [SerializeField] private GameObject Option;
-        [SerializeField] private GameObject QuitConfirmation;
-
 
         [Header("Stats")]
         [SerializeField] private float maxFury;
@@ -146,13 +137,5 @@ namespace Game.Scripts
             _menu.gameObject.SetActive(false);
         }
 
-        private void ToPreviousMenu()
-        {
-            if (currentMenu == QuitConfirmation)
-                EnableMenu(StartMenu.transform);
-            else if (currentMenu == SelectPlayer)
-                EnableMenu(StartMenu.transform);
-            DisableMenu(currentMenu.transform);
-        }
     }
 }

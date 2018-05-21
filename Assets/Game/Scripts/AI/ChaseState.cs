@@ -8,7 +8,10 @@ namespace Game.Scripts.AI
     {
         private EnemyBehavior myBehavior;
 
-        public ChaseState(EnemyBehavior _behavior) { myBehavior = _behavior; }
+        public ChaseState(EnemyBehavior _behavior)
+        {
+            myBehavior = _behavior;
+        }
 
         public void ToIdleState()
         {
@@ -33,3 +36,4 @@ namespace Game.Scripts.AI
 
         }
     }
+}

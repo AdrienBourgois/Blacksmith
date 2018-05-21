@@ -208,7 +208,7 @@ namespace Game.Scripts.Entity
             RangePlayer.FusionAskAccepted();
 
             int timer_id = TimerManager.Instance.AddTimer("Fusion Timer", fusionDuration, true, false, OnFusionExpired);
-            UiManager.Instance.StartFusionUi(timer_id, fusionDuration);
+            UIManager.Instance.StartFusionUi(timer_id, fusionDuration);
 
             TimerManager.Instance.StopTimer(fusionInputTimeOutId);
         }
@@ -227,7 +227,7 @@ namespace Game.Scripts.Entity
             RangePlayer.FusionEnded();
 
             // stop timer ? 
-            UiManager.Instance.EndFusionUi();
+            UIManager.Instance.EndFusionUi();
         }
     }
 }

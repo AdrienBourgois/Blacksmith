@@ -86,7 +86,7 @@ namespace Game.Scripts.Entity
             healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild((int)playerType).GetComponent<Slider>();
 
             healthSlider.maxValue = maxHealth;
-            healthSlider.value = health;
+            healthSlider.value = Health;
 
             KnockedOutEvent += KnockedOut;
             KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
@@ -211,7 +211,7 @@ namespace Game.Scripts.Entity
 
             if (currentState == EPlayerState.FUSION)
             {
-                UiManager.Instance.FusionHit();
+                UIManager.Instance.FusionHit();
                 return;
             }
 
@@ -219,7 +219,7 @@ namespace Game.Scripts.Entity
 
             velocity.x = -0.1f;
             velocity.y = 0.1f;
-            healthSlider.value = health;
+            healthSlider.value = Health;
         }
 
         public override void Die()
@@ -255,7 +255,7 @@ namespace Game.Scripts.Entity
         private void OnEntityHit(BaseEntity _entity, float _useless)
         {
             // if _entity is Enemy
-            UiManager.Instance.IncreaseFury(1);
+            UIManager.Instance.IncreaseFury(1);
         }
         #endregion
 
@@ -279,8 +279,8 @@ namespace Game.Scripts.Entity
             {
                 gameObject.SetActive(true);
                 currentState = EPlayerState.NORMAL;
-                health = maxHealth;
-                healthSlider.value = health;
+                Health = maxHealth;
+                healthSlider.value = Health;
             }
         }
         #endregion
@@ -386,7 +386,7 @@ namespace Game.Scripts.Entity
         protected void Fusion(float _axe_value)
         {
             print("Fusion = " + _axe_value);
-            if (UiManager.Instance.CanAskForFusion() && !inRecovery && currentState != EPlayerState.KNOCKED_OUT)
+            if (UIManager.Instance.CanAskForFusion() && !inRecovery && currentState != EPlayerState.KNOCKED_OUT)
             {
                 currentState = EPlayerState.ASK_TO_FUSION;
                 SwitchPlayerState(EPlayerState.ASK_TO_FUSION);
