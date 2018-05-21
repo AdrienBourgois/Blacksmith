@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Scripts.Entity;
 using UnityEngine;
 
 namespace Game.Scripts.Camera
@@ -18,9 +19,6 @@ namespace Game.Scripts.Camera
         [SerializeField]
         [Range(0f, 0.5f)]
         private float zoomSmoothness;
-        //[SerializeField]
-        //[Range(0f, 1f)]
-        //private float scrollSmoothness;
         [SerializeField]
         private float scrollSpeed;
 
@@ -72,6 +70,9 @@ namespace Game.Scripts.Camera
             cameraCollider = gameObject.GetComponent<BoxCollider2D>();
             SubscribeToCameraScrollZoneEvents();
             FindObjectOfType<GameState>().SubscribeToGamePlayStateCallback(ListenToGamePlayState);
+
+            player1 = EntityManager.Instance.GetMeleePlayer().gameObject;
+            player2 = EntityManager.Instance.GetRangePlayer().gameObject;
         }
 
         private void Update ()
@@ -86,7 +87,6 @@ namespace Game.Scripts.Camera
 
         public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
         {
-            //print("ListenToGamePlayState");
             switch (_e_game_play_state)
             {
                 case GameState.EGamePlayState.EXPLORATION:

@@ -10,11 +10,11 @@ namespace Game.Scripts.Entity
     {
         public enum EPlayerType
         {
-            MELEE,
+            MELEE = 0,
             RANGE
         }
 
-        private enum EPlayerState
+        public enum EPlayerState
         {
             NORMAL,
             READY_TO_FUSION,
@@ -25,15 +25,14 @@ namespace Game.Scripts.Entity
 
         [SerializeField] [Range(0, 90)] private float maxRotationAngle;
         [SerializeField] private float rotateSpeed;
-
-        private Vector3 inputDir;
+        [SerializeField] private bool inverseAim;
 
         [SerializeField] private SoBaseAttack fusionAttack;
 
         [SerializeField] private float reviveTimeTeammate;
         [SerializeField] private float reviveTime;
         [SerializeField] private float maxFury;
-        [SerializeField] private SOCombo comboArray;
+        [SerializeField] private SOCombo[] comboArray;
 
         public delegate void PlayerStateHanlder();
 
@@ -41,9 +40,14 @@ namespace Game.Scripts.Entity
         private event PlayerStateHanlder KnockedOutEvent;
         private event PlayerStateHanlder RevivedEvent;
 
+
         private Slider healthSlider;
 
         private EPlayerState currentState = EPlayerState.NORMAL;
+        public EPlayerState CurrentState
+        {
+            get { return currentState; }
+        }
         [SerializeField] private EPlayerType playerType;
         public EPlayerType PlayerType
         {
@@ -68,47 +72,26 @@ namespace Game.Scripts.Entity
             AskToFusion -= _listener_function;
         }
         #endregion
-
+        
         #region Unity Methods
+        private void Awake()
+        {
+            inputManager = FindObjectOfType<InputManager.InputManager>();
+        }
+
         protected override void Start()
         {
             base.Start();
 
-            inputManager = FindObjectOfType<InputManager.InputManager>();
-            switch (playerType)
-            {
-                case EPlayerType.RANGE: // Player 1
-                {
-                    SubscribeToP1();
-                    healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(0).GetComponent<Slider>();
-
-                    break;
-                }
-                case EPlayerType.MELEE: // player 2
-                {
-                    if (GameState.Instance.IsTwoPlayer)
-                    {
-                        inputManager.SubscribeToHorizontalP2Event(ListenXAxis);
-                        inputManager.SubscribeToVerticalP2Event(ListenZAxis);
-                        inputManager.SubscribeToWeakAttackP2Event(LightGroundedAttack);
-                        inputManager.SubscribeToStrongAttackP2Event(HeavyGroundedAttack);
-                        inputManager.SubscribeToJumpP2Event(Jump);
-                        inputManager.SubscribeToFusionP2Event(Fusion);
-                    }
-
-                    healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild(1).GetComponent<Slider>();
-
-                    break;
-                }
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild((int)playerType).GetComponent<Slider>();
 
             healthSlider.maxValue = maxHealth;
             healthSlider.value = health;
 
             KnockedOutEvent += KnockedOut;
             KnockedOutEvent += () => { ++FindObjectOfType<EntityManager>().PlayerKncokedDown; };
+            if (!GameState.Instance.IsTwoPlayer) KnockedOutEvent += () => { EntityManager.Instance.SwitchPlayer(); };
+
         }
 
         protected override void Update()
@@ -116,59 +99,127 @@ namespace Game.Scripts.Entity
             base.Update();
 
             if (Input.GetKeyDown(KeyCode.F))
-                FusionAskAccepted();
+                Fusion(1f);
         }
         #endregion
 
         #region Subscribe / Unsubscribe
-        public void SubscribeToP1()
+        public void SubscribeAfterFusion()
+        {
+            if (GameState.Instance.IsTwoPlayer)
+            {
+                SubscribeByType(false);
+            }
+            else
+            {
+                if (this == EntityManager.Instance.CurrentPlayer)
+                    SubscribeToP1(false);
+            }
+        }
+
+        public void SubscribeByType(bool _fusion)
+        {
+            switch (playerType)
+            {
+                case EPlayerType.MELEE: // Player 1
+                {
+                    SubscribeToP1(_fusion);
+
+                    break;
+                }
+                case EPlayerType.RANGE: // player 2
+                {
+                    SubscribeToP2(_fusion);
+
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void SubscribeToP1(bool _fusion)
         {
             inputManager.SubscribeToHorizontalP1Event(ListenXAxis);
             inputManager.SubscribeToVerticalP1Event(ListenZAxis);
-            inputManager.SubscribeToWeakAttackP1Event(LightGroundedAttack);
-            inputManager.SubscribeToStrongAttackP1Event(HeavyGroundedAttack);
             inputManager.SubscribeToJumpP1Event(Jump);
             inputManager.SubscribeToFusionP1Event(Fusion);
+
+            if (_fusion)
+            {
+                if (GameState.Instance.IsTwoPlayer)
+                {
+                    inputManager.SubscribeToWeakAttackP1Event(FusionAttack);
+                    inputManager.SubscribeToStrongAttackP1Event(FusionAttack);
+                }
+                else
+                    inputManager.SubscribeToWeakAttackP1Event(FusionAttack);
+            }
+            else
+            {
+                inputManager.SubscribeToWeakAttackP1Event(LightGroundedAttack);
+                inputManager.SubscribeToStrongAttackP1Event(HeavyGroundedAttack);
+            }
         }
 
-        public void UnsubscribeFromP1()
+        public void SubscribeToP2(bool _fusion)
         {
-            inputManager.UnsubscribeFromHorizontalP1Event(ListenXAxis);
-            inputManager.UnsubscribeFromVerticalP1Event(ListenZAxis);
-            inputManager.UnsubscribeFromWeakAttackP1Event(LightGroundedAttack);
-            inputManager.UnsubscribeFromStrongAttackP1Event(HeavyGroundedAttack);
-            inputManager.UnsubscribeFromJumpP1Event(Jump);
-            inputManager.UnsubscribeFromFusionP1Event(Fusion);
+            if (_fusion)
+            {
+                if (GameState.Instance.IsTwoPlayer)
+                {
+                    inputManager.SubscribeToWeakAttackP2Event(FusionAttack);
+                    inputManager.SubscribeToStrongAttackP2Event(FusionAttack);
+                    inputManager.SubscribeToVerticalAimP2Event(AimV);
+                }
+                else
+                {
+                    inputManager.SubscribeToStrongAttackP1Event(FusionAttack);
+                    inputManager.SubscribeToVerticalAimP1Event(AimV);
+                }
+            }
+            else
+            {
+                inputManager.SubscribeToHorizontalP2Event(ListenXAxis);
+                inputManager.SubscribeToVerticalP2Event(ListenZAxis);
+                inputManager.SubscribeToJumpP2Event(Jump);
+
+                inputManager.SubscribeToWeakAttackP2Event(LightGroundedAttack);
+                inputManager.SubscribeToStrongAttackP2Event(HeavyGroundedAttack);
+            }
         }
         #endregion
 
         #region Rotate
         public void AimV(float _value)
         {
-            inputDir.y = _value;
-            Rotate();
+            Rotate(Mathf.Sign(-_value));
         }
 
-        void Rotate()
+        void Rotate(float _dir_f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, Mathf.Sign(inputDir.y) * maxRotationAngle), rotateSpeed * Time.deltaTime);
+            float pDir = transform.parent.localScale.x;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, 0, (_dir_f * pDir) * maxRotationAngle), rotateSpeed * Time.deltaTime);
         }
         #endregion
 
         #region IDamagable
         public override void ReceiveDamages(float _damages)
         {
-            if (currentState == EPlayerState.FUSION)
+            if (inRecovery)
                 return;
+
+            if (currentState == EPlayerState.FUSION)
+            {
+                UiManager.Instance.FusionHit();
+                return;
+            }
 
             base.ReceiveDamages(_damages);
 
-            if (!inRecovery)
-            {
-                velocity.x = -0.1f;
-                velocity.y = 0.1f;
-                healthSlider.value = health;
-            }
+            velocity.x = -0.1f;
+            velocity.y = 0.1f;
+            healthSlider.value = health;
         }
 
         public override void Die()
@@ -270,7 +321,7 @@ namespace Game.Scripts.Entity
                     if (AskToFusion != null)
                         AskToFusion();
 
-                    break;
+                   break;
                 }
 
                 case EPlayerState.FUSION:
@@ -289,69 +340,20 @@ namespace Game.Scripts.Entity
 
         public void FusionAskAccepted()
         {
+            gameObject.SetActive(true);
+
             SwitchPlayerState(EPlayerState.FUSION);
-            InputManager.InputManager input_manager = FindObjectOfType<InputManager.InputManager>();
+            currentState = EPlayerState.FUSION;
 
-            if (GameState.Instance.IsTwoPlayer)
+            SubscribeByType(true);
+
+            if (playerType == EPlayerType.RANGE)
             {
-                switch (playerType)
-                {
-                    case EPlayerType.MELEE:
-                    {
-                        input_manager.UnsubscribeFromWeakAttackP1Event(LightGroundedAttack);
-                        input_manager.UnsubscribeFromStrongAttackP1Event(HeavyGroundedAttack);
-
-                        input_manager.SubscribeToWeakAttackP1Event(FusionAttack);
-                        input_manager.SubscribeToStrongAttackP1Event(FusionAttack);
-                        break;
-                    }
-                    case EPlayerType.RANGE:
-                    {
-                        PlayerEntity melee = EntityManager.Instance.GetMeleePlayer();
-                        transform.parent = melee.transform;
-                        location = Vector3.zero;
-
-                        input_manager.SubscribeToVerticalP2Event(AimV);
-                        input_manager.UnsubscribeFromHorizontalP2Event(ListenXAxis);
-                        input_manager.UnsubscribeFromVerticalP2Event(ListenXAxis);
-                        input_manager.UnsubscribeFromJumpP2Event(Jump);
-                        input_manager.UnsubscribeFromWeakAttackP2Event(LightGroundedAttack);
-                        input_manager.UnsubscribeFromStrongAttackP2Event(HeavyGroundedAttack);
-
-                        input_manager.SubscribeToWeakAttackP2Event(FusionAttack);
-                        input_manager.SubscribeToStrongAttackP2Event(FusionAttack);
-                        break;
-                    }
-
-                }
+                PlayerEntity melee = EntityManager.Instance.GetMeleePlayer();
+                transform.localScale = melee.transform.localScale;
+                transform.parent = melee.transform;
+                location = Vector3.zero;
             }
-            else
-            {
-                switch (playerType)
-                {
-                    case EPlayerType.MELEE:
-                    {
-                        input_manager.SubscribeToHorizontalP1Event(ListenXAxis);
-                        input_manager.SubscribeToVerticalP1Event(ListenZAxis);
-                        input_manager.SubscribeToWeakAttackP1Event(FusionAttack);
-                            break;
-                    }
-                    case EPlayerType.RANGE:
-                    {
-                        PlayerEntity melee = EntityManager.Instance.GetMeleePlayer();
-                        transform.parent = melee.transform;
-                        location = Vector3.zero;
-
-                        input_manager.SubscribeToWeakAttackP1Event(FusionAttack);
-                        input_manager.SubscribeToVerticalP1Event(AimV);
-
-                            break;
-                    }
-                }
-            }
-
-            // change the graphic position of PlayerNephew
-            // change the controller
         }
 
         public void FusionAskRefused()
@@ -360,12 +362,29 @@ namespace Game.Scripts.Entity
                 SwitchPlayerState(EPlayerState.READY_TO_FUSION);
         }
 
+        public void FusionEnded()
+        {
+            if (!GameState.Instance.IsTwoPlayer)
+                EntityManager.Instance.GetP2().gameObject.SetActive(false);
+            if (playerType == EPlayerType.RANGE)
+            {
+                transform.parent = transform.parent.parent;
+                transform.rotation = Quaternion.identity;
+            }
+
+            SwitchPlayerState(EPlayerState.NORMAL);
+            currentState = EPlayerState.NORMAL;
+
+            SubscribeByType(false);
+        }
+
         protected void Fusion(float _axe_value)
         {
             print("Fusion = " + _axe_value);
-            if (currentState == EPlayerState.READY_TO_FUSION)
+            if (UiManager.Instance.CanAskForFusion() && !inRecovery && currentState != EPlayerState.KNOCKED_OUT)
             {
                 currentState = EPlayerState.ASK_TO_FUSION;
+                SwitchPlayerState(EPlayerState.ASK_TO_FUSION);
             }
         }
         #endregion

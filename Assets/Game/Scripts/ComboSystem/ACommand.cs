@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Game.Scripts.Entity;
 
 namespace Game.Scripts.ComboSystem
 {
@@ -26,7 +27,7 @@ namespace Game.Scripts.ComboSystem
                 commandFunction -= _function_pointer;
         }
 
-        public abstract void Init();
+        public abstract void Init(PlayerEntity.EPlayerType _player_type);
 
         protected abstract void Execute();
     }

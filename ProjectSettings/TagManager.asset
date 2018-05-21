@@ -9,6 +9,7 @@ TagManager:
   - P2_healthSlider
   - P1_healthSlider
   - DestroyOnGameOver
+  - StartSpawn
   layers:
   - Default
   - TransparentFX
@@ -28,9 +29,9 @@ TagManager:
   - GameOverZone
   - 
   - 
-  - 
-  - 
-  - 
+  - Obstacle
+  - TopObstacle
+  - GroundObstacle
   - 
   - 
   - 

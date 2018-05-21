@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System.Reflection;
+using UnityEditor;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 namespace Game.Editor
@@ -8,21 +10,39 @@ namespace Game.Editor
         private static Rect windowRect = new Rect(20, 20, 120, 50);
 
         private static bool isDisplayed;
+        private static bool isLoaded;
 
         public static bool displayFloorPoint = true;
         public static bool displayHeightRay = true;
+        public static bool displayLocationPoint = true;
+
         public static bool displayFloorColliders = true;
 
         public static bool displayPathFindingGrid = true;
         public static bool displayPathFindingConnections = true;
 
+        public static bool displayTriggerZones = true;
+        public static bool displaySpeechTriggers = true;
+
+        public static bool displayObstacleHeight = true;
+        public static bool displayLowObstaclePoint = true;
+        public static bool displayObstacleCollider = true;
+        public static bool displayObstacleTopCollider = true;
+        public static bool displayObstacleGroundCollider = true;
+
+        public static bool displayEnemySpawn = true;
+
         [MenuItem("Level Editor/Debug Window")]
         public static void ToggleWindow()
         {
+            if(!isLoaded)
+                LoadPreferences();
+
             if(isDisplayed)
                 SceneView.onSceneGUIDelegate -= OnScene;
             else
                 SceneView.onSceneGUIDelegate += OnScene;
+
             isDisplayed = !isDisplayed;
             SceneView.RepaintAll();
         }
@@ -39,18 +59,72 @@ namespace Game.Editor
         {
             EditorGUI.BeginChangeCheck();
 
-            EditorGUILayout.PrefixLabel("Scene Object");
-            displayFloorPoint = EditorGUILayout.Toggle("Display Floor Point", displayFloorPoint);
-            displayHeightRay = EditorGUILayout.Toggle("Display Height Ray", displayHeightRay);
-            displayFloorColliders = EditorGUILayout.Toggle("Display Floor Colliders", displayFloorColliders);
+            EditorGUILayout.LabelField("Scene Object", EditorUtilities.boldCenteredStyle);
+            displayFloorPoint = EditorGUILayout.Toggle("Floor Point", displayFloorPoint);
+            displayHeightRay = EditorGUILayout.Toggle("Height Ray", displayHeightRay);
+            displayLocationPoint = EditorGUILayout.Toggle("Location Point", displayLocationPoint);
+            EditorGUILayout.Space();
 
-            EditorGUILayout.PrefixLabel("PathFinding");
-            displayPathFindingGrid = EditorGUILayout.Toggle("Display Grid", displayPathFindingGrid);
-            displayPathFindingConnections = EditorGUILayout.Toggle("Display Connections", displayPathFindingConnections);
+            EditorGUILayout.LabelField("Obstacle Scene Object", EditorUtilities.boldCenteredStyle);
+            displayObstacleHeight = EditorGUILayout.Toggle("Obstacle Height", displayObstacleHeight);
+            displayLowObstaclePoint = EditorGUILayout.Toggle("Low Obstacle Point", displayLowObstaclePoint);
+            displayObstacleCollider = EditorGUILayout.Toggle("Obstacle Collider", displayObstacleCollider);
+            displayObstacleTopCollider = EditorGUILayout.Toggle("Obstacle Top Collider", displayObstacleTopCollider);
+            displayObstacleGroundCollider = EditorGUILayout.Toggle("Obstacle Ground Collider", displayObstacleGroundCollider);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Floor", EditorUtilities.boldCenteredStyle);
+            displayFloorColliders = EditorGUILayout.Toggle("Floor Colliders", displayFloorColliders);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("PathFinding", EditorUtilities.boldCenteredStyle);
+            displayPathFindingGrid = EditorGUILayout.Toggle("Grid", displayPathFindingGrid);
+            displayPathFindingConnections = EditorGUILayout.Toggle("Connections", displayPathFindingConnections);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Triggers", EditorUtilities.boldCenteredStyle);
+            displayTriggerZones = EditorGUILayout.Toggle("Triggers Zones", displayTriggerZones);
+            displaySpeechTriggers = EditorGUILayout.Toggle("Speech Triggers", displaySpeechTriggers);
+            EditorGUILayout.Space();
+
+            EditorGUILayout.LabelField("Spawns", EditorUtilities.boldCenteredStyle);
+            displayEnemySpawn = EditorGUILayout.Toggle("Enemy Spawn", displayEnemySpawn);
+            EditorGUILayout.Space();
 
             if (EditorGUI.EndChangeCheck())
+            {
+                SavePreferences();
                 SceneView.RepaintAll();
+            }
+
             GUI.DragWindow();
+        }
+
+        [InitializeOnLoadMethod]
+        [DidReloadScripts]
+        private static void LoadPreferences()
+        {
+            foreach (FieldInfo field_info in typeof(DebugOptionsWindow).GetFields())
+            {
+                if (field_info.FieldType.Name == "Boolean")
+                {
+                    if(EditorPrefs.HasKey(field_info.Name))
+                        field_info.SetValue(null, EditorPrefs.GetBool(field_info.Name, true));
+                }
+            }
+
+            isLoaded = true;
+        }
+
+        private static void SavePreferences()
+        {
+            foreach (FieldInfo field_info in typeof(DebugOptionsWindow).GetFields())
+            {
+                if (field_info.FieldType.Name == "Boolean")
+                {
+                    EditorPrefs.SetBool(field_info.Name, (bool)field_info.GetValue(null));
+                }
+            }
         }
     }
 }

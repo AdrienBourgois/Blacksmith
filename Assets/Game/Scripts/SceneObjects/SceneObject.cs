@@ -5,7 +5,7 @@ namespace Game.Scripts.SceneObjects
     public class SceneObject : MonoBehaviour
     {
         [Header("Scene Object")]
-        [HideInInspector]
+        [Tooltip("Avoid changing this location here, use the SceneObject Editor window !")]
         public Vector3 location;
 
         protected virtual void Start()
