@@ -14,6 +14,18 @@ namespace Game.Editor.Triggers
             {
                 Gizmos.DrawIcon(_trigger.transform.position, "Game/Fight.png", true);
             }
+
+            if (DebugOptionsWindow.displayFightSpawnLinks)
+            {
+                foreach (FightTrigger.Wave wave in _trigger.waves)
+                {
+                    foreach (EnemySpawn spawn in wave.spawns)
+                    {
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawLine(_trigger.transform.position, spawn.transform.position);
+                    }
+                }
+            }
         }
     }
 }

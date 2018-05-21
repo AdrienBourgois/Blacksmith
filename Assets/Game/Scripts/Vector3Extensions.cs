@@ -24,6 +24,13 @@ namespace Game.Scripts
             };
         }
 
+        public static Vector3 ToGameSpaceOnFloor(this Vector3 _vector)
+        {
+            _vector.z = _vector.y / GamePhysic.slope;
+            _vector.y = 0f;
+            return _vector;
+        }
+
         public static Vector3 ToFloor(this Vector3 _vector)
         {
             return new Vector3

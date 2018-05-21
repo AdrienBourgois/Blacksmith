@@ -180,5 +180,12 @@ namespace Game.Scripts.Navigation
                     node.connectedNodes = nodes.Where(_node => node.connectedNodesId.Contains(_node.id)).ToArray();
             }
         }
+
+        public void Reset()
+        {
+            isConnectionsInitialized = false;
+            isGridInitialized = false;
+            nodes.Clear();
+        }
     }
 }

@@ -63,6 +63,9 @@ namespace Game.Editor
         {
             EditorGUI.BeginChangeCheck();
 
+            if (GUILayout.Button("Reset"))
+                selection.Reset();
+
             GUILayout.BeginHorizontal();
             selection.gridInterval = EditorGUILayout.FloatField("Interval", selection.gridInterval);
             if (GUILayout.Button("Create Grid"))

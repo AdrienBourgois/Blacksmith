@@ -76,7 +76,7 @@ namespace Game.Editor
         {
             GameObject go = new GameObject(typeof(T).Name);
             T component = go.AddComponent<T>();
-            Vector3 game_space = GetCameraCenter().ToGameSpace();
+            Vector3 game_space = GetCameraCenter().ToGameSpaceOnFloor();
             game_space.y = 0;
             component.location = game_space;
             component.SetUnityPosition();
