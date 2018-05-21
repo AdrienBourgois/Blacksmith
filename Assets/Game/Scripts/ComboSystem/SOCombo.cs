@@ -44,8 +44,8 @@ public class SOCombo : ScriptableObject
 	    InitTimers();
         InitCommands(_player_type);
 
-	    //Debug.Log("comboIdx : " + comboIdx);
-        ListenToCallback(commandArray[comboIdx].command);
+        //Debug.Log("comboIdx : " + comboIdx);
+	    ActiveCommand(commandArray[comboIdx].command);
 
 	    ComboExecutedCallback = _function_pointer;
 	}
@@ -87,8 +87,8 @@ public class SOCombo : ScriptableObject
 
             ++comboIdx;
 
-            StopListenToCallback(command);
-            ListenToCallback(commandArray[comboIdx].command);
+            DeactiveCommand(command);
+            ActiveCommand(commandArray[comboIdx].command);
         }
         else
         {
@@ -97,8 +97,8 @@ public class SOCombo : ScriptableObject
 
             ++comboIdx;
 
-            StopListenToCallback(command);
-            ListenToCallback(commandArray[comboIdx].command);
+            DeactiveCommand(command);
+            ActiveCommand(commandArray[comboIdx].command);
         }
     }
 
@@ -144,20 +144,20 @@ public class SOCombo : ScriptableObject
 
     private void StopCombo()
     {
-        StopListenToCallback(commandArray[comboIdx].command);
+        DeactiveCommand(commandArray[comboIdx].command);
 
         comboIdx = 0;
 
-        ListenToCallback(commandArray[comboIdx].command);
+        ActiveCommand(commandArray[comboIdx].command);
     }
 
-    private void ListenToCallback(ACommand command)
+    private void ActiveCommand(ACommand command)
     {
-        command.SubscribeToCommandFunction(OnCommandFired);
+        command.Active(OnCommandFired);
     }
 
-    private void StopListenToCallback(ACommand command)
+    private void DeactiveCommand(ACommand command)
     {
-        command.UnsubscribeToCommandFunction(OnCommandFired);
+        command.Deactive(OnCommandFired);
     }
 }
