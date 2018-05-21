@@ -20,15 +20,16 @@ namespace Game.Editor
 
         public static bool displayPathFindingGrid = true;
         public static bool displayPathFindingConnections = true;
+        public static bool displayPathFindingNodeId = true;
 
         public static bool displayTriggerZones = true;
         public static bool displaySpeechTriggers = true;
 
-        public static bool displayObstacleHeight = true;
+        /*public static bool displayObstacleHeight = true;
         public static bool displayLowObstaclePoint = true;
         public static bool displayObstacleCollider = true;
         public static bool displayObstacleTopCollider = true;
-        public static bool displayObstacleGroundCollider = true;
+        public static bool displayObstacleGroundCollider = true;*/
 
         public static bool displayEnemySpawn = true;
         public static bool displayFightSpawnLinks = true;
@@ -66,13 +67,13 @@ namespace Game.Editor
             displayLocationPoint = EditorGUILayout.Toggle("Location Point", displayLocationPoint);
             EditorGUILayout.Space();
 
-            EditorGUILayout.LabelField("Obstacle Scene Object", EditorUtilities.boldCenteredStyle);
+            /*EditorGUILayout.LabelField("Obstacle Scene Object", EditorUtilities.boldCenteredStyle);
             displayObstacleHeight = EditorGUILayout.Toggle("Obstacle Height", displayObstacleHeight);
             displayLowObstaclePoint = EditorGUILayout.Toggle("Low Obstacle Point", displayLowObstaclePoint);
             displayObstacleCollider = EditorGUILayout.Toggle("Obstacle Collider", displayObstacleCollider);
             displayObstacleTopCollider = EditorGUILayout.Toggle("Obstacle Top Collider", displayObstacleTopCollider);
             displayObstacleGroundCollider = EditorGUILayout.Toggle("Obstacle Ground Collider", displayObstacleGroundCollider);
-            EditorGUILayout.Space();
+            EditorGUILayout.Space();*/
 
             EditorGUILayout.LabelField("Floor", EditorUtilities.boldCenteredStyle);
             displayFloorColliders = EditorGUILayout.Toggle("Floor Colliders", displayFloorColliders);
@@ -81,6 +82,7 @@ namespace Game.Editor
             EditorGUILayout.LabelField("PathFinding", EditorUtilities.boldCenteredStyle);
             displayPathFindingGrid = EditorGUILayout.Toggle("Grid", displayPathFindingGrid);
             displayPathFindingConnections = EditorGUILayout.Toggle("Connections", displayPathFindingConnections);
+            displayPathFindingNodeId = EditorGUILayout.Toggle("Node Id", displayPathFindingNodeId);
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Triggers", EditorUtilities.boldCenteredStyle);

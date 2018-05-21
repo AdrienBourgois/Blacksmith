@@ -103,11 +103,21 @@ namespace Game.Editor
             {
                 if (_path_finding.isGridInitialized)
                 {
-
                     foreach (Node node in _path_finding.nodes)
                     {
                         Handles.color = Color.blue;
                         Handles.DrawSolidDisc(node.location, Vector3.back, 0.03f);
+                    }
+                }
+            }
+
+            if (DebugOptionsWindow.displayPathFindingNodeId)
+            {
+                if (_path_finding.isGridInitialized)
+                {
+                    foreach (Node node in _path_finding.nodes)
+                    {
+                        Handles.Label(node.location, node.id.ToString(), new GUIStyle { normal = new GUIStyleState { textColor = Color.blue } });
                     }
                 }
             }

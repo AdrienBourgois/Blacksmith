@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Game.Scripts.Entity;
 using UnityEngine;
 
@@ -58,9 +59,22 @@ namespace Game.Scripts.Ui
             if (!currentBubble && nextSpeeches.Count > 0)
             {
                 currentBubble = gameObject.AddComponent<BubbleSpeech>();
-                currentBubble.SetParameters(nextSpeeches.Dequeue());
+                SpeechParameters parameters = nextSpeeches.Dequeue();
+                currentBubble.SetParameters(parameters);
                 currentBubble.SetGuiStyle(guiSkin.customStyles[0]);
-                //currentBubble.SetFollowedGameObject(go, new Vector2(-3f, 6f));
+                GameObject go;
+                switch (parameters.player)
+                {
+                    case PlayerEntity.EPlayerType.MELEE:
+                        go = EntityManager.Instance.MeleePlayer.gameObject;
+                        break;
+                    case PlayerEntity.EPlayerType.RANGE:
+                        go = EntityManager.Instance.RangePlayer.gameObject;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                currentBubble.SetFollowedGameObject(go, new Vector2(-3f, 6f));
             }
         }
     }

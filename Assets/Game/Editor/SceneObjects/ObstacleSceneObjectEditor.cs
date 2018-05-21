@@ -51,12 +51,12 @@ namespace Game.Editor.SceneObjects
         {
             if (!_obstacle.IsValid()) return;
 
-            if (DebugOptionsWindow.displayObstacleCollider)
+            /*if (DebugOptionsWindow.displayObstacleCollider)
                 EditorUtilities.DrawCollider(_obstacle.objectCollider, EditorUtilities.orange);
             if (DebugOptionsWindow.displayObstacleTopCollider)
                 EditorUtilities.DrawCollider(_obstacle.topCollider, EditorUtilities.blueMiku);
             if (DebugOptionsWindow.displayObstacleGroundCollider)
-                EditorUtilities.DrawCollider(_obstacle.groundCollider, EditorUtilities.darkGreen);
+                EditorUtilities.DrawCollider(_obstacle.groundCollider, EditorUtilities.darkGreen);*/
 
         }
 
