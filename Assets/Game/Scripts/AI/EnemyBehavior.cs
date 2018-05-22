@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Game.Scripts.Entity;
+﻿using Game.Scripts.Entity;
 using UnityEngine;
 
 namespace Game.Scripts.AI

@@ -161,7 +161,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.17433739, y: 1.4065456}
@@ -237,6 +237,7 @@ MonoBehaviour:
   comboArray:
   - {fileID: 11400000, guid: 1d1c3c7efaeaa2d4b8462f1f30e9bca6, type: 2}
   - {fileID: 11400000, guid: 82d6ef2065af8aa43aae745e03be166c, type: 2}
+  - {fileID: 11400000, guid: bc115ff43fc87d14da52a65be527122d, type: 2}
   playerType: 0
 --- !u!114 &114420869392366002
 MonoBehaviour:

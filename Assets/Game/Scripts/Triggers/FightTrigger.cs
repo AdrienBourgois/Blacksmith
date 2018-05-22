@@ -1,11 +1,9 @@
 ﻿using System;
-using Game.Scripts.Entity;
 using Game.Scripts.Interfaces;
-using UnityEngine;
 
 namespace Game.Scripts.Triggers
 {
-    public class FightTrigger : MonoBehaviour, ITriggerAction
+    public class FightTrigger : ATriggerAction
     {
         [Serializable]
         public struct Wave
@@ -15,9 +13,8 @@ namespace Game.Scripts.Triggers
 
         public Wave[] waves;
 
-        public void Trigger()
+        public override void Trigger()
         {
-            Debug.Log("FIGHTTRIGGER");
             //this.gameObject.SetActive(false);
             //foreach (Wave wave in waves)
             //{

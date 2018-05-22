@@ -9,7 +9,6 @@ TagManager:
   - P2_healthSlider
   - P1_healthSlider
   - DestroyOnGameOver
-  - StartSpawn
   - HitCountUI
   layers:
   - Default

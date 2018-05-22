@@ -38,13 +38,13 @@ namespace Game.Editor
             GUILayout.Label("Scene Objects", EditorUtilities.boldCenteredStyle);
             if(GUILayout.Button("SceneObject"))
                 CreateSceneObject<SceneObject>();
-            if (GUILayout.Button("SpriteSceneObject"))
+            if (GUILayout.Button("Sprite SceneObject"))
                 CreateSceneObject<SpriteSceneObject>();
-            if (GUILayout.Button("PhysicSceneObject"))
+            if (GUILayout.Button("Physic SceneObject"))
                 CreateSceneObject<PhysicSceneObject>();
-            if (GUILayout.Button("BackgroundSpriteObject"))
+            if (GUILayout.Button("Background SpriteObject"))
                 CreateSimpleObjectWithComponent<BackgroundSpriteObject>();
-            if (GUILayout.Button("ForegroundSpriteObject"))
+            if (GUILayout.Button("Foreground SpriteObject"))
                 CreateSimpleObjectWithComponent<ForegroundSpriteObject>();
             //if (GUILayout.Button("ObstacleSceneObject"))
                 //CreateObstacle();
@@ -53,10 +53,12 @@ namespace Game.Editor
             GUILayout.Label("Triggers", EditorUtilities.boldCenteredStyle);
             if (GUILayout.Button("Void"))
                 CreateSimpleObjectWithComponent<LevelTrigger>();
-            if (GUILayout.Button("Fight Trigger"))
+            if (GUILayout.Button("Fight"))
                 CreateTrigger<FightTrigger>();
-            if (GUILayout.Button("BubbleSpeechTrigger"))
+            if (GUILayout.Button("Bubble Speech"))
                 CreateTrigger<BubbleSpeechTrigger>();
+            if (GUILayout.Button("End Level"))
+                CreateTrigger<EndLevelTrigger>();
             EditorGUILayout.Space();
 
             GUILayout.Label("Enemies", EditorUtilities.boldCenteredStyle);
@@ -83,7 +85,7 @@ namespace Game.Editor
             Selection.objects = new Object[] {go};
         }
 
-        private static void CreateTrigger<T>() where T : MonoBehaviour, ITriggerAction
+        private static void CreateTrigger<T>() where T : ATriggerAction
         {
             GameObject go = new GameObject("Trigger " + typeof(T).Name);
             go.AddComponent<LevelTrigger>();

@@ -26,7 +26,8 @@ namespace Game.Scripts.InputManager
         private event GamePadButtonEvent StrongAttackP1Event;
         private event GamePadButtonEvent SpecialMoveP1Event;
         private event GamePadButtonEvent SwapP1Event;
-        private event GamePadButtonEvent ReviveP1Event;
+        private event GamePadButtonEvent ReviveLBP1Event;
+        private event GamePadButtonEvent ReviveRBP1Event;
         private event GamePadButtonEvent PauseP1Event;
 
         private event AxisCallback HorizontalP2Event;
@@ -38,7 +39,8 @@ namespace Game.Scripts.InputManager
         private event GamePadButtonEvent StrongAttackP2Event;
         private event GamePadButtonEvent SpecialMoveP2Event;
         private event GamePadButtonEvent SwapP2Event;
-        private event GamePadButtonEvent ReviveP2Event;
+        private event GamePadButtonEvent ReviveLBP2Event;
+        private event GamePadButtonEvent ReviveRBP2Event;
         private event GamePadButtonEvent PauseP2Event;
 
         private static InputManager instance;
@@ -97,9 +99,14 @@ namespace Game.Scripts.InputManager
             SpecialMoveP1Event += _function_to_bind;
         }
 
-        public void SubscribeToReviveP1Event(GamePadButtonEvent _function_to_bind)
+        public void SubscribeToReviveLBP1Event(GamePadButtonEvent _function_to_bind)
         {
-            ReviveP1Event += _function_to_bind;
+            ReviveLBP1Event += _function_to_bind;
+        }
+
+        public void SubscribeToReviveRBP1Event(GamePadButtonEvent _function_to_bind)
+        {
+            ReviveRBP1Event += _function_to_bind;
         }
 
         public void SubscribeToPauseP1Event(GamePadButtonEvent _function_to_bind)
@@ -152,9 +159,14 @@ namespace Game.Scripts.InputManager
             SpecialMoveP2Event += _function_to_bind;
         }
 
-        public void SubscribeToReviveP2Event(GamePadButtonEvent _function_to_bind)
+        public void SubscribeToReviveLBP2Event(GamePadButtonEvent _function_to_bind)
         {
-            ReviveP2Event += _function_to_bind;
+            ReviveLBP2Event += _function_to_bind;
+        }
+
+        public void SubscribeToReviveRBP2Event(GamePadButtonEvent _function_to_bind)
+        {
+            ReviveRBP2Event += _function_to_bind;
         }
 
         public void SubscribeToPauseP2Event(GamePadButtonEvent _function_to_bind)
@@ -231,9 +243,14 @@ namespace Game.Scripts.InputManager
             SpecialMoveP1Event -= _function_to_un_bind;
         }
 
-        public void UnsubscribeFromReviveP1Event(GamePadButtonEvent _function_to_un_bind)
+        public void UnsubscribeFromReviveLBP1Event(GamePadButtonEvent _function_to_un_bind)
         {
-            ReviveP1Event -= _function_to_un_bind;
+            ReviveLBP1Event -= _function_to_un_bind;
+        }
+
+        public void UnsubscribeFromReviveRBP1Event(GamePadButtonEvent _function_to_un_bind)
+        {
+            ReviveRBP1Event -= _function_to_un_bind;
         }
 
         public void UnsubscribeFromPauseP1Event(GamePadButtonEvent _function_to_un_bind)
@@ -286,9 +303,14 @@ namespace Game.Scripts.InputManager
             SpecialMoveP2Event -= _function_to_un_bind;
         }
 
-        public void UnsubscribeFromReviveP2Event(GamePadButtonEvent _function_to_un_bind)
+        public void UnsubscribeFromReviveLBP2Event(GamePadButtonEvent _function_to_un_bind)
         {
-            ReviveP2Event -= _function_to_un_bind;
+            ReviveLBP2Event -= _function_to_un_bind;
+        }
+
+        public void UnsubscribeFromReviveRBP2Event(GamePadButtonEvent _function_to_un_bind)
+        {
+            ReviveRBP2Event -= _function_to_un_bind;
         }
 
         public void UnsubscribeFromPauseP2Event(GamePadButtonEvent _function_to_un_bind)
@@ -393,12 +415,18 @@ namespace Game.Scripts.InputManager
             if (Input.GetButtonDown("SpecialMove_P2"))
                 if (SpecialMoveP2Event != null)
                     SpecialMoveP2Event();
-            if (Input.GetButtonDown("Revive_P1"))
-                if (ReviveP1Event != null)
-                    ReviveP1Event();
-            if (Input.GetButtonDown("Revive_P2"))
-                if (ReviveP2Event != null)
-                    ReviveP2Event();
+            if (Input.GetButtonDown("ReviveLB_P1"))
+                if (ReviveLBP1Event != null)
+                    ReviveLBP1Event();
+            if (Input.GetButtonDown("ReviveRB_P1"))
+                if (ReviveRBP1Event != null)
+                    ReviveRBP1Event();
+            if (Input.GetButtonDown("ReviveLB_P2"))
+                if (ReviveLBP2Event != null)
+                    ReviveLBP2Event();
+            if (Input.GetButtonDown("ReviveRB_P2"))
+                if (ReviveRBP2Event != null)
+                    ReviveRBP2Event();
             if (Input.GetButtonDown("Pause_P1"))
                 if (PauseP1Event != null)
                     PauseP1Event();

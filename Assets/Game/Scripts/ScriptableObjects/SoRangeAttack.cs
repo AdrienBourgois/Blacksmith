@@ -1,6 +1,5 @@
 ﻿using Game.Scripts.AttackBehavior;
 using Game.Scripts.Entity;
-using Game.Scripts.SceneObjects;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects

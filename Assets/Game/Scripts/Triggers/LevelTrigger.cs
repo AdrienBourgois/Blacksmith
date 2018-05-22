@@ -8,7 +8,7 @@ namespace Game.Scripts.Triggers
     public class LevelTrigger : MonoBehaviour
     {
         private Collider2D triggerCollider;
-        private ITriggerAction[] actions;
+        private ATriggerAction[] actions;
 
         private PlayerEntity rangePlayer;
         private PlayerEntity meleePlayer;
@@ -18,7 +18,7 @@ namespace Game.Scripts.Triggers
             meleePlayer = EntityManager.Instance.MeleePlayer;
             rangePlayer = EntityManager.instance.RangePlayer;
 
-            actions = GetComponents<ITriggerAction>();
+            actions = GetComponents<ATriggerAction>();
 
             if (actions.Length == 0)
             {
@@ -39,14 +39,12 @@ namespace Game.Scripts.Triggers
         {
             if (triggerCollider.OverlapPoint(meleePlayer.transform.position) || triggerCollider.OverlapPoint(rangePlayer.transform.position))
             {
-                foreach (ITriggerAction action in actions)
+                foreach (ATriggerAction action in actions)
                 {
                     action.Trigger();
                 }
                 Destroy(this);
             }
-
-
         }
     }
 }

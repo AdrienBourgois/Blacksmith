@@ -12020,6 +12020,7 @@ MonoBehaviour:
     type: 2}
   fusionInputTimeOut: 1
   fusionDuration: 100
+  distanceRevivePlayer: 5
   spawn: {fileID: 114796624765958946}
 --- !u!114 &114945343654692554
 MonoBehaviour:

@@ -5,13 +5,13 @@ using UnityEngine;
 
 namespace Game.Scripts.Triggers
 {
-    public class BubbleSpeechTrigger : MonoBehaviour, ITriggerAction
+    public class BubbleSpeechTrigger : ATriggerAction
     {
         [SerializeField] private string text;
         [SerializeField] private float duration;
         [SerializeField] private PlayerEntity.EPlayerType player;
 
-        public void Trigger()
+        public override void Trigger()
         {
             BubbleSpeechManager.Instance.AddSpeech(new SpeechParameters(text, duration, player));
         }

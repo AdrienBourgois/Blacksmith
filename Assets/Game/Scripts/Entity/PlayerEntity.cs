@@ -3,7 +3,6 @@ using Game.Scripts.AttackBehavior;
 using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Timer;
 using UnityEngine;
-using UnityEngine.Assertions.Comparers;
 using UnityEngine.UI;
 
 namespace Game.Scripts.Entity
@@ -117,6 +116,11 @@ namespace Game.Scripts.Entity
 
             if (GameState.Instance.IsTwoPlayer == false && playerType == EPlayerType.RANGE)
                 gameObject.SetActive(false);
+
+            if(playerType == EPlayerType.MELEE)
+                inputManager.SubscribeToFusionP1Event(Fusion);
+            else if(GameState.Instance.IsTwoPlayer)
+                inputManager.SubscribeToFusionP2Event(Fusion);
         }
 
         private void InitComboArray()
@@ -134,6 +138,17 @@ namespace Game.Scripts.Entity
 
         protected override void Update()
         {
+            ///// TO REMOVE /////
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+            {
+                if (this == EntityManager.instance.RangePlayer)
+                    ReceiveDamages(5f);
+            }
+                
+
+            ///// TO REMOVE /////
+
             base.Update();
 
             if (Input.GetKeyDown(KeyCode.F))
@@ -212,7 +227,7 @@ namespace Game.Scripts.Entity
             inputManager.SubscribeToHorizontalP1Event(ListenXAxis);
             inputManager.SubscribeToVerticalP1Event(ListenZAxis);
             inputManager.SubscribeToJumpP1Event(Jump);
-            inputManager.SubscribeToFusionP1Event(Fusion);
+            
 
             if (_fusion)
             {
@@ -361,13 +376,30 @@ namespace Game.Scripts.Entity
             reviveTimerId = TimerManager.Instance.AddTimer("Revive Timer", reviveTime, true, false, Die);
         }
 
-        private void RevivePlayer()
+        public void RevivePlayer()
         {
+            PlayerEntity other_player = EntityManager.instance.GetOppositePlayer(this);
 
+            float dist = Vector3.Distance(other_player.location, this.location);
+            print("Distance players = " + dist);
+            
+            if (other_player.currentState == EPlayerState.KNOCKED_OUT)
+            {
+                print("Check Knocked_OUT passed");
+                if (dist <= EntityManager.instance.DistanceRevivePlayer)
+                {
+                    print("Check Distance passed");
+                    other_player.Revive();
+                }
+            }
         }
+
+        //public float GetPlayerDistance
 
         public void Revive()
         {
+            print("Revive()");
+
             if (currentState == EPlayerState.KNOCKED_OUT)
             {
                 gameObject.SetActive(true);
@@ -377,6 +409,24 @@ namespace Game.Scripts.Entity
             }
             // if _entity is Enemy
         }
+        #endregion
+
+        #region Physics
+
+        //private void OnTriggerEnter2D(Collision2D other)
+        //{
+        //    print("CollisionEnter");
+        //    if (other.gameObject == EntityManager.Instance.GetP2().gameObject)
+        //        print("OnCollisionEnter2D : with other player");
+        //}
+
+        //private void OnTriggerExit2D(Collision2D other)
+        //{
+        //    print("CollisionExit");
+        //    if (other.gameObject == EntityManager.Instance.GetP2().gameObject)
+        //        print("OnCollisionExit2D : with other player");
+        //}
+
         #endregion
 
         #region Movement

@@ -152,7 +152,7 @@ namespace Game.Scripts.Camera
         private void ComputeVerticalPosition()
         {
             Vector3 transform_position = transform.position;
-            transform_position.y = gameCamera.orthographicSize - 11.5f;
+            transform_position.y = gameCamera.orthographicSize/* - 11.5f*/;
             transform.position = transform_position;
         }
 
