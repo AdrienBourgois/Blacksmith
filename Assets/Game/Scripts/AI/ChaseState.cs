@@ -90,7 +90,6 @@ namespace Game.Scripts.AI
 
         private void UpdatePath()
         {
-           // Debug.Log("UpdatePath");
 
             Collider2D floor = Physics2D.OverlapPoint(position, LayerMask.GetMask("Floor"));
             if (floor != null)
@@ -98,7 +97,11 @@ namespace Game.Scripts.AI
                 if (path != null && path.Count != 0)
                     path.Clear();
 
+                //Debug.Log("from : " + position);
+                //Debug.Log("to : " + target.transform.position);
+
                 floor.GetComponent<PathFinding>().WeightedFindPath(position, target.transform.position, out path);
+                //floor.GetComponent<PathFinding>().WeightedFindPath(myBehavior.myEntity.location, target.location, out path);
                 if (path != null)
                 {
                     pathId = -1;
