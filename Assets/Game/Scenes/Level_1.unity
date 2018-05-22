@@ -152,37 +152,37 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1110116180029024, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
-      propertyPath: m_Name
-      value: '[Level_1]'
-      objectReference: {fileID: 0}
     - target: {fileID: 4284391248107596, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 20.027435
-      objectReference: {fileID: 0}
-    - target: {fileID: 4997183958630180, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 56.90087
+      value: 20.041521
       objectReference: {fileID: 0}
     - target: {fileID: 4225502180408310, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 61.20111
+      value: 61.201138
+      objectReference: {fileID: 0}
+    - target: {fileID: 4997183958630180, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 56.900898
       objectReference: {fileID: 0}
     - target: {fileID: 4452986289978348, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 66.61011
+      value: 66.62892
       objectReference: {fileID: 0}
     - target: {fileID: 4701574144660884, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 63.75992
-      objectReference: {fileID: 0}
-    - target: {fileID: 4504383769955268, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 60.4093
+      value: 63.77867
       objectReference: {fileID: 0}
     - target: {fileID: 4866504301791882, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 58.989395
+      value: 59.00801
+      objectReference: {fileID: 0}
+    - target: {fileID: 4504383769955268, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 60.427963
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110116180029024, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
+      propertyPath: m_Name
+      value: '[Level_1]'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 84fbdd221362bf641a0490c2b84a4323, type: 2}
