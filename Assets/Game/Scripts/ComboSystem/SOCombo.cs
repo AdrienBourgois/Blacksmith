@@ -7,7 +7,9 @@ using UnityEngine;
 public enum ECommandType
 {
     LIGHT_ATTACK_COMMAND,
-    HEAVY_ATTACK_COMMAND
+    HEAVY_ATTACK_COMMAND,
+    REVIVE_LEFT_COMMAND,
+    REVIVE_RIGHT_COMMAND
 }
 
 [System.Serializable]
@@ -66,6 +68,11 @@ public class SOCombo : ScriptableObject
                 commandArray[i].command = new SOLightAttackCommand();
             else if (commandArray[i].commandType == ECommandType.HEAVY_ATTACK_COMMAND)
                 commandArray[i].command = new SOHeavyAttackCommand();
+            else if (commandArray[i].commandType == ECommandType.REVIVE_LEFT_COMMAND)
+                commandArray[i].command = new ReviveLeftCommand();
+            else if (commandArray[i].commandType == ECommandType.REVIVE_RIGHT_COMMAND)
+                commandArray[i].command = new ReviveRightCommand();
+
 
             commandArray[i].command.Init(_player_type);
         }

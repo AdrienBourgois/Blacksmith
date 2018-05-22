@@ -487,8 +487,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4668543049736798}
   m_Layer: 0
-  m_Name: Level_Tuto
-  m_TagString: Untagged
+  m_Name: Level_Tuto_Test
+  m_TagString: DestroyOnGameOver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12028,6 +12028,7 @@ MonoBehaviour:
     type: 2}
   fusionInputTimeOut: 1
   fusionDuration: 100
+  distanceRevivePlayer: 5
   spawn: {fileID: 114796624765958946}
 --- !u!114 &114945343654692554
 MonoBehaviour:
