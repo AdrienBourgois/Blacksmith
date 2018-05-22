@@ -125,6 +125,18 @@ namespace Game.Scripts.Entity
         {
            // if (Input.GetKeyDown(KeyCode.F))
              //   AcceptPlayerFusion();
+
+            //if (GameState.Instance.IsTwoPlayer == false)
+            //{
+            //    if (MeleePlayer.enabled == true)
+            //    {
+            //        RangePlayer.location = MeleePlayer.location;
+            //    }
+            //    else
+            //    {
+            //        MeleePlayer.location = RangePlayer.location;
+            //    }
+            //}
         }
 
         #endregion
@@ -150,6 +162,20 @@ namespace Game.Scripts.Entity
         }
 
         #endregion
+
+        public PlayerEntity GetActivePlayerInSoloMode()
+        {
+            if (GameState.Instance.IsTwoPlayer == false)
+            {
+                Debug.Log("[EntityManager.GetActivePlayerInSoloMode()] Error : You are calling a method that can be called only in SinglePlayer");
+                return null;
+            }
+
+            if (MeleePlayer.enabled == true)
+                return MeleePlayer;
+
+            return RangePlayer;
+        }
 
         public void SwitchPlayer()
         {

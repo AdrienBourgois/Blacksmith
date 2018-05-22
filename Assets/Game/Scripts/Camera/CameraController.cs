@@ -70,12 +70,17 @@ namespace Game.Scripts.Camera
 
         private void Update ()
         {
-            float distance = UnsignedHorizontalDistance(EntityManager.Instance.MeleePlayer.transform.position, EntityManager.Instance.RangePlayer.transform.position);
-            ComputeZoom(distance);
+            if (GameState.Instance.IsTwoPlayer == true)
+            {
+                float distance = UnsignedHorizontalDistance(EntityManager.Instance.MeleePlayer.transform.position, EntityManager.Instance.RangePlayer.transform.position);
+                ComputeZoom(distance);
+            }
+
             ComputeVerticalPosition();
             ComputeCameraColliderScale();
 
-            CheckIfCameraCanScroll();
+            if (GameState.Instance.IsTwoPlayer == true)
+                CheckIfCameraCanScroll();
         }
 
         public void ListenToGamePlayState(GameState.EGamePlayState _e_game_play_state)
@@ -182,6 +187,12 @@ namespace Game.Scripts.Camera
 
         private void ComputeScroll(Collider2D _entity, EBorderSide _collider_side, EColliderCallbackType _callback_type)
         {
+            if (GameState.Instance.IsTwoPlayer == false)
+            {
+                ComputeScrollSinglePlayer(_entity, _collider_side, _callback_type);
+                return;
+            }
+
             switch (_collider_side)
             {
                 case EBorderSide.RIGHT:
@@ -193,12 +204,83 @@ namespace Game.Scripts.Camera
                 default:
                     throw new ArgumentOutOfRangeException("_collider_side", _collider_side, null);
             }
+        }
 
-            //const byte mask = 0 | (1 << 1) | (1 << 2); // mask = 6;
-            //if ((forwardScrollMask ^ mask) == 0)
-            //    ForwardScroll();
-            //else if ((backwardScrollMask ^ mask) == 0)
-            //    BackwardScroll();
+        private void ComputeScrollSinglePlayer(Collider2D _entity, EBorderSide _collider_side, EColliderCallbackType _callback_type)
+        {
+            if (_entity.gameObject == EntityManager.Instance.MeleePlayer.gameObject)
+            {
+                if (_collider_side == EBorderSide.RIGHT)
+                {
+                    switch (_callback_type)
+                    {
+                        case EColliderCallbackType.STAY:
+                            ForwardScroll();
+                            break;
+                        case EColliderCallbackType.EXIT:
+                            //forwardScrollMask ^= 1 << 1;
+                            break;
+                        case EColliderCallbackType.ENTER:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                    }
+
+                }
+                else if (_collider_side == EBorderSide.LEFT)
+                {
+                    switch (_callback_type)
+                    {
+                        case EColliderCallbackType.STAY:
+                            BackwardScroll();
+                            break;
+                        case EColliderCallbackType.EXIT:
+                            //forwardScrollMask ^= 1 << 1;
+                            break;
+                        case EColliderCallbackType.ENTER:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                    }
+                }
+            }
+
+            else if (_entity.gameObject == EntityManager.Instance.RangePlayer.gameObject)
+            {
+                if (_collider_side == EBorderSide.RIGHT)
+                {
+                    switch (_callback_type)
+                    {
+                        case EColliderCallbackType.STAY:
+                            ForwardScroll();
+                            break;
+                        case EColliderCallbackType.EXIT:
+                            //forwardScrollMask ^= 1 << 1;
+                            break;
+                        case EColliderCallbackType.ENTER:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                    }
+
+                }
+                else if (_collider_side == EBorderSide.LEFT)
+                {
+                    switch (_callback_type)
+                    {
+                        case EColliderCallbackType.STAY:
+                            BackwardScroll();
+                            break;
+                        case EColliderCallbackType.EXIT:
+                            //forwardScrollMask ^= 1 << 1;
+                            break;
+                        case EColliderCallbackType.ENTER:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException("_callback_type", _callback_type, null);
+                    }
+                }
+            }
         }
 
         private void CheckIfCameraCanScroll()
