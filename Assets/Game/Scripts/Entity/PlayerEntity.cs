@@ -467,10 +467,7 @@ namespace Game.Scripts.Entity
             if (!GameState.Instance.IsTwoPlayer)
                 EntityManager.Instance.GetP2().gameObject.SetActive(false);
             if (playerType == EPlayerType.RANGE)
-            {
-                transform.parent = transform.parent.parent;
                 transform.rotation = Quaternion.identity;
-            }
 
             SwitchPlayerState(EPlayerState.NORMAL);
             currentState = EPlayerState.NORMAL;
