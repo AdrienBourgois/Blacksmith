@@ -19,6 +19,8 @@ namespace Game.Scripts.Entity
         [SerializeField] private float fusionInputTimeOut;
         [SerializeField] private float fusionDuration;
 
+        [SerializeField] private float distanceRevivePlayer;
+
         [SerializeField] private SceneObject spawn;
 
         public PlayerEntity CurrentPlayer
@@ -34,6 +36,11 @@ namespace Game.Scripts.Entity
         public static EntityManager Instance
         {
             get { return instance; }
+        }
+
+        public float DistanceRevivePlayer
+        {
+            get { return distanceRevivePlayer; }
         }
 
         public int EnemyNum
@@ -134,6 +141,15 @@ namespace Game.Scripts.Entity
 
             return MeleePlayer;
         }
+
+        public PlayerEntity GetOppositePlayer(PlayerEntity _entity)
+        {
+            if (_entity == MeleePlayer)
+                return RangePlayer;
+
+            return MeleePlayer;
+        }
+
         #endregion
 
         public void SwitchPlayer()
