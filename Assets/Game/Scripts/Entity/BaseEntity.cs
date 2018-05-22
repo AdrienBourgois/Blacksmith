@@ -83,9 +83,9 @@ namespace Game.Scripts.Entity
             cooldownTimerId = TimerManager.Instance.AddTimer("Cooldown", _cooldown, true, false, () => isInCooldown = false);
         }
 
-        public virtual void DamageEntity(BaseEntity _entity, float _damages)
+        public virtual void DamageEntity(BaseEntity _entity, SoBaseAttack.HitData _data)
         {
-            _entity.ReceiveDamages(_damages);
+            _entity.ReceiveDamages(_data.damages);
         }
 
         public virtual float GetXScale()

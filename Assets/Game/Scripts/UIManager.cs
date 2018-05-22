@@ -42,7 +42,7 @@ namespace Game.Scripts
         private void Start()
         {
             furySlider.maxValue = maxFury;
-            furySlider.value  = maxFury;
+            furySlider.value  = 0;
         }
 
         private void Update()
@@ -112,16 +112,6 @@ namespace Game.Scripts
                 return;
 
             ++furySlider.value;
-        }
-
-        public void ShowGameObject(GameObject _game_object)
-        {
-            _game_object.SetActive(true);
-        }
-
-        public void HideGameObject(GameObject _game_object)
-        {
-            _game_object.SetActive(false);
         }
 
         public void EnableMenu(Transform _menu)

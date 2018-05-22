@@ -1,11 +1,12 @@
 ﻿using Game.Scripts.Entity;
+using Game.Scripts.ScriptableObjects;
 using UnityEngine;
 
 namespace Game.Scripts.AttackBehavior
 {
     public class MeleeBehavior : MonoBehaviour
     {
-        public delegate void TriggerHandler(BaseEntity _entity, float _damages);
+        public delegate void TriggerHandler(BaseEntity _entity, SoBaseAttack.HitData hitData);
 
         public TriggerHandler onEntityHit;
 
@@ -13,6 +14,9 @@ namespace Game.Scripts.AttackBehavior
         private BoxCollider2D parentCollider2D;
 
         [HideInInspector] public float damages;
+        [HideInInspector] public SoBaseAttack.EComboEffect comboEffect;
+        [HideInInspector] public float horizontalVelocity;
+        [HideInInspector] public float verticalVelocity;
 
         private void Start()
         {
@@ -44,7 +48,16 @@ namespace Game.Scripts.AttackBehavior
                     BaseEntity entity = collide.GetComponent<BaseEntity>();
 
                     if (onEntityHit != null)
-                        onEntityHit(entity, damages);
+                    {
+                        SoBaseAttack.HitData data = new SoBaseAttack.HitData();
+                        data.damages = damages;
+                        data.comboEffect = comboEffect;
+                        data.xDir = transform.parent.localScale.x;
+                        data.xVelocity = horizontalVelocity;
+                        data.yVelocity = verticalVelocity;
+
+                        onEntityHit(entity, data);
+                    }
                 }
             }
         }

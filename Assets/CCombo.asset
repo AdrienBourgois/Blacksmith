@@ -9,11 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2af6dd4d5842fe14495ddb4980abd80b, type: 3}
-  m_Name: HeavyMelee
+  m_Name: CCombo
   m_EditorClassIdentifier: 
   damages: 5
-  coolDown: 0.1
-  comboEffect: 0
-  horizontalVelocity: 0
-  verticalVelocity: 0
-  childId: 1
+  coolDown: 2
+  comboEffect: 2
+  horizontalVelocity: 0.5
+  verticalVelocity: 0.5

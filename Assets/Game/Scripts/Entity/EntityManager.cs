@@ -7,6 +7,9 @@ namespace Game.Scripts.Entity
 {
     public class EntityManager : MonoBehaviour
     {
+        [SerializeField] public GameObject meleeEnemyPrefab;
+        [SerializeField] public GameObject rangeEnemyPrefab;
+
         [SerializeField] private GameObject meleePlayerPrefab;
         [SerializeField] private GameObject rangePlayerPrefab;
 
@@ -218,7 +221,8 @@ namespace Game.Scripts.Entity
 
         private void OnFusionTimerExpired()
         {
-            MeleePlayer.FusionAskAccepted();
+            /// WTF ????? MeleePlayer.FusionAskAccepted();
+            MeleePlayer.FusionAskRefused();
             RangePlayer.FusionAskRefused();
         }
 

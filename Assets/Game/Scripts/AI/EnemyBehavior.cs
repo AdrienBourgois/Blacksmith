@@ -32,7 +32,6 @@ namespace Game.Scripts.AI
 
         public void ToChaseState(BaseEntity _target)
         {
-            Debug.Log("ToChaseState: " + _target);
             chaseState.target = _target;
             currentState = chaseState;
         }
