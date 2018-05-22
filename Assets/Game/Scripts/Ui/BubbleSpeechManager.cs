@@ -74,7 +74,7 @@ namespace Game.Scripts.Ui
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                currentBubble.SetFollowedGameObject(go, new Vector2(-3f, 6f));
+                currentBubble.SetFollowedGameObject(go, new Vector2(3f, 20f));
             }
         }
     }

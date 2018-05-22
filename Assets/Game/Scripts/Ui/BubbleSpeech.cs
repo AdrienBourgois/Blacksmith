@@ -16,7 +16,7 @@ namespace Game.Scripts.Ui
 
         private GUIStyle guiStyle;
 
-        private const int height = 75;
+        private const int height = 150;
         private const int width = 150;
 
         public void SetParameters(SpeechParameters _parameters)
@@ -79,7 +79,7 @@ namespace Game.Scripts.Ui
         private Rect GetRectFromCurrentObject()
         {
             Vector2 position = transform.position;
-            position.y *= -1f;
+            position.y *= -1.0f;
             Vector2 corner = UnityEngine.Camera.main.WorldToScreenPoint(position);
             corner.x -= width / 2f;
             corner.y += height / 2f;
