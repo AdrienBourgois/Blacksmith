@@ -24,6 +24,8 @@ namespace Game.Editor
 
         public static bool displayTriggerZones = true;
         public static bool displaySpeechTriggers = true;
+        public static bool displayFightTriggers = true;
+        public static bool displayEndLevelTriggers = true;
 
         /*public static bool displayObstacleHeight = true;
         public static bool displayLowObstaclePoint = true;
@@ -87,7 +89,9 @@ namespace Game.Editor
 
             EditorGUILayout.LabelField("Triggers", EditorUtilities.boldCenteredStyle);
             displayTriggerZones = EditorGUILayout.Toggle("Triggers Zones", displayTriggerZones);
-            displaySpeechTriggers = EditorGUILayout.Toggle("Speech Triggers", displaySpeechTriggers);
+            displaySpeechTriggers = EditorGUILayout.Toggle("Speech", displaySpeechTriggers);
+            displayFightTriggers = EditorGUILayout.Toggle("Fight", displayFightTriggers);
+            displayEndLevelTriggers = EditorGUILayout.Toggle("End Level", displayEndLevelTriggers);
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("Spawns", EditorUtilities.boldCenteredStyle);

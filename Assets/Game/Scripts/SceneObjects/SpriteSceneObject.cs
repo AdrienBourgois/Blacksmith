@@ -28,7 +28,8 @@ namespace Game.Scripts.SceneObjects
         {
             SpriteRenderer sprite_renderer = GetComponent<SpriteRenderer>();
 
-            sprite_renderer.sprite = Sprite;
+            if (sprite_renderer.sprite)
+                Sprite = sprite_renderer.sprite;
             sprite_renderer.sortingLayerName = "Default";
         }
     }

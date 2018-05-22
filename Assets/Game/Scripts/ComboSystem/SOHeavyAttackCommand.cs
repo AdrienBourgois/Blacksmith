@@ -1,6 +1,4 @@
 ﻿using Game.Scripts.Entity;
-using UnityEngine;
-using Game.Scripts.InputManager;
 
 namespace Game.Scripts.ComboSystem
 {
