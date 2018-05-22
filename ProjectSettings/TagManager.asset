@@ -10,6 +10,7 @@ TagManager:
   - P1_healthSlider
   - DestroyOnGameOver
   - StartSpawn
+  - HitCountUI
   layers:
   - Default
   - TransparentFX

@@ -42,7 +42,7 @@ namespace Game.Scripts
         private void Start()
         {
             furySlider.maxValue = maxFury;
-            furySlider.value  = maxFury;
+            furySlider.value  = 0;
         }
 
         private void Update()

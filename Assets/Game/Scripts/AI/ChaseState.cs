@@ -55,10 +55,7 @@ namespace Game.Scripts.AI
         public void Update()
         {
             if (updatePathTimerId == -1)
-            {
-                Debug.Log("Start Timer");
                 updatePathTimerId = TimerManager.Instance.AddTimer("Update Path", 2f, true, true, UpdatePath, UpdatePath, null, null, null);
-            }
 
             Move();
         }

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Name: HeavyMelee
   m_EditorClassIdentifier: 
   damages: 5
-  coolDown: 3
+  coolDown: 0.1
+  comboEffect: 0
+  horizontalVelocity: 0
+  verticalVelocity: 0
   childId: 1

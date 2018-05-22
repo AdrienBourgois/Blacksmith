@@ -37,7 +37,7 @@ namespace Game.Scripts.Timer
                 if (timer.Id == _id)
                     return timer;
 
-            Debug.LogError("Error : the timer with the following id <" + _id + "> was not found.");
+            //Debug.LogError("Error : the timer with the following id <" + _id + "> was not found.");
 
             return null;
         }

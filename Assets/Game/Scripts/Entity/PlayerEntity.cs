@@ -43,6 +43,24 @@ namespace Game.Scripts.Entity
 
 
         private Slider healthSlider;
+        private Text hitCountText;
+        private int hitCount;
+        private int HitCount
+        {
+            get { return hitCount; }
+            set
+            {
+                if (!hitCountText.isActiveAndEnabled && value != 0)
+                    hitCountText.enabled = true;
+                if (value == 0)
+                    hitCountText.enabled = false;
+
+                hitCount = value;
+                hitCountText.text = hitCount.ToString();
+            }
+        }
+
+        private int HitTimer;
 
         private EPlayerState currentState = EPlayerState.NORMAL;
         public EPlayerState CurrentState
@@ -85,6 +103,7 @@ namespace Game.Scripts.Entity
             base.Start();
 
             healthSlider = GameObject.FindGameObjectWithTag("HealthUI").transform.GetChild((int)playerType).GetComponent<Slider>();
+            hitCountText = GameObject.FindGameObjectWithTag("HitCountUI").transform.GetChild((int)playerType).GetComponent<Text>();
 
             healthSlider.maxValue = maxHealth;
             healthSlider.value = Health;
@@ -119,7 +138,7 @@ namespace Game.Scripts.Entity
             if (Input.GetKeyDown(KeyCode.F))
                 Fusion(1f);
 
-            PrintState();
+            //PrintState();
 
             if (playerType == EPlayerType.RANGE && currentState == EPlayerState.FUSION)
             {
@@ -266,6 +285,7 @@ namespace Game.Scripts.Entity
 
             base.ReceiveDamages(_damages);
 
+            HitCount = 0;
             velocity.x = -0.1f;
             velocity.y = 0.1f;
             healthSlider.value = Health;
@@ -296,6 +316,7 @@ namespace Game.Scripts.Entity
 
         public override void DamageEntity(BaseEntity _entity, SoBaseAttack.HitData _data)
         {
+            OnEntityHit(_entity, _data);
             base.DamageEntity(_entity, _data);
 
             switch (_data.comboEffect)
@@ -312,13 +333,20 @@ namespace Game.Scripts.Entity
                     break;
                 }
             }
-
-            OnEntityHit(_entity, _data);
         }
 
         private void OnEntityHit(BaseEntity _entity, SoBaseAttack.HitData _useless)
         {
             // if _entity is Enemy
+
+            if (_entity.IsInRecovery)
+                return;
+
+            ++HitCount;
+            if (TimerManager.Instance.GetTimer(HitTimer) != null)
+                TimerManager.Instance.StopTimer(HitTimer);
+
+            HitTimer = TimerManager.Instance.AddTimer("Hit timer", 3f, true, false, () => HitCount = 0);
             UIManager.Instance.IncreaseFury(1);
         }
         #endregion
