@@ -1,4 +1,5 @@
-﻿using Game.Scripts.Interfaces;
+﻿using Game.Scripts.AttackBehavior;
+using Game.Scripts.Interfaces;
 using Game.Scripts.SceneObjects;
 using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Timer;
@@ -83,7 +84,7 @@ namespace Game.Scripts.Entity
             cooldownTimerId = TimerManager.Instance.AddTimer("Cooldown", _cooldown, true, false, () => isInCooldown = false);
         }
 
-        public virtual void DamageEntity(BaseEntity _entity, SoBaseAttack.HitData _data)
+        public virtual void DamageEntity(BaseEntity _entity, BaseBehavior.HitData _data)
         {
             _entity.ReceiveDamages(_data.damages);
         }

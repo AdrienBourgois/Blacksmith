@@ -1,4 +1,5 @@
 ﻿using System;
+using Game.Scripts.AttackBehavior;
 using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Timer;
 using UnityEngine;
@@ -314,7 +315,7 @@ namespace Game.Scripts.Entity
             }
         }
 
-        public override void DamageEntity(BaseEntity _entity, SoBaseAttack.HitData _data)
+        public override void DamageEntity(BaseEntity _entity, BaseBehavior.HitData _data)
         {
             OnEntityHit(_entity, _data);
             base.DamageEntity(_entity, _data);
@@ -335,7 +336,7 @@ namespace Game.Scripts.Entity
             }
         }
 
-        private void OnEntityHit(BaseEntity _entity, SoBaseAttack.HitData _useless)
+        private void OnEntityHit(BaseEntity _entity, BaseBehavior.HitData _useless)
         {
             // if _entity is Enemy
 

@@ -11,6 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af6dd4d5842fe14495ddb4980abd80b, type: 3}
   m_Name: WeakMelee
   m_EditorClassIdentifier: 
-  damages: 4
   coolDown: 2
+  hitData:
+    comboEffect: 0
+    damages: 2
+    xDir: 0
+    xVelocity: 0
+    yVelocity: 0
   childId: 0

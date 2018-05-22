@@ -15,12 +15,12 @@ namespace Game.Scripts.ScriptableObjects
             base.Attack(_entity);
 
             MeleeBehavior melee = _entity.transform.GetChild(childId).GetComponent<MeleeBehavior>();
-            melee.damages = damages;
-            melee.comboEffect = comboEffect;
-            melee.horizontalVelocity = horizontalVelocity;
-            melee.verticalVelocity = verticalVelocity;
+            melee.hitData.damages = hitData.damages;
+            melee.hitData.comboEffect = hitData.comboEffect;
+            melee.hitData.xVelocity = hitData.xVelocity;
+            melee.hitData.yVelocity = hitData.yVelocity;
 
-            melee.gameObject.SetActive(true);
+            //melee.gameObject.SetActive(true);
             melee.Attack();
 
             TimerManager.Instance.AddTimer("Attack feedback", coolDown, true, false, () => { melee.gameObject.SetActive(false); });

@@ -4,19 +4,10 @@ using UnityEngine;
 
 namespace Game.Scripts.AttackBehavior
 {
-    public class MeleeBehavior : MonoBehaviour
+    public class MeleeBehavior : BaseBehavior
     {
-        public delegate void TriggerHandler(BaseEntity _entity, SoBaseAttack.HitData hitData);
-
-        public TriggerHandler onEntityHit;
-
         private BoxCollider2D boxCollider2D;
         private BoxCollider2D parentCollider2D;
-
-        [HideInInspector] public float damages;
-        [HideInInspector] public SoBaseAttack.EComboEffect comboEffect;
-        [HideInInspector] public float horizontalVelocity;
-        [HideInInspector] public float verticalVelocity;
 
         private void Start()
         {
@@ -26,8 +17,17 @@ namespace Game.Scripts.AttackBehavior
             onEntityHit += transform.parent.GetComponent<BaseEntity>().DamageEntity;
         }
 
+        private void Update()
+        {
+            location.y = transform.parent.position.ToGameSpace().y + 1f;
+            location.x = transform.parent.position.ToGameSpace().x + 1f * transform.parent.localScale.x;
+            location.z = transform.parent.position.ToGameSpace().z;
+        }
+
         public void Attack()
         {
+            gameObject.SetActive(true);
+
             boxCollider2D = GetComponent<BoxCollider2D>();
             parentCollider2D = transform.parent.GetComponent<BoxCollider2D>();
 
@@ -49,14 +49,8 @@ namespace Game.Scripts.AttackBehavior
 
                     if (onEntityHit != null)
                     {
-                        SoBaseAttack.HitData data = new SoBaseAttack.HitData();
-                        data.damages = damages;
-                        data.comboEffect = comboEffect;
-                        data.xDir = transform.parent.localScale.x;
-                        data.xVelocity = horizontalVelocity;
-                        data.yVelocity = verticalVelocity;
-
-                        onEntityHit(entity, data);
+                        hitData.xDir = transform.parent.localScale.x;
+                        onEntityHit(entity, hitData);
                     }
                 }
             }

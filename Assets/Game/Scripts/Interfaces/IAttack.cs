@@ -1,4 +1,5 @@
-﻿using Game.Scripts.Entity;
+﻿using Game.Scripts.AttackBehavior;
+using Game.Scripts.Entity;
 using Game.Scripts.ScriptableObjects;
 
 namespace Game.Scripts.Interfaces
@@ -13,6 +14,6 @@ namespace Game.Scripts.Interfaces
 
         void StartCooldown(float _cooldown);
 
-        void DamageEntity(BaseEntity _entity, SoBaseAttack.HitData _data);
+        void DamageEntity(BaseEntity _entity, BaseBehavior.HitData _data);
     }
 }

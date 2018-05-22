@@ -11,8 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3af0c8173b6f694ca8d54ec1fe0cfa6, type: 3}
   m_Name: HeavyRange
   m_EditorClassIdentifier: 
-  damages: 5
   coolDown: 3
+  hitData:
+    comboEffect: 0
+    damages: 3
+    xDir: 0
+    xVelocity: 0
+    yVelocity: 0
   bulletPrefab: {fileID: 1308260776783714, guid: 2dde25b8827723b4393b5b414675f154,
     type: 2}
   bulletSpeed: 7

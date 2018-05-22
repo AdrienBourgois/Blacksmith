@@ -80,7 +80,7 @@ namespace Game.Scripts.AI
             if (path == null)
                 return;
 
-            //Debug.Log("UpdateDestination");
+            Debug.Log("UpdateDestination");
 
             ++pathId;
 
@@ -101,17 +101,16 @@ namespace Game.Scripts.AI
                 //Debug.Log("to : " + target.transform.position);
 
                 floor.GetComponent<PathFinding>().WeightedFindPath(position, target.transform.position, out path);
-                //floor.GetComponent<PathFinding>().WeightedFindPath(myBehavior.myEntity.location, target.location, out path);
                 if (path != null)
                 {
                     pathId = -1;
                     UpdateDestination();
                 }
-                //else
-                  //  Debug.Log("Path is null");
+                else
+                    Debug.Log("Path is null");
             }
-           // else
-               // Debug.Log("Floor not found");
+            else
+            Debug.Log("Floor not found");
         }
     }
 }

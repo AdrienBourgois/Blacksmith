@@ -3608,7 +3608,7 @@ MonoBehaviour:
   healthUi: {fileID: 1117870034}
   furySlider: {fileID: 391279286}
   fusionSlider: {fileID: 1169353630}
-  maxFury: 10
+  maxFury: 2
   percentageLostWhenIt: 15
   recoveryTimeFusionHit: 3
 --- !u!4 &1640735763

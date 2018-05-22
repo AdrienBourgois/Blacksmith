@@ -1,15 +1,19 @@
-﻿using Game.Scripts.Entity;
+﻿using Game.Scripts.AttackBehavior;
+using Game.Scripts.Entity;
 using UnityEngine;
 
 namespace Game.Scripts.ScriptableObjects
 {
     public class SoBaseAttack : ScriptableObject
     {
-        [SerializeField] protected float damages;
         [SerializeField] protected float coolDown;
+
+        /*erializeField] protected float damages;
         [SerializeField] protected EComboEffect comboEffect = EComboEffect.NONE;
         [SerializeField] protected float horizontalVelocity;
-        [SerializeField] protected float verticalVelocity;
+        [SerializeField] protected float verticalVelocity;*/
+
+        [SerializeField] protected BaseBehavior.HitData hitData;
 
         [System.Serializable]
         public enum EComboEffect
@@ -17,16 +21,6 @@ namespace Game.Scripts.ScriptableObjects
             NONE,
             VERTICAL_LAUNCH,
             HORIZONTAL_LAUNCH
-        }
-
-        public struct HitData
-        {
-            public EComboEffect comboEffect;
-
-            public float damages;
-            public float xDir;
-            public float xVelocity;
-            public float yVelocity;
         }
 
         public virtual void Attack(BaseEntity _entity)

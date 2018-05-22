@@ -11,8 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2af6dd4d5842fe14495ddb4980abd80b, type: 3}
   m_Name: CCombo
   m_EditorClassIdentifier: 
-  damages: 5
   coolDown: 2
-  comboEffect: 2
-  horizontalVelocity: 0.5
-  verticalVelocity: 0.5
+  hitData:
+    comboEffect: 2
+    damages: 5
+    xDir: 0
+    xVelocity: 0.5
+    yVelocity: 0.5
+  childId: 0

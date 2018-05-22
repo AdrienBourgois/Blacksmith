@@ -26,15 +26,15 @@ namespace Game.Scripts.ScriptableObjects
 
             bullet.location = _entity.transform.GetChild(0).position.ToGameSpace();
             bullet.tag = _entity.tag;
-            bullet.damages = damages;
+            bullet.hitData.damages = hitData.damages;
             bullet.speed = bulletSpeed;
 
             bullet.direction = _entity.transform.rotation * new Vector3(_entity.transform.localScale.x/*1 * _entity.GetXScale()Mathf.Sign(_entity.transform.parent.localScale.x)*/, 0, 0);
             bullet.direction.z = bullet.direction.y;
             bullet.direction.y = 0;
             bullet.onEntityHit += _entity.DamageEntity;
-            bullet.horizontalVelocity = horizontalVelocity;
-            bullet.verticalVelocity = verticalVelocity;
+            bullet.hitData.xVelocity = hitData.xVelocity;
+            bullet.hitData.yVelocity = hitData.yVelocity;
         }
     }
 }
