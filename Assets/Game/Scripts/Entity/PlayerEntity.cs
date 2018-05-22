@@ -138,6 +138,17 @@ namespace Game.Scripts.Entity
 
         protected override void Update()
         {
+            ///// TO REMOVE /////
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+            {
+                if (this == EntityManager.instance.RangePlayer)
+                    ReceiveDamages(5f);
+            }
+                
+
+            ///// TO REMOVE /////
+
             base.Update();
 
             if (Input.GetKeyDown(KeyCode.F))
@@ -374,8 +385,10 @@ namespace Game.Scripts.Entity
             
             if (other_player.currentState == EPlayerState.KNOCKED_OUT)
             {
+                print("Check Knocked_OUT passed");
                 if (dist <= EntityManager.instance.DistanceRevivePlayer)
                 {
+                    print("Check Distance passed");
                     other_player.Revive();
                 }
             }
@@ -385,6 +398,8 @@ namespace Game.Scripts.Entity
 
         public void Revive()
         {
+            print("Revive()");
+
             if (currentState == EPlayerState.KNOCKED_OUT)
             {
                 gameObject.SetActive(true);
