@@ -23,7 +23,7 @@ namespace FMODUnity
         const string BankExtension = "bank";
 
         const int FilePollTimeSeconds = 5;
-        
+
         // How many seconds to wait since last file activity to start the import
         const int CountdownTimerReset = 15 / FilePollTimeSeconds;
 
@@ -47,7 +47,7 @@ namespace FMODUnity
             eventCache.MasterBankRef = null;
             OnCacheChange();
         }
-        
+
         static public void UpdateCache()
         {
             // Deserialize the cache from the unity resources
@@ -71,7 +71,7 @@ namespace FMODUnity
             }
 
             string defaultBankFolder = null;
-            
+
             if (!Settings.Instance.HasPlatforms)
             {
                 defaultBankFolder = EditorUtils.GetBankDirectory();
@@ -134,7 +134,7 @@ namespace FMODUnity
                 countdownTimer = CountdownTimerReset;
                 return;
             }
-            
+
 
             FMOD.Studio.Bank stringBank;
             EditorUtils.CheckResult(EditorUtils.System.loadBankFile(stringBankPath, FMOD.Studio.LOAD_BANK_FLAGS.NORMAL, out stringBank));
@@ -175,7 +175,7 @@ namespace FMODUnity
 
                 if (!File.Exists(bankPath))
                 {
-                    // TODO: this is meant to catch the case where we're in the middle of a build and a bank is being built 
+                    // TODO: this is meant to catch the case where we're in the middle of a build and a bank is being built
                     // for the first time. But it also stops someone trying to import an incomplete set of banks without any error message.
                     countdownTimer = CountdownTimerReset;
                     return;
@@ -209,7 +209,7 @@ namespace FMODUnity
             }
 
             // All files are finished being modified by studio so update the cache
-            
+
             // Stop editor preview so no stale data being held
             EditorUtils.PreviewStop();
 
@@ -258,7 +258,7 @@ namespace FMODUnity
             {
                 // Get the true file path, can't trust the character case we got from the string bank
                 string bankPath = ArrayUtility.Find(folderContents, x => (string.Equals(bankFileName, Path.GetFileName(x), StringComparison.CurrentCultureIgnoreCase)));
-                
+
                 FileInfo bankFileInfo = new FileInfo(bankPath);
                 EditorBankRef bankRef = eventCache.EditorBanks.Find((x) => bankFileInfo.FullName == x.Path);
 
@@ -275,7 +275,7 @@ namespace FMODUnity
                 }
 
                 bankRef.Exists = true;
-                
+
                 // Timestamp check - if it doesn't match update events from that bank
                 if (bankRef.LastModified != bankFileInfo.LastWriteTime)
                 {
@@ -480,7 +480,7 @@ namespace FMODUnity
                         targetInfo = new FileInfo(targetPath);
                         targetInfo.IsReadOnly = false;
                         targetInfo.LastWriteTime = sourceInfo.LastWriteTime;
-                        
+
                         madeChanges = true;
                     }
                 }
@@ -505,7 +505,7 @@ namespace FMODUnity
 
             // Copy over assets for the new platform
             CopyToStreamingAssets();
-        }   
+        }
 
         static void OnCacheChange()
         {
@@ -579,7 +579,7 @@ namespace FMODUnity
         }
 
         public static EditorBankRef MasterBank
-        { 
+        {
             get
             {
                 UpdateCache();
