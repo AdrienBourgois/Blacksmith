@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 1053742640516702}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -3.23, y: 1.9742551, z: 1.9742551}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4019101260716748}
   - {fileID: 4040857813305870}
@@ -142,9 +142,9 @@ BoxCollider2D:
   m_Offset: {x: 0.21142745, y: 0.9776703}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.52174157, y: 0.13268103}
-    oldSize: {x: 6.47, y: 6.47}
-    newSize: {x: 6.47, y: 6.47}
+    pivot: {x: 0.41188926, y: 0.10407367}
+    oldSize: {x: 10.8, y: 10.8}
+    newSize: {x: 10.8, y: 10.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   location: {x: 0, y: 0, z: 0}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 6d0b55e48c7d2964ba7948c14cdb7ea1, type: 3}
   velocity: {x: 0, y: 0, z: 0}
   friction: 5
   weight: 0.2
@@ -260,12 +260,12 @@ MonoBehaviour:
   jumpPower: 0.3
   mustBeInCameraSpace: 0
   enableKeyboard: 0
-  lightAttack: {fileID: 0}
-  heavyAttack: {fileID: 0}
-  recoveryTime: 0
-  maxHealth: 0
-  recoveryColor: {r: 0, g: 0, b: 0, a: 0}
-  attackDistance: 0
+  lightAttack: {fileID: 11400000, guid: 01173b2f11147cb4bb4da0ef56228bb9, type: 2}
+  heavyAttack: {fileID: 11400000, guid: 6353327dc9be0a645ab471ff2ad83ffd, type: 2}
+  recoveryTime: 2
+  maxHealth: 10
+  recoveryColor: {r: 0.754717, g: 0.08187969, b: 0.08187969, a: 0}
+  attackDistance: 1
 --- !u!212 &212327328870771738
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -301,15 +301,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 6d0b55e48c7d2964ba7948c14cdb7ea1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10.8, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!212 &212521718853488968
 SpriteRenderer:
