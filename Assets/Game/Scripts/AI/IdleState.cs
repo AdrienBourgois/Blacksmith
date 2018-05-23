@@ -14,7 +14,7 @@
         public void ToSelectTargetState()
         {
             if (true)
-                myBehavior.currentState = myBehavior.selectTargetState;
+                myBehavior.ToSelectTargetState();
         }
 
         public void ToChaseState()

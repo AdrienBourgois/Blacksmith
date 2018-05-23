@@ -5,7 +5,9 @@ namespace Game.Scripts.Entity
 {
     public class EnemyEntity : BaseEntity
     {
-        [SerializeField] private EnemyBehavior behavior;
+        private EnemyBehavior behavior;
+
+        [SerializeField] private float attackDistance;
 
         #region Unity Methods
 
@@ -13,7 +15,7 @@ namespace Game.Scripts.Entity
         {
             base.Start();
 
-            behavior = new EnemyBehavior(this);
+            behavior = new EnemyBehavior(this, attackDistance);
         }
 
         protected override void Update()

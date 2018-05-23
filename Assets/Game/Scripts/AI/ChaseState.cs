@@ -9,7 +9,6 @@ namespace Game.Scripts.AI
     public class ChaseState : IEnemyState
     {
         private EnemyBehavior myBehavior;
-        public BaseEntity target;
 
         private List<Vector2> path;
         private Vector3 destination;
@@ -19,11 +18,11 @@ namespace Game.Scripts.AI
 
         private float speed
         {
-            get { return myBehavior.myEntity.speed; }
+            get { return myBehavior.MyEntity.speed; }
         }
         private Vector3 position
         {
-            get { return myBehavior.myEntity.transform.position; }
+            get { return myBehavior.MyEntity.transform.position; }
         }
 
         public ChaseState(EnemyBehavior _behavior)
@@ -43,11 +42,13 @@ namespace Game.Scripts.AI
 
         public void ToChaseState()
         {
-
+            // this
         }
 
         public void ToAttackState()
         {
+            if (myBehavior.IsInRange())
+                myBehavior.ToAttackState();
         }
 
         public void Update()
@@ -56,11 +57,12 @@ namespace Game.Scripts.AI
                 updatePathTimerId = TimerManager.Instance.AddTimer("Update Path", 2f, true, true, UpdatePath, UpdatePath, null, null, null);
 
             Move();
+            ToAttackState();
         }
 
         private void Move()
         {
-            myBehavior.myEntity.TryMove(destination.normalized);//(Vector3.MoveTowards(position, destination, speed * Time.deltaTime));
+            myBehavior.MyEntity.TryMove(destination.normalized);//(Vector3.MoveTowards(position, destination, speed * Time.deltaTime));
             if (IsArrived())
             {
                 Debug.Log("IsArrived");
@@ -98,8 +100,7 @@ namespace Game.Scripts.AI
                 //Debug.Log("from : " + position);
                 //Debug.Log("to : " + target.transform.position);
 
-                floor.GetComponent<PathFinding>().WeightedFindPath(position, target.transform.position, out path);
-                if (path != null)
+                if (floor.GetComponent<PathFinding>().WeightedFindPath(position, myBehavior.Target.transform.position, out path))
                 {
                     pathId = -1;
                     UpdateDestination();
