@@ -26,14 +26,14 @@ namespace Game.Scripts.Triggers
                 {
                     if (enemy_spawn.type == EnemyType.NORMAL)
                     {
-                        SceneObjects.SceneObject enemy = Instantiate(EntityManager.instance.meleeEnemyPrefab, Vector3.zero, Quaternion.identity).GetComponent<SceneObjects.SceneObject>();
+                        SceneObjects.SceneObject enemy = Instantiate(EntityManager.instance.normalEnemyPrefab, Vector3.zero, Quaternion.identity).GetComponent<SceneObjects.SceneObject>();
                         Assert.IsNotNull(enemy, "[FightTrigger.Trigger()] Error : the variable 'enemy' is NULL");
                         enemy.location = enemy_spawn.location;
                         enemy.ToFloor();
                     }
                     else if (enemy_spawn.type == EnemyType.WEAK)
                     {
-                        SceneObjects.SceneObject enemy = Instantiate(EntityManager.instance.rangeEnemyPrefab, Vector3.zero, Quaternion.identity).GetComponent<SceneObjects.SceneObject>();
+                        SceneObjects.SceneObject enemy = Instantiate(EntityManager.instance.weakEnemyPrefab, Vector3.zero, Quaternion.identity).GetComponent<SceneObjects.SceneObject>();
                         Assert.IsNotNull(enemy, "[FightTrigger.Trigger()] Error : the variable 'enemy' is NULL");
                         enemy.location = enemy_spawn.location;
                         enemy.ToFloor();

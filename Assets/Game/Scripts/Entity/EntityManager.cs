@@ -7,8 +7,8 @@ namespace Game.Scripts.Entity
 {
     public class EntityManager : MonoBehaviour
     {
-        [SerializeField] public GameObject meleeEnemyPrefab;
-        [SerializeField] public GameObject rangeEnemyPrefab;
+        [SerializeField] public GameObject weakEnemyPrefab;
+        [SerializeField] public GameObject normalEnemyPrefab;
 
         [SerializeField] private GameObject meleePlayerPrefab;
         [SerializeField] private GameObject rangePlayerPrefab;
